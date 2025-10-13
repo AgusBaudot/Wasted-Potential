@@ -27,7 +27,7 @@ public class GridTile
     public void SetType(GridTileType type)
     {
         Type = type;
-        Walkable = type == GridTileType.Path || type == GridTileType.Goal || type == GridTileType.Spawn;
+        Walkable = type == GridTileType.Path/* || type == GridTileType.Goal || type == GridTileType.Spawn*/;
         Buildable = type == GridTileType.Buildable;
     }
 

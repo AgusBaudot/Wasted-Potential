@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -22,6 +23,7 @@ public class GridManager : MonoBehaviour
     {
         Instance = this;
         BuildGridFromTilemap();
+        CalculatePath();
     }
 
     private void BuildGridFromTilemap()
@@ -66,5 +68,32 @@ public class GridManager : MonoBehaviour
     {
         return tilemap.CellToWorld(new Vector3Int(gridPos.x, gridPos.y, 0))
                + tilemap.cellSize / 2;
+    }
+
+    public Vector2Int WorldToGrid(Vector3 worldPos)
+    {
+        return (Vector2Int)tilemap.WorldToCell(worldPos);
+    }
+
+    private void CalculatePath()
+    {
+        PathFinder finder = new PathFinder();
+        var walkables = _tiles.Values.Where(a => a.Walkable).Select(a => a.GridPosition);
+        var mappedTiles = finder.CalculatePath(GoalTile.GridPosition, walkables);
+        foreach (var kvp in mappedTiles)
+        {
+            GridTile tile = GetTile(kvp.Key);
+            tile.SetNext(kvp.Value.nextPos);
+
+            if (kvp.Value.isLeaf)
+            {
+                SearchForSpawn(kvp.Key);
+            }
+        }        
+    }
+
+    private void SearchForSpawn(Vector2Int position)
+    {
+        //Check 4 adjacent tiles and set spawn.next to this incoming tile.
     }
 }

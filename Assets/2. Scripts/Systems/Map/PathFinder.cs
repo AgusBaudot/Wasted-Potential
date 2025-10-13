@@ -5,7 +5,7 @@ public class PathFinder
 {
     private HashSet<Vector2Int> visited;
     private HashSet<Vector2Int> lookup;
-    private Dictionary<Vector2Int, Vector2Int> next;
+    private Dictionary<Vector2Int, (Vector2Int nextPos, bool isLeaf)> next;
     
     /// <summary>
     /// CalculatePath returns a dictionary mapping tilePos, nextPos choosing neighbors based in this order: right, up, down, left.
@@ -13,7 +13,7 @@ public class PathFinder
     /// <param name="goal"></param>
     /// <param name="walkableTiles"></param>
     /// <returns></returns>
-    public Dictionary<Vector2Int, Vector2Int> CalculatePath(Vector2Int goal, IEnumerable<Vector2Int> walkableTiles)
+    public Dictionary<Vector2Int, (Vector2Int nextPos, bool isLeaf)> CalculatePath(Vector2Int goal, IEnumerable<Vector2Int> walkableTiles)
     {
         lookup = new HashSet<Vector2Int>(walkableTiles);
         visited = new();
@@ -26,43 +26,52 @@ public class PathFinder
         while (queue.Count > 0) 
         {
             var current = queue.Dequeue();
-            var neighbor = CheckForNeighbors(current);
-            foreach (Vector2Int n in neighbor)
+            var neighbors = CheckForNeighbors(current);
+            foreach (var n in neighbors)
             {
-                next[n] = current;
-                visited.Add(n);
+                next[n.neighbors] = (current, n.isLeaf);
 
-                queue.Enqueue(n);
+                queue.Enqueue(n.neighbors);
             }
         }
-        return next; //Return dictionary or dict.values?
+        return next;
     }
 
-    private List<Vector2Int> CheckForNeighbors(Vector2Int tile)
+    private List<(Vector2Int neighbors, bool isLeaf)> CheckForNeighbors(Vector2Int tile)
     {
-        List<Vector2Int> neighbors = new List<Vector2Int>(3);
+        //Size 3 because 4 neighbors - 1 adjacent, visited tile.
+        bool isLeaf = true;
+        List<(Vector2Int neighbors, bool isLeaf)> neighbors = new List<(Vector2Int neighbors, bool isLeaf)>(3);
         var candidate = tile + Vector2Int.right;
         if (lookup.Contains(candidate) && !visited.Contains(candidate))
         {
-            neighbors.Add(candidate);
+            isLeaf = false;
+            neighbors.Add((candidate, isLeaf));
+            visited.Add(candidate);
         }
 
         candidate = tile + Vector2Int.up;
         if (lookup.Contains(candidate) && !visited.Contains(candidate))
         {
-            neighbors.Add(candidate);
+            isLeaf = false;
+            neighbors.Add((candidate, isLeaf));
+            visited.Add(candidate);
         }
         
         candidate = tile + Vector2Int.down;
         if (lookup.Contains(candidate) && !visited.Contains(candidate))
         {
-            neighbors.Add(candidate);
+            isLeaf = false;
+            neighbors.Add((candidate, isLeaf));
+            visited.Add(candidate);
         }
         
         candidate = tile + Vector2Int.left;
         if (lookup.Contains(candidate) && !visited.Contains(candidate))
         {
-            neighbors.Add(candidate);
+            isLeaf = false;
+            neighbors.Add((candidate, isLeaf));
+            visited.Add(candidate);
         }
         
         return neighbors;
