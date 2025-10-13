@@ -16,6 +16,7 @@ public class GridTile
     public bool Walkable { get; private set; }
     public bool Buildable { get; private set; }
     public GridTileType Type { get; private set; }
+    public Vector2Int Next { get; private set; }
 
     public GridTile(Vector2Int pos, GridTileType type)
     {
@@ -29,4 +30,6 @@ public class GridTile
         Walkable = type == GridTileType.Path || type == GridTileType.Goal || type == GridTileType.Spawn;
         Buildable = type == GridTileType.Buildable;
     }
+
+    public void SetNext(Vector2Int next) => Next = next;
 }

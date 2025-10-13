@@ -48,12 +48,6 @@ public class GridManager : MonoBehaviour
                 _ => GridTileType.Empty  // A default value in case none match
             };
 
-            // if (tileBase == _pathTile) type = GridTileType.Path;
-            // else if (tileBase == _buildableTile) type = GridTileType.Buildable;
-            // else if (tileBase == _blockedTile) type = GridTileType.Blocked;
-            // else if (tileBase == _spawnTile) type = GridTileType.Spawn;
-            // else if (tileBase == _goalTile) type = GridTileType.Goal;
-
             var tile = new GridTile(gridPos, type);
             _tiles[gridPos] = tile;
 
