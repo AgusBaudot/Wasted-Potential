@@ -80,20 +80,35 @@ public class GridManager : MonoBehaviour
         PathFinder finder = new PathFinder();
         var walkables = _tiles.Values.Where(a => a.Walkable).Select(a => a.GridPosition);
         var mappedTiles = finder.CalculatePath(GoalTile.GridPosition, walkables);
-        foreach (var kvp in mappedTiles)
+        foreach (var kvp in mappedTiles.mappedPos)
         {
             GridTile tile = GetTile(kvp.Key);
-            tile.SetNext(kvp.Value.nextPos);
+            tile.SetNext(kvp.Value);
+        }
 
-            if (kvp.Value.isLeaf)
-            {
-                SearchForSpawn(kvp.Key);
-            }
-        }        
+        foreach (var spawnNeighbor in mappedTiles.spawnNeighbors)
+        {
+            SearchForSpawn(spawnNeighbor);
+        }
     }
 
     private void SearchForSpawn(Vector2Int position)
     {
-        //Check 4 adjacent tiles and set spawn.next to this incoming tile.
+        //Candidate is one of 4 adjacent tiles that is spawn tile.
+        var candidate = GetTile(position + Vector2Int.up);
+        if (candidate.Type == GridTileType.Spawn)
+            candidate.SetNext(position);
+        
+        candidate = GetTile(position + Vector2Int.right);
+        if (candidate.Type == GridTileType.Spawn)
+            candidate.SetNext(position);
+        
+        candidate = GetTile(position + Vector2Int.down);
+        if (candidate.Type == GridTileType.Spawn)
+            candidate.SetNext(position);
+        
+        candidate = GetTile(position + Vector2Int.left);
+        if (candidate.Type == GridTileType.Spawn)
+            candidate.SetNext(position);
     }
 }

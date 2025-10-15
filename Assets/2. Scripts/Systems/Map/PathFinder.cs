@@ -5,7 +5,7 @@ public class PathFinder
 {
     private HashSet<Vector2Int> visited;
     private HashSet<Vector2Int> lookup;
-    private Dictionary<Vector2Int, (Vector2Int nextPos, bool isLeaf)> next;
+    private Dictionary<Vector2Int, Vector2Int> next;
     
     /// <summary>
     /// CalculatePath returns a dictionary mapping tilePos, nextPos choosing neighbors based in this order: right, up, down, left.
@@ -13,7 +13,7 @@ public class PathFinder
     /// <param name="goal"></param>
     /// <param name="walkableTiles"></param>
     /// <returns></returns>
-    public Dictionary<Vector2Int, (Vector2Int nextPos, bool isLeaf)> CalculatePath(Vector2Int goal, IEnumerable<Vector2Int> walkableTiles)
+    public (Dictionary<Vector2Int, Vector2Int> mappedPos, List<Vector2Int> spawnNeighbors) CalculatePath(Vector2Int goal, IEnumerable<Vector2Int> walkableTiles)
     {
         lookup = new HashSet<Vector2Int>(walkableTiles);
         visited = new();
@@ -22,31 +22,35 @@ public class PathFinder
 
         visited.Add(goal);
         queue.Enqueue(goal);
+
+        List<Vector2Int> spawnNeighbors = new();
         
         while (queue.Count > 0) 
         {
             var current = queue.Dequeue();
             var neighbors = CheckForNeighbors(current);
-            foreach (var n in neighbors)
+            foreach (var n in neighbors.neighbors)
             {
-                next[n.neighbors] = (current, n.isLeaf);
+                next[n] = current;
 
-                queue.Enqueue(n.neighbors);
+                queue.Enqueue(n);
             }
+                
+            if (neighbors.isLeaf) spawnNeighbors.Add(current);
         }
-        return next;
+        return (mappedPos: next, spawnNeighbors: spawnNeighbors);
     }
 
-    private List<(Vector2Int neighbors, bool isLeaf)> CheckForNeighbors(Vector2Int tile)
+    private (List<Vector2Int> neighbors, bool isLeaf) CheckForNeighbors(Vector2Int tile)
     {
         //Size 3 because 4 neighbors - 1 adjacent, visited tile.
         bool isLeaf = true;
-        List<(Vector2Int neighbors, bool isLeaf)> neighbors = new List<(Vector2Int neighbors, bool isLeaf)>(3);
+        List<Vector2Int> neighbors = new List<Vector2Int>(3);
         var candidate = tile + Vector2Int.right;
         if (lookup.Contains(candidate) && !visited.Contains(candidate))
         {
             isLeaf = false;
-            neighbors.Add((candidate, isLeaf));
+            neighbors.Add(candidate);
             visited.Add(candidate);
         }
 
@@ -54,7 +58,7 @@ public class PathFinder
         if (lookup.Contains(candidate) && !visited.Contains(candidate))
         {
             isLeaf = false;
-            neighbors.Add((candidate, isLeaf));
+            neighbors.Add(candidate);
             visited.Add(candidate);
         }
         
@@ -62,7 +66,7 @@ public class PathFinder
         if (lookup.Contains(candidate) && !visited.Contains(candidate))
         {
             isLeaf = false;
-            neighbors.Add((candidate, isLeaf));
+            neighbors.Add(candidate);
             visited.Add(candidate);
         }
         
@@ -70,10 +74,10 @@ public class PathFinder
         if (lookup.Contains(candidate) && !visited.Contains(candidate))
         {
             isLeaf = false;
-            neighbors.Add((candidate, isLeaf));
+            neighbors.Add(candidate);
             visited.Add(candidate);
         }
         
-        return neighbors;
+        return (neighbors, isLeaf);
     }
 }

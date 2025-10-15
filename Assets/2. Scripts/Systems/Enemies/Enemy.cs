@@ -30,14 +30,16 @@ public class Enemy : MonoBehaviour, IUpdatable, IPoolable
 
     public void Tick(float deltaTime)
     {
-        currentTile = _grid.GetTile(_grid.WorldToGrid(transform.position)); //Recalculate current tile.
+        currentTile = _grid.GetTile(_grid.WorldToGrid(transform.position)); //Recalculate current 
 
-        if (Vector3.Distance(transform.position, _grid.GridToWorld(_goalTile.GridPosition)) < 0.1f || currentTile == null || currentTile.Next == null)
+        if (Vector3.Distance(transform.position, _grid.GridToWorld(_goalTile.GridPosition)) < 0.6f || currentTile == null || currentTile.Next == null)
         {
             OnRemoved?.Invoke(this);
             return;
         }
 
+        //random tile from 
+        // Vector2Int targetTile = currentTile.Next[UnityEngine.Random.Range(0, currentTile.Next.Count)];
         Vector3 targetPos = _grid.GridToWorld(currentTile.Next);
         transform.position = Vector3.MoveTowards(transform.position, targetPos, deltaTime * 3);
 
