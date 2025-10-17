@@ -7,7 +7,9 @@ public class WaveManager : MonoBehaviour
 {
     [SerializeField] private List<Wave> waves = new();
     [SerializeField] private EnemySpawner spawner;
-
+    
+    public List<Wave> AllWaves => waves;
+        
     public event Action<int> OnWaveStarted; //Wave index
     public event Action<int> OnWaveCompleted;
     public event Action AllWavesCompleted;

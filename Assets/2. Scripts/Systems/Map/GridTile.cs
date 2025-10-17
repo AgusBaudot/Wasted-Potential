@@ -22,7 +22,6 @@ public class GridTile
     {
         get
         {
-            // if (nexts.Count == 0) return nexts[0];
             currentIndex++;
             if (currentIndex >= nexts.Count) currentIndex = 0;
             return nexts[currentIndex];
@@ -50,4 +49,6 @@ public class GridTile
     public void ClearNext() => nexts.Clear();
     
     public List<Vector2Int> GetAllNexts() => nexts;
+
+    public bool HasNext(Vector2Int candidate) => nexts.Contains(candidate);
 }

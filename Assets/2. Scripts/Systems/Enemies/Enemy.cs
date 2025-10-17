@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour, IUpdatable, IPoolable
     private GridTile currentTile;
 
     private Vector3 _spawnPosition;
+    private Vector3 _targetPos;
     private UpdateManager _updateManager;
     private GridTile _goalTile;
     private IEnemyFactory _originFactory;
@@ -40,12 +41,14 @@ public class Enemy : MonoBehaviour, IUpdatable, IPoolable
 
         //random tile from 
         // Vector2Int targetTile = currentTile.Next[UnityEngine.Random.Range(0, currentTile.Next.Count)];
-        Vector3 targetPos = _grid.GridToWorld(currentTile.Next);
-        transform.position = Vector3.MoveTowards(transform.position, targetPos, deltaTime * 3);
+        if (!currentTile.HasNext(_grid.WorldToGrid(_targetPos)))
+            _targetPos = _grid.GridToWorld(currentTile.Next);
+            
+        transform.position = Vector3.MoveTowards(transform.position, _targetPos, deltaTime * 3);
 
-        if (Vector3.Distance(transform.position, targetPos) < 0.1f)
+        if (Vector3.Distance(transform.position, _targetPos) < 0.1f)
         {
-            transform.position = targetPos;
+            transform.position = _targetPos;
         }
     }
 
