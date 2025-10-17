@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,7 +15,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private TileBase spawnTile;
     [SerializeField] private TileBase goalTile;
 
-    public GridTile SpawnTile { get; private set; }
+    public List<GridTile> SpawnTile = new List<GridTile>();
     public GridTile GoalTile { get; private set; }
 
     private Dictionary<Vector2Int, GridTile> _tiles;
@@ -53,7 +54,7 @@ public class GridManager : MonoBehaviour
             var tile = new GridTile(gridPos, type);
             _tiles[gridPos] = tile;
 
-            if (type == GridTileType.Spawn) SpawnTile = tile;
+            if (type == GridTileType.Spawn) SpawnTile.Add(tile);
             if (type == GridTileType.Goal) GoalTile = tile;
         }
     }
@@ -77,13 +78,24 @@ public class GridManager : MonoBehaviour
 
     private void CalculatePath()
     {
+        if (GoalTile == null)
+        {
+            Debug.LogError("GridManager: No goal tile found!");
+            return;
+        }
+        
         PathFinder finder = new PathFinder();
         var walkables = _tiles.Values.Where(a => a.Walkable).Select(a => a.GridPosition);
         var mappedTiles = finder.CalculatePath(GoalTile.GridPosition, walkables);
+        //Should I clear nexts here?
         foreach (var kvp in mappedTiles.mappedPos)
         {
+            // Or here?
             GridTile tile = GetTile(kvp.Key);
-            tile.SetNext(kvp.Value);
+            foreach (var neighbor in kvp.Value)
+            {
+                tile.SetNext(neighbor);
+            }
         }
 
         foreach (var spawnNeighbor in mappedTiles.spawnNeighbors)
@@ -96,19 +108,36 @@ public class GridManager : MonoBehaviour
     {
         //Candidate is one of 4 adjacent tiles that is spawn tile.
         var candidate = GetTile(position + Vector2Int.up);
-        if (candidate.Type == GridTileType.Spawn)
+        if (candidate?.Type == GridTileType.Spawn)
             candidate.SetNext(position);
         
         candidate = GetTile(position + Vector2Int.right);
-        if (candidate.Type == GridTileType.Spawn)
+        if (candidate?.Type == GridTileType.Spawn)
             candidate.SetNext(position);
         
         candidate = GetTile(position + Vector2Int.down);
-        if (candidate.Type == GridTileType.Spawn)
+        if (candidate?.Type == GridTileType.Spawn)
             candidate.SetNext(position);
         
         candidate = GetTile(position + Vector2Int.left);
-        if (candidate.Type == GridTileType.Spawn)
+        if (candidate?.Type == GridTileType.Spawn)
             candidate.SetNext(position);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (_tiles == null || _tiles.Count == 0) return;
+        
+        var walkables = _tiles.Values.Where(a => a.Walkable).ToArray();
+        foreach (GridTile tile in walkables)
+        {
+            Gizmos.color = Color.white;
+            foreach (Vector2Int nexts in tile.GetAllNexts())
+            {
+                Gizmos.DrawLine(GridToWorld(tile.GridPosition), GridToWorld(nexts));
+                Gizmos.color = Color.black;
+                Gizmos.DrawSphere(GridToWorld(nexts), 0.1f);
+            }
+        }
     }
 }

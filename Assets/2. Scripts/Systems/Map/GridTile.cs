@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum GridTileType
@@ -16,7 +17,20 @@ public class GridTile
     public bool Walkable { get; private set; }
     public bool Buildable { get; private set; }
     public GridTileType Type { get; private set; }
-    public Vector2Int Next { get; private set; }
+
+    public Vector2Int Next
+    {
+        get
+        {
+            // if (nexts.Count == 0) return nexts[0];
+            currentIndex++;
+            if (currentIndex >= nexts.Count) currentIndex = 0;
+            return nexts[currentIndex];
+        }
+    }
+
+    private List<Vector2Int> nexts = new List<Vector2Int>();
+    private int currentIndex = -1;
 
     public GridTile(Vector2Int pos, GridTileType type)
     {
@@ -31,5 +45,9 @@ public class GridTile
         Buildable = type == GridTileType.Buildable;
     }
 
-    public void SetNext(Vector2Int next) => Next = next;
+    public void SetNext(Vector2Int next) => nexts.Add(next);
+
+    public void ClearNext() => nexts.Clear();
+    
+    public List<Vector2Int> GetAllNexts() => nexts;
 }

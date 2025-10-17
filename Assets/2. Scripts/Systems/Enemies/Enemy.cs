@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour, IUpdatable, IPoolable
     {
         currentTile = _grid.GetTile(_grid.WorldToGrid(transform.position)); //Recalculate current 
 
-        if (Vector3.Distance(transform.position, _grid.GridToWorld(_goalTile.GridPosition)) < 0.6f || currentTile == null || currentTile.Next == null)
+        if (Vector3.Distance(transform.position, _grid.GridToWorld(_goalTile.GridPosition)) < 0.6f || currentTile == null || currentTile.Type == GridTileType.Goal)
         {
             OnRemoved?.Invoke(this);
             return;

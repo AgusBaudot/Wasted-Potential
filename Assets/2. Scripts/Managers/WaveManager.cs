@@ -58,7 +58,7 @@ public class WaveManager : MonoBehaviour
     private void SpawnAndTrack()
     {
         //Spawn at grid spawn tile by default (customizable if needed)
-        var spawnGridPos = GridManager.Instance.SpawnTile.GridPosition;
+        var spawnGridPos = GridManager.Instance.SpawnTile[0].GridPosition;
         var enemy = spawner.Spawn(spawnGridPos);
         
         //Subscribe to removal events
