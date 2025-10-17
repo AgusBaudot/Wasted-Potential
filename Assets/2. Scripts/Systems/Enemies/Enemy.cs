@@ -12,7 +12,6 @@ public class Enemy : MonoBehaviour, IUpdatable, IPoolable
     private Vector3 _spawnPosition;
     private Vector3 _targetPos;
     private UpdateManager _updateManager;
-    private GridTile _goalTile;
     private IEnemyFactory _originFactory;
 
     public void Initialize(Vector3 spawnPosition, IEnemyFactory originFactory = null)
@@ -23,33 +22,44 @@ public class Enemy : MonoBehaviour, IUpdatable, IPoolable
         
         _grid = GridManager.Instance;
         currentTile = _grid.GetTile(_grid.WorldToGrid(spawnPosition));
+        _targetPos = _grid.GetTile(currentTile.Next).Center;
 
-        _goalTile = _grid.GoalTile;
         _updateManager ??= ServiceLocator.Get<UpdateManager>();
         _updateManager.Register(this);
     }
 
     public void Tick(float deltaTime)
     {
-        currentTile = _grid.GetTile(_grid.WorldToGrid(transform.position)); //Recalculate current 
-
-        if (Vector3.Distance(transform.position, _grid.GridToWorld(_goalTile.GridPosition)) < 0.6f || currentTile == null || currentTile.Type == GridTileType.Goal)
+        if (currentTile == null || currentTile.Type == GridTileType.Goal)
         {
             OnRemoved?.Invoke(this);
             return;
         }
 
-        //random tile from 
-        // Vector2Int targetTile = currentTile.Next[UnityEngine.Random.Range(0, currentTile.Next.Count)];
-        if (!currentTile.HasNext(_grid.WorldToGrid(_targetPos)))
-            _targetPos = _grid.GridToWorld(currentTile.Next);
-            
-        transform.position = Vector3.MoveTowards(transform.position, _targetPos, deltaTime * 3);
-
         if (Vector3.Distance(transform.position, _targetPos) < 0.1f)
         {
             transform.position = _targetPos;
+
+            if (currentTile.Type == GridTileType.Goal)
+            {
+                OnRemoved?.Invoke(this);
+                return;
+            }
+
+            var nextPos = currentTile.Next;
+            var nextTile = _grid.GetTile(nextPos);
+
+            if (nextTile == null)
+            {
+                OnRemoved?.Invoke(this);
+                return;
+            }
+
+            currentTile = nextTile; // Update tile based on logic, not position
+            _targetPos = nextTile.Center;
         }
+
+        transform.position = Vector3.MoveTowards(transform.position, _targetPos, deltaTime * 3);
     }
 
     public void Reset()

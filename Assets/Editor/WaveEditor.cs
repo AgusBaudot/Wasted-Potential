@@ -11,23 +11,25 @@ public class WaveEditor : Editor
         WaveManager manager = (WaveManager)target;
 
         //Start with waves percentages calculation.
-        int sum = 0;
-        foreach (var w in manager.AllWaves)
+        for (int wi = 0; wi < manager.AllWaves.Count; wi++)
         {
-            foreach (var p in w.spawnDistribution)
-            {
-                sum += p;
-            }
+            var w = manager.AllWaves[wi];
+            int sum = 0;
+            if (w.spawnDistribution != null)
+                foreach (var p in w.spawnDistribution) sum += p;
 
             if (sum != 100)
             {
-                EditorGUILayout.HelpBox($"Percentages sum to {sum} - should be 100.", MessageType.Warning);
+                EditorGUILayout.HelpBox($"Wave {wi}: percentages sum to {sum} (should be 100).", MessageType.Warning);
+                EditorGUILayout.BeginHorizontal();
+
                 if (GUILayout.Button("Normalize Percentages"))
                 {
                     Undo.RecordObject(manager, "Normalize Percentages");
-                    //Call normalizePercentages of wave.
+                    w.NormalizePercentages();
                     EditorUtility.SetDirty(manager);
                 }
+                EditorGUILayout.EndHorizontal();
             }
         }
     }

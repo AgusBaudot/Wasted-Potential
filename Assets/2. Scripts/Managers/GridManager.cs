@@ -86,11 +86,16 @@ public class GridManager : MonoBehaviour
         
         PathFinder finder = new PathFinder();
         var walkables = _tiles.Values.Where(a => a.Walkable).Select(a => a.GridPosition);
+
         var mappedTiles = finder.CalculatePath(GoalTile.GridPosition, walkables);
-        //Should I clear nexts here?
+
+        foreach (var tile in _tiles.Values)
+        {
+            tile.ClearNext();
+        }
+
         foreach (var kvp in mappedTiles.mappedPos)
         {
-            // Or here?
             GridTile tile = GetTile(kvp.Key);
             foreach (var neighbor in kvp.Value)
             {
@@ -122,6 +127,7 @@ public class GridManager : MonoBehaviour
         candidate = GetTile(position + Vector2Int.left);
         if (candidate?.Type == GridTileType.Spawn)
             candidate.SetNext(position);
+
     }
 
     private void OnDrawGizmosSelected()

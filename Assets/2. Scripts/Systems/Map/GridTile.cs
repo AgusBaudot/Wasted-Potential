@@ -18,12 +18,16 @@ public class GridTile
     public bool Buildable { get; private set; }
     public GridTileType Type { get; private set; }
 
+    public Vector2 Center { get; private set; }
+
     public Vector2Int Next
     {
         get
         {
             currentIndex++;
             if (currentIndex >= nexts.Count) currentIndex = 0;
+            if (nexts.Count > 1)
+                Debug.Log(nexts.Count);
             return nexts[currentIndex];
         }
     }
@@ -35,6 +39,7 @@ public class GridTile
     {
         GridPosition = pos;
         SetType(type);
+        Center = pos + Vector2.one / 2;
     }
 
     public void SetType(GridTileType type)
@@ -47,7 +52,7 @@ public class GridTile
     public void SetNext(Vector2Int next) => nexts.Add(next);
 
     public void ClearNext() => nexts.Clear();
-    
+
     public List<Vector2Int> GetAllNexts() => nexts;
 
     public bool HasNext(Vector2Int candidate) => nexts.Contains(candidate);
