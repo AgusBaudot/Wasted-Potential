@@ -26,8 +26,6 @@ public class GridTile
         {
             currentIndex++;
             if (currentIndex >= nexts.Count) currentIndex = 0;
-            if (nexts.Count > 1)
-                Debug.Log(nexts.Count);
             return nexts[currentIndex];
         }
     }
@@ -55,5 +53,7 @@ public class GridTile
 
     public List<Vector2Int> GetAllNexts() => nexts;
 
-    public bool HasNext(Vector2Int candidate) => nexts.Contains(candidate);
+    // public bool HasNext(Vector2Int candidate) => nexts.Contains(candidate);
+    
+    public void SetBuildable(bool buildable) => Buildable = buildable;
 }

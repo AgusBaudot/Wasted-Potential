@@ -8,10 +8,7 @@ public static class ServiceLocator
     public static void Register<T>(T service)
     {
         var type = typeof(T);
-        if (_services.ContainsKey(type))
-            _services[type] = service;
-        else
-            _services.Add(type, service);
+        _services[type] = service;
     }
 
     public static T Get<T>()
@@ -23,11 +20,10 @@ public static class ServiceLocator
         throw new Exception($"Service of type {type} not found");
     }
 
-    public static void Unregister<T>()
+    public static void Unregister<T>(T service)
     {
         var type = typeof(T);
-        if (_services.ContainsKey(type))
-            _services.Remove(type);
+        _services.Remove(type);
     }
 
 }

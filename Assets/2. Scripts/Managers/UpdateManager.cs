@@ -15,7 +15,7 @@ public class UpdateManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        ServiceLocator.Unregister<UpdateManager>();
+        ServiceLocator.Unregister(this);
     }
 
     public void Register(IUpdatable updatable)
