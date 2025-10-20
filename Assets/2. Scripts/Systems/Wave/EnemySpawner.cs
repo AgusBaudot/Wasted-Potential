@@ -5,8 +5,9 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     private FactoryProvider _factoryProvider;
-    private IEnemyFactory _enemyFactory;
     private GridManager _grid;
+    private EnemyManager _enemyManager;
+    private IEnemyFactory _enemyFactory;
 
     private void Awake()
     {
@@ -25,6 +26,10 @@ public class EnemySpawner : MonoBehaviour
     {
         _grid??= GridManager.Instance;
         var enemy = _enemyFactory.Create(worldPos, _enemyFactory);
+
+        _enemyManager ??= ServiceLocator.Get<EnemyManager>();
+        _enemyManager.RegisterEnemy(enemy);
+
         return enemy;
     }
 

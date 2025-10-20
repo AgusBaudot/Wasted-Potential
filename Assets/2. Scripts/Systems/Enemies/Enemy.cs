@@ -1,10 +1,11 @@
 using UnityEngine;
 using System;
 
-public class Enemy : MonoBehaviour, IUpdatable, IPoolable
+public class Enemy : MonoBehaviour, IUpdatable, IPoolable, ITargetable
 {
     //Enemy has to fire event when end is reached or dies.
     public event Action<Enemy> OnRemoved;
+    public int Health => _health;
 
     private GridManager _grid;
     private GridTile currentTile;
@@ -13,6 +14,12 @@ public class Enemy : MonoBehaviour, IUpdatable, IPoolable
     private Vector3 _targetPos;
     private UpdateManager _updateManager;
     private IEnemyFactory _originFactory;
+    private int _health;
+    private int _maxHealth = 100;
+
+    public Vector3 WorldPosition => transform.position;
+
+    public bool IsAlive => _health > 0;
 
     public void Initialize(Vector3 spawnPosition, IEnemyFactory originFactory = null)
     {
@@ -26,6 +33,8 @@ public class Enemy : MonoBehaviour, IUpdatable, IPoolable
 
         _updateManager ??= ServiceLocator.Get<UpdateManager>();
         _updateManager.Register(this);
+
+        _health = _maxHealth;
     }
 
     public void Tick(float deltaTime)
@@ -75,4 +84,12 @@ public class Enemy : MonoBehaviour, IUpdatable, IPoolable
     }
 
     public void Die() => OnRemoved?.Invoke(this);
+
+    public void ApplyDamage(int amount, GameObject source)
+    {
+        Debug.Log("Received damage");
+        _health -= amount;
+        if (_health <= 0)
+            Die();
+    }
 }

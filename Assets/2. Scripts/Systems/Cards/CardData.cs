@@ -18,4 +18,9 @@ public class CardData : ScriptableObject
     
     [Header("Tower")]
     public GameObject towerPrefab;
+
+    [Header("Tower Info")]
+    public int damage;
+    public float range;
+    public float fireRate;
 }
