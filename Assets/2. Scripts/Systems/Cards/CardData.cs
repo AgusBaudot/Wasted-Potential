@@ -14,6 +14,7 @@ public class CardData : ScriptableObject
     public string cardName;
     public CardRarity rarity;
     public int cost;
+    public Sprite image;
     [TextArea] public string description;
     
     [Header("Tower")]

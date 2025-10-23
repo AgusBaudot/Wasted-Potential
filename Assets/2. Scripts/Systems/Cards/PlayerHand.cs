@@ -1,17 +1,22 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// This represents the player's "mazo" or library of available blueprints.
+/// Created by CardManager
 /// </summary>
-public class PlayerHand : MonoBehaviour
+public class PlayerHand
 {
-    public List<CardData> AvailableCards { get; private set; } = new List<CardData>();
+    public List<CardData> AvailableCards { get; } = new List<CardData>();
+    public event Action<CardData> OnCardAdded;
+
+    public PlayerHand() { }
 
     public void AddCard(CardData card)
     {
         AvailableCards.Add(card);
+        OnCardAdded?.Invoke(card);
         Debug.Log($"Added {card.cardName} to hand.");
-        //Add event here to update hand UI.
     }
 }

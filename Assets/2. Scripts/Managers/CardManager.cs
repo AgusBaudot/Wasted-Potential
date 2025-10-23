@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// This is the central orchestrator. It will manage the pools and the "choose 1 of 3" mechanic. CardManager will observe the WaveManager.
@@ -7,14 +9,25 @@ using UnityEngine;
 public class CardManager : MonoBehaviour
 {
     [SerializeField] private WaveManager waveManager;
-    [SerializeField] private PlayerHand playerHand;
     
     [Header("Card Pools")]
     [SerializeField] private List<CardData> initialPool;
     [SerializeField] private List<CardData> globalPool;
+    
+    [Header("Cards UI")]
+    [SerializeField] private RectTransform cardsContainer;
+    [SerializeField] private GameObject cardPrefab;
 
     private int _wavesUntilChoice = 3;
     private int _waveCounter = 0;
+    private PlayerHand _playerHand;
+    private CardVisualizer _cardVisualizer;
+
+    private void Awake()
+    {
+        _playerHand = new PlayerHand();
+        _cardVisualizer = new CardVisualizer(cardsContainer, 5f, cardPrefab, _playerHand);
+    }
 
     private void Start()
     {
@@ -25,13 +38,14 @@ public class CardManager : MonoBehaviour
     private void OnDestroy()
     {
         waveManager.OnWaveCompleted -= HandleWaveCompleted;
+        _cardVisualizer?.Dispose();
     }
 
     private void GiveInitialCards()
     {
         //For now, gives 3 random cards from the initial pool.
         for (int i = 0; i < 3; i++)
-            playerHand.AddCard(initialPool[Random.Range(0, initialPool.Count)]);
+            _playerHand.AddCard(initialPool[Random.Range(0, initialPool.Count)]);
     }
 
     private void HandleWaveCompleted(int waveIndex)
@@ -51,6 +65,6 @@ public class CardManager : MonoBehaviour
         
         //For now, we simulate the player choosing one randomly.
         CardData chosenCard = globalPool[Random.Range(0, globalPool.Count)];
-        playerHand.AddCard(chosenCard);
+        _playerHand.AddCard(chosenCard);
     }
 }
