@@ -18,6 +18,16 @@ public class WaveManager : MonoBehaviour
     private int _aliveCount = 0;
     private bool _isRunning = false;
 
+    private void Awake()
+    {
+        ServiceLocator.Register(this);
+    }
+
+    private void OnDestroy()
+    {
+        ServiceLocator.Unregister(this);
+    }
+
     public void StartWaves()
     {
         if (_isRunning) return;

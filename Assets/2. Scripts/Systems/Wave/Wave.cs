@@ -11,14 +11,6 @@ public class Wave
 
     public void NormalizePercentages()
     {
-        //int sum = 0;
-        //foreach (int i in spawnDistribution) sum += i;
-        //if (sum == 100) return;
-
-        //int perSpawn = 100 / spawnDistribution.Length;
-        //for (int i = 0; i < spawnDistribution.Length; i++)
-        //    spawnDistribution[i] = perSpawn;
-
         if (spawnDistribution == null || spawnDistribution.Length == 0) return;
 
         long total = 0;

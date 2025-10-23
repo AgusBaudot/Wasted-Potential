@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 /// <summary>
@@ -7,7 +8,7 @@ using UnityEngine;
 public class ResourceManager : MonoBehaviour
 {
     public event Action<int> OnResourcesChanged;
-    
+
     [SerializeField] private int startingResources = 100;
     public int CurrentResources { get; private set; }
     
