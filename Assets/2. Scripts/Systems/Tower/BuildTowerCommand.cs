@@ -16,8 +16,7 @@ public class BuildTowerCommand : ICommand
 
         _resourceManager = ServiceLocator.Get<ResourceManager>();
     }
-
-    //Maybe bool instead of void to know if success or failure?
+    
     public bool Execute()
     {
         if (!_resourceManager.TrySpend(_card.cost))

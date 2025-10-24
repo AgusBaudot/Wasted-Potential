@@ -1,8 +1,14 @@
 using System.Collections.Generic;
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Tower : MonoBehaviour, IUpdatable
+public class Tower : MonoBehaviour, IUpdatable, IPointerEnterHandler, IPointerExitHandler
 {
+    public event Action<Tower> OnMouseEnterTower;
+    public event Action<Tower> OnMouseExitTower;
+
     public Vector2Int GridPosistion { get; private set; }
     public CardData Data { get; private set; }
 
@@ -12,6 +18,7 @@ public class Tower : MonoBehaviour, IUpdatable
     private UpdateManager _updateManager;
     private EnemyManager _enemyManager;
     private Enemy _currentTarget;
+    private TowerManager _towerManager;
 
 
     //Called by factory/command immediately after creation.
@@ -22,8 +29,10 @@ public class Tower : MonoBehaviour, IUpdatable
 
         _updateManager ??= ServiceLocator.Get<UpdateManager>();
         _enemyManager ??= ServiceLocator.Get<EnemyManager>();
+        _towerManager ??= ServiceLocator.Get<TowerManager>();
 
         _updateManager.Register(this);
+        _towerManager.RegisterTower(this);
 
         _strategy = new PickClosest();
 
@@ -34,6 +43,7 @@ public class Tower : MonoBehaviour, IUpdatable
     public void OnDestroy()
     {
         _updateManager.Unregister(this);
+        _towerManager.UnregisterTower(this);
     }
 
     public void Tick(float deltaTime)
@@ -87,5 +97,15 @@ public class Tower : MonoBehaviour, IUpdatable
     {
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, Data.range);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        OnMouseEnterTower?.Invoke(this);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        OnMouseExitTower?.Invoke(this);
     }
 }

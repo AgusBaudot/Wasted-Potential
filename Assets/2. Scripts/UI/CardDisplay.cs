@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using DG.Tweening;
 
 public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
@@ -33,20 +34,25 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (_mouseOver) 
+            return;
         _mouseOver = true;
-        Debug.LogWarning("Mouse entered");
+
+        GetComponent<RectTransform>().DOAnchorPosY(50f, 0.2f).SetEase(Ease.OutQuad);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (!_mouseOver) 
+            return;
         _mouseOver = false;
-        Debug.LogWarning("Mouse left");
+
+        GetComponent<RectTransform>().DOAnchorPosY(-50f, 0.2f).SetEase(Ease.OutQuad);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
             OnClicked?.Invoke(data);
-
     }
 }

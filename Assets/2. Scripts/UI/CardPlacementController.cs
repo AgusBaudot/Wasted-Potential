@@ -76,9 +76,11 @@ public class CardPlacementController : MonoBehaviour, IUpdatable
         _ghostInstance.transform.position = GridManager.Instance.GridToWorld(gridPos);
         
         //Tiny red if over not buildable
-        var sr = _ghostInstance.GetComponentInChildren<SpriteRenderer>();
+        var sr = _ghostInstance.GetComponent<SpriteRenderer>();
         if (sr != null)
-            sr.color = (tile != null && tile.Buildable) ? new Color(255, 255, 255, 64) : new Color(255, 0, 0, 64);
+            sr.color = (tile != null && tile.Buildable)
+                ? _selectedCard.ghostPrefab.GetComponent<SpriteRenderer>().color
+                : new Color(1, 0, 0, 0.5f);
     }
 
     private void TryPlaceAtMouse()
@@ -111,12 +113,9 @@ public class CardPlacementController : MonoBehaviour, IUpdatable
     {
         DestroyGhost();
         
-        Vector3 mouseWorld = Helpers.GetCamera().ScreenToWorldPoint(Input.mousePosition);
-        mouseWorld.z = 0f;
-        var gridPos = GridManager.Instance.WorldToGrid(mouseWorld);
-        
-        _ghostInstance = Instantiate(_selectedCard.ghostPrefab, GridManager.Instance.GridToWorld(gridPos), Quaternion.identity);
+        _ghostInstance = Instantiate(_selectedCard.ghostPrefab);
         _ghostInstance.SetActive(true);
+        UpdateGhostPosition();
     }
 
     private void DestroyGhost()
