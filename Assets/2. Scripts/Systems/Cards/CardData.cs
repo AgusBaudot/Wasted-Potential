@@ -19,6 +19,7 @@ public class CardData : ScriptableObject
     
     [Header("Tower")]
     public GameObject towerPrefab;
+    public GameObject ghostPrefab;
 
     [Header("Tower Info")]
     public int damage;

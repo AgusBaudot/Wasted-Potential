@@ -22,11 +22,14 @@ public class CardManager : MonoBehaviour
     private int _waveCounter = 0;
     private PlayerHand _playerHand;
     private CardVisualizer _cardVisualizer;
+    
+    public PlayerHand PlayerHand => _playerHand;
+    public CardVisualizer CardVisualizer => _cardVisualizer;
 
     private void Awake()
     {
         _playerHand = new PlayerHand();
-        _cardVisualizer = new CardVisualizer(cardsContainer, 5f, cardPrefab, _playerHand);
+        _cardVisualizer = new CardVisualizer(cardsContainer, cardPrefab, _playerHand);
     }
 
     private void Start()
