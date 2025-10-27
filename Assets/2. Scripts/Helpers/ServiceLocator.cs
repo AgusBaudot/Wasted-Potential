@@ -7,23 +7,25 @@ public static class ServiceLocator
 
     public static void Register<T>(T service)
     {
-        var type = typeof(T);
-        _services[type] = service;
+        _services[typeof(T)] = service;
+    }
+
+    public static void Register<T>(object service)
+    {
+        _services[typeof(T)] = service;
     }
 
     public static T Get<T>()
     {
-        var type = typeof(T);
-        if (_services.TryGetValue(type, out var service))
+        if (_services.TryGetValue(typeof(T), out var service))
             return (T)service;
 
-        throw new Exception($"Service of type {type} not found");
+        throw new Exception($"Service of type {typeof(T)} not found");
     }
 
     public static void Unregister<T>(T service)
     {
-        var type = typeof(T);
-        _services.Remove(type);
+        _services.Remove(typeof(T));
     }
 
 }
