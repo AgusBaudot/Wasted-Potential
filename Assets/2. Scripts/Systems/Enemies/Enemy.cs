@@ -87,7 +87,6 @@ public class Enemy : MonoBehaviour, IUpdatable, IPoolable, ITargetable
 
     public void ApplyDamage(int amount, GameObject source)
     {
-        Debug.Log("Received damage");
         _health -= amount;
         if (_health <= 0)
             Die();

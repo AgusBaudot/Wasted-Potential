@@ -17,6 +17,7 @@ public class CardPlacementController : MonoBehaviour, IUpdatable
         _playerHand = _cardManager.PlayerHand;
         
         _cardVisualizer.OnCardSelected += HandleCardSelected;
+        _cardVisualizer.OnCardDeselected += HandleCardDeselected;
         
         _placementFacade = ServiceLocator.Get<TowerPlacementFacade>();
         ServiceLocator.Get<UpdateManager>().Register(this);
@@ -25,14 +26,20 @@ public class CardPlacementController : MonoBehaviour, IUpdatable
     private void OnDestroy()
     {
         if (_cardVisualizer != null)
-            _cardVisualizer.OnCardSelected += HandleCardSelected;
+        {
+            _cardVisualizer.OnCardSelected -= HandleCardSelected;
+            _cardVisualizer.OnCardDeselected -= HandleCardDeselected;
+        }
 
         ServiceLocator.Get<UpdateManager>().Unregister(this);
         DestroyGhost();
     }
 
-    private void HandleCardSelected(CardData card)
+    private void HandleCardSelected(CardData card = null)
     {
+        if (card == null) 
+            CancelSelection();
+        
         var resourceManager = ServiceLocator.Get<ResourceManager>();
         if (resourceManager != null && !resourceManager.CanAfford(card.cost))
             return;
@@ -126,9 +133,12 @@ public class CardPlacementController : MonoBehaviour, IUpdatable
         _ghostInstance = null;
     }
 
+    private void HandleCardDeselected() => CancelSelection();
+
     private void CancelSelection()
     {
         _selectedCard = null;
+        _cardVisualizer.DeselectCard();
         DestroyGhost();
     }
 }

@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Tower : MonoBehaviour, IUpdatable, IPointerEnterHandler, IPointerExitHandler
+public class Tower : MonoBehaviour, IUpdatable
 {
     public event Action<Tower> OnMouseEnterTower;
     public event Action<Tower> OnMouseExitTower;
@@ -98,13 +98,13 @@ public class Tower : MonoBehaviour, IUpdatable, IPointerEnterHandler, IPointerEx
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, Data.range);
     }
-
-    public void OnPointerEnter(PointerEventData eventData)
+    
+    private void OnMouseEnter()
     {
         OnMouseEnterTower?.Invoke(this);
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    private void OnMouseExit()
     {
         OnMouseExitTower?.Invoke(this);
     }

@@ -20,7 +20,6 @@ public class WaveRewards : MonoBehaviour
 
     private void HandleWaveCompleted(int waveIndex)
     {
-        Debug.Log(waveIndex + 1);
         _resourceManager.GainResources(10 + (waveIndex + 1) / 3 * 5);
     }
 }

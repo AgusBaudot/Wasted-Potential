@@ -69,8 +69,8 @@ public class WaveManager : MonoBehaviour
 
     private void SpawnAndTrack()
     {
-        //Spawn at grid spawn tile by default (customizable if needed)
-        var spawnGridPos = GridManager.Instance.SpawnTile[0].GridPosition;
+        int randomIndex = GetRandomSpawnIndex(waves[_currentWaveIndex].spawnDistribution);
+        var spawnGridPos = GridManager.Instance.SpawnTile[randomIndex].GridPosition;
         var enemy = spawner.Spawn(spawnGridPos);
         
         //Subscribe to removal events
@@ -85,6 +85,21 @@ public class WaveManager : MonoBehaviour
         _aliveCount = Mathf.Max(0, _aliveCount - 1);
 
         spawner.Release(enemy);
+    }
+
+    private int GetRandomSpawnIndex(int[] distribution)
+    {
+        int roll = UnityEngine.Random.Range(0, 100); //Actually 0-99
+        int cumulative = 0;
+
+        for (int i = 0; i < distribution.Length; i++)
+        {
+            cumulative += distribution[i];
+            if (roll < cumulative)
+                return i;
+        }
+
+        return distribution.Length - 1; //Return last just in case.
     }
 
     public void StopWaves()

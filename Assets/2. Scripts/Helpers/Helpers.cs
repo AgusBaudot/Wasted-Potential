@@ -21,13 +21,13 @@ public static class Helpers
 		return lookUp[wait];
 	}
 
-	public static void FadeIn(CanvasGroup canvasGroup, float fadeTime)
+	public static void FadeIn(CanvasGroup canvasGroup, float fadeTime, float fadeTo = 1f)
 	{
-		canvasGroup.DOFade(1, fadeTime);
+		canvasGroup.DOFade(fadeTo, fadeTime);
 	}
 
-	public static void FadeOut(CanvasGroup canvasGroup, float fadeTime)
+	public static void FadeOut(CanvasGroup canvasGroup, float fadeTime, float fadeTo = 0f)
 	{
-		canvasGroup.DOFade(0, fadeTime);
+		canvasGroup.DOFade(fadeTo, fadeTime);
 	}
 }

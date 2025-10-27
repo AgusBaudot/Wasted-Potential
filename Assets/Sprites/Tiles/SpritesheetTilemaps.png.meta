@@ -1,0 +1,507 @@
+fileFormatVersion: 2
+guid: a09cd158aa98b3646a583d8c4189835d
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TopLeftPath
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 288
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b03c9feaa03de14ebdafdc0c2b20641
+      internalID: 1937246480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HorizontalPath
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 288
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1c60131108faa640a176580eb2c91c8
+      internalID: -931904127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TopRightPath
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 288
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42e5efe1eb21f1441a6ffb3ac4c2b28e
+      internalID: -529758421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VerticalPath
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 256
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4904669a26fa3a4cada5b9864fd3376
+      internalID: 545007369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BottomLeftPath
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd856c501ae02a045964961939b39000
+      internalID: 228929472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BottomRightPath
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af177c7b473d244418e6ef3b74c67965
+      internalID: 992918916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CraterTile
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e78bc817e4043d842a1edf59fc434cf3
+      internalID: -101472403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TopSplitHorizontal
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce35c2830b343e0479cf8c83119f9a69
+      internalID: -651155106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LeftSplitVertical
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35aeaff2335bfcb4f9a88d7c62a37db8
+      internalID: 2131911049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RightSplitVertical
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67009999ba32b8e418153754a11bdf5e
+      internalID: 410668042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BottomSplitHorizontal
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcfd30099d487134e8ebf96a27b8eab3
+      internalID: -1134756062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      BottomLeftPath: 228929472
+      BottomLeftPath_Blocked: 953918812
+      BottomLeftPath_Crater: -20874056
+      BottomRightPath: 992918916
+      BottomRightPath_Blocked: 1583118513
+      BottomRightPath_Crater: -20528647
+      BottomSplitHorizontal: -1134756062
+      BottomSplitHorizontal_Blocked: -942026383
+      BottomSplitHorizontal_Crater: -348926303
+      CraterTile: -101472403
+      GoalTile: -1679041747
+      HorizontalPath: -931904127
+      HorizontalPath_Blocked: 1921761740
+      HorizontalPath_Crater: 428178025
+      LeftSplitVertical: 2131911049
+      LeftSplitVertical_Blocked: 1881922780
+      LeftSplitVertical_Crater: -876784127
+      RightSplitVertical: 410668042
+      RightSplitVertical_Blocked: 340219379
+      RightSplitVertical_Crater: -313950908
+      SpawnTile: 1184573631
+      SpritesheetTilemaps_0: -1453071796
+      SpritesheetTilemaps_1: -604609812
+      SpritesheetTilemaps_101: -1612791326
+      SpritesheetTilemaps_102: 951726980
+      SpritesheetTilemaps_103: 582052182
+      SpritesheetTilemaps_105: -143549500
+      SpritesheetTilemaps_107: -438376861
+      SpritesheetTilemaps_108: -452625838
+      SpritesheetTilemaps_110: 356606399
+      SpritesheetTilemaps_112: -1050993926
+      SpritesheetTilemaps_113: -860042338
+      SpritesheetTilemaps_115: -577199204
+      SpritesheetTilemaps_117: 1785882523
+      SpritesheetTilemaps_118: 9141656
+      SpritesheetTilemaps_119: 649576044
+      SpritesheetTilemaps_12: -764591386
+      SpritesheetTilemaps_121: 1290095607
+      SpritesheetTilemaps_122: -2018486254
+      SpritesheetTilemaps_123: -401366110
+      SpritesheetTilemaps_124: 262858415
+      SpritesheetTilemaps_126: 1484743088
+      SpritesheetTilemaps_127: 613017326
+      SpritesheetTilemaps_128: -99701695
+      SpritesheetTilemaps_129: -1917254409
+      SpritesheetTilemaps_13: 1138653031
+      SpritesheetTilemaps_131: 408385295
+      SpritesheetTilemaps_132: 626268424
+      SpritesheetTilemaps_133: -1058108475
+      SpritesheetTilemaps_134: 1227985476
+      SpritesheetTilemaps_135: -2030550880
+      SpritesheetTilemaps_136: 1036198960
+      SpritesheetTilemaps_137: 1583784821
+      SpritesheetTilemaps_138: -1434041740
+      SpritesheetTilemaps_139: -151411300
+      SpritesheetTilemaps_14: -1652913333
+      SpritesheetTilemaps_140: -281687165
+      SpritesheetTilemaps_141: -1434052085
+      SpritesheetTilemaps_142: 171450363
+      SpritesheetTilemaps_143: -118692026
+      SpritesheetTilemaps_144: -1614457281
+      SpritesheetTilemaps_145: 938315522
+      SpritesheetTilemaps_146: -355670036
+      SpritesheetTilemaps_147: -1804124162
+      SpritesheetTilemaps_148: 1581971772
+      SpritesheetTilemaps_15: -1922580204
+      SpritesheetTilemaps_19: -16565316
+      SpritesheetTilemaps_2: 43550250
+      SpritesheetTilemaps_20: 1323013857
+      SpritesheetTilemaps_24: -2002753652
+      SpritesheetTilemaps_25: -2070466234
+      SpritesheetTilemaps_29: -817584867
+      SpritesheetTilemaps_3: -29191737
+      SpritesheetTilemaps_30: 1771053653
+      SpritesheetTilemaps_32: -1586096808
+      SpritesheetTilemaps_33: 1200113893
+      SpritesheetTilemaps_34: 2076321228
+      SpritesheetTilemaps_35: 1692623011
+      SpritesheetTilemaps_37: -2096345649
+      SpritesheetTilemaps_38: 919302487
+      SpritesheetTilemaps_39: 1723482721
+      SpritesheetTilemaps_4: 1935026422
+      SpritesheetTilemaps_40: 1266432181
+      SpritesheetTilemaps_42: 726937111
+      SpritesheetTilemaps_43: -42919375
+      SpritesheetTilemaps_44: -1391454233
+      SpritesheetTilemaps_45: -1870939461
+      SpritesheetTilemaps_47: 2001214875
+      SpritesheetTilemaps_49: -1668644802
+      SpritesheetTilemaps_5: 1046425050
+      SpritesheetTilemaps_50: -984738223
+      SpritesheetTilemaps_52: -1152700632
+      SpritesheetTilemaps_54: -290125656
+      SpritesheetTilemaps_55: 1326120052
+      SpritesheetTilemaps_57: -508370671
+      SpritesheetTilemaps_6: -4388503
+      SpritesheetTilemaps_60: -1301825631
+      SpritesheetTilemaps_61: 1580613943
+      SpritesheetTilemaps_62: 1577427969
+      SpritesheetTilemaps_63: 1983087377
+      SpritesheetTilemaps_64: -1112538543
+      SpritesheetTilemaps_65: -1724643908
+      SpritesheetTilemaps_66: 1082698152
+      SpritesheetTilemaps_67: -1965051255
+      SpritesheetTilemaps_68: 1443228376
+      SpritesheetTilemaps_69: -885349821
+      SpritesheetTilemaps_7: 117261914
+      SpritesheetTilemaps_70: -1075190499
+      SpritesheetTilemaps_71: -1097254911
+      SpritesheetTilemaps_72: 359722921
+      SpritesheetTilemaps_73: 1198411431
+      SpritesheetTilemaps_74: 2032457827
+      SpritesheetTilemaps_75: -220683413
+      SpritesheetTilemaps_76: 1769507883
+      SpritesheetTilemaps_77: 1950866995
+      SpritesheetTilemaps_78: 715241680
+      SpritesheetTilemaps_79: 1396267868
+      SpritesheetTilemaps_8: -105733518
+      SpritesheetTilemaps_80: -2051618213
+      SpritesheetTilemaps_81: -1075296841
+      SpritesheetTilemaps_82: -1915996633
+      SpritesheetTilemaps_83: -1255719163
+      SpritesheetTilemaps_84: -1000924970
+      SpritesheetTilemaps_85: 631741403
+      SpritesheetTilemaps_86: -166567178
+      SpritesheetTilemaps_87: 1194565294
+      SpritesheetTilemaps_88: 1406700835
+      SpritesheetTilemaps_89: -949300707
+      SpritesheetTilemaps_9: 23420639
+      SpritesheetTilemaps_91: -171699104
+      SpritesheetTilemaps_92: 1467893330
+      SpritesheetTilemaps_93: 1129732209
+      SpritesheetTilemaps_94: 531904396
+      SpritesheetTilemaps_96: -224067439
+      SpritesheetTilemaps_97: -173689539
+      SpritesheetTilemaps_98: 332039873
+      SpritesheetTilemaps_99: 1237179833
+      TopLeftPath: 1937246480
+      TopLeftPath_Blocked: -575989392
+      TopLeftPath_Crater: -424875724
+      TopRightPath: -529758421
+      TopRightPath_Blocked: -916061463
+      TopRightPath_Crater: -944421568
+      TopSplitHorizontal: -651155106
+      TopSplitHorizontal_Blocked: -2081360477
+      TopSplitHorizontal_Crater: -704151019
+      VerticalPath: 545007369
+      VerticalPath_Blocked: -1986587426
+      VerticalPath_Crater: -406517727
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

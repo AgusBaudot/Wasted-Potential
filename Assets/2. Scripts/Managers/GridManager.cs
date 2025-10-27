@@ -9,11 +9,11 @@ public class GridManager : MonoBehaviour
     public static GridManager  Instance { get; private set;  }
     
     [SerializeField] private Tilemap tilemap;
-    [SerializeField] private TileBase pathTile;
-    [SerializeField] private TileBase buildableTile;
-    [SerializeField] private TileBase blockedTile;
-    [SerializeField] private TileBase spawnTile;
-    [SerializeField] private TileBase goalTile;
+    [SerializeField] private TileBase[] pathTile;
+    [SerializeField] private TileBase[] buildableTile;
+    [SerializeField] private TileBase[] blockedTile;
+    [SerializeField] private TileBase[] spawnTile;
+    [SerializeField] private TileBase[] goalTile;
 
     public List<GridTile> SpawnTile = new List<GridTile>();
     public GridTile GoalTile { get; private set; }
@@ -43,11 +43,11 @@ public class GridManager : MonoBehaviour
             
             GridTileType type = tileBase switch
             {
-                _ when tileBase == pathTile => GridTileType.Path,
-                _ when tileBase == buildableTile => GridTileType.Buildable,
-                _ when tileBase == blockedTile => GridTileType.Blocked,
-                _ when tileBase == spawnTile => GridTileType.Spawn,
-                _ when tileBase == goalTile => GridTileType.Goal,
+                _ when pathTile.Contains(tileBase) => GridTileType.Path,
+                _ when buildableTile.Contains(tileBase) => GridTileType.Buildable,
+                _ when blockedTile.Contains(tileBase) => GridTileType.Blocked,
+                _ when spawnTile.Contains(tileBase) => GridTileType.Spawn,
+                _ when goalTile.Contains(tileBase) => GridTileType.Goal,
                 _ => GridTileType.Empty  // A default value in case none match
             };
 
