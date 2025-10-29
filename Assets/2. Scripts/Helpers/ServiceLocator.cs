@@ -23,6 +23,14 @@ public static class ServiceLocator
         throw new Exception($"Service of type {typeof(T)} not found");
     }
 
+    public static object GetConcrete<T>()
+    {
+        if (_services.TryGetValue(typeof(T), out var service))
+            return service;
+        
+        throw new Exception($"Service of type {typeof(T)} not found");
+    }
+
     public static void Unregister<T>(T service)
     {
         _services.Remove(typeof(T));

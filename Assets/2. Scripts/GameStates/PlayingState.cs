@@ -1,13 +1,15 @@
-using UnityEditor;
 using UnityEngine;
 
 public class PlayingState : IState
 {
-    private readonly IGameStateController _controller;
+    private readonly IGameStateController _controller = ServiceLocator.Get<IGameStateController>();
+    private ISubState _currentSubState;
 
-    public PlayingState(IGameStateController controller)
+    public void SetSubState(ISubState newSubState)
     {
-        _controller = controller;
+        _currentSubState?.Exit();
+        _currentSubState = newSubState;
+        _currentSubState?.Enter();
     }
 
     public void EnterState()
@@ -18,11 +20,7 @@ public class PlayingState : IState
 
     public void HandleState()
     {
-        // Example: pause game
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            //_controller.ChangeState(new PausedState(_controller));
-        }
+        _currentSubState?.Update();
     }
 
     public void ExitState()
