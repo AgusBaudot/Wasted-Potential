@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PlayButton : MonoBehaviour
 {
     [SerializeField] private GameObject levelSelectorScreen;
+    [SerializeField] private GameObject level1;
     
     private void Awake()
     {
@@ -13,5 +15,6 @@ public class PlayButton : MonoBehaviour
     private void HandleClick()
     {
         ServiceLocator.Get<MenuUIManager>().ShowScreen(levelSelectorScreen);
+        EventSystem.current.SetSelectedGameObject(level1);
     }
 }
