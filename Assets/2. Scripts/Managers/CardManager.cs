@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -18,6 +17,9 @@ public class CardManager : MonoBehaviour
     [SerializeField] private RectTransform cardsContainer;
     [SerializeField] private GameObject cardPrefab;
 
+    [Header("UI Containers")]
+    [SerializeField] private RectTransform initialCardsPanel;
+
     private int _wavesUntilChoice = 3;
     private int _waveCounter = 0;
     private PlayerHand _playerHand;
@@ -29,7 +31,8 @@ public class CardManager : MonoBehaviour
     private void Awake()
     {
         _playerHand = new PlayerHand();
-        _cardVisualizer = new CardVisualizer(cardsContainer, cardPrefab, _playerHand);
+        _cardVisualizer = new CardVisualizer(cardsContainer, initialCardsPanel, cardPrefab, _playerHand);
+        ServiceLocator.Register(this);
     }
 
     private void Start()
@@ -40,6 +43,7 @@ public class CardManager : MonoBehaviour
 
     private void OnDestroy()
     {
+        ServiceLocator.Unregister(this);
         waveManager.OnWaveCompleted -= HandleWaveCompleted;
         _cardVisualizer?.Dispose();
     }

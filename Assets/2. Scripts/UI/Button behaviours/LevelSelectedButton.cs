@@ -16,7 +16,7 @@ public class LevelSelectedButton : MonoBehaviour, ISelectHandler, IDeselectHandl
 
     private void HandleOnClick()
     {
-        ServiceLocator.Get<IGameStateController>().ChangeState(new PlayingState());
+        ServiceLocator.Get<IGameStateController>().ChangeState(new PlayingState(level));
     }
 
     public void OnSelect(BaseEventData eventData)

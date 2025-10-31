@@ -13,15 +13,17 @@ public class CardVisualizer : IDisposable
     public event Action OnCardDeselected;
 
     private RectTransform _cardsContainer;
+    private RectTransform _initialCardsPanel;
     private GameObject _cardPrefab;
     private List<GameObject> _cards = new List<GameObject>();
     private PlayerHand _playerHand;
     private float _cardSpacing = 130;
     private GameObject _selectedCard;
 
-    public CardVisualizer(RectTransform cardsContainer, GameObject cardPrefab, PlayerHand playerHand)
+    public CardVisualizer(RectTransform cardsContainer, RectTransform initialCardsPanel, GameObject cardPrefab, PlayerHand playerHand)
     {
         _cardsContainer = cardsContainer;
+        _initialCardsPanel = initialCardsPanel;
         _cardPrefab = cardPrefab;
         _playerHand = playerHand;
 
@@ -46,6 +48,11 @@ public class CardVisualizer : IDisposable
             if (_cards[i].GetComponent<CardDisplay>().Selected) continue;
             _cards[i].transform.localPosition = new Vector2(_cardSpacing * (i - (_cards.Count - 1) / 2f), 0);
         }
+    }
+
+    public void ShowInitialCards()
+    {
+        GameObject go = GameObject.Instantiate(_cardPrefab, _initialCardsPanel, false);
     }
 
     private void OnCardDisplayClicked(CardData data, GameObject card)
