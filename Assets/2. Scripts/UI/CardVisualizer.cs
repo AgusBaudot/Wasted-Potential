@@ -11,11 +11,15 @@ public class CardVisualizer : IDisposable
 {
     public event Action<CardData> OnCardSelected;
     public event Action OnCardDeselected;
+    public event Action<List<CardData>> OnInitialConfirmed;
+
+    private List<GameObject> _initialCardGOs = new();
+    private List<CardData> _initialCardDatas = new();
 
     private RectTransform _cardsContainer;
-    private RectTransform _initialCardsPanel;
+    private RectTransform _initialCardsContainer;
     private GameObject _cardPrefab;
-    private List<GameObject> _cards = new List<GameObject>();
+    private List<GameObject> _cards = new();
     private PlayerHand _playerHand;
     private float _cardSpacing = 130;
     private GameObject _selectedCard;
@@ -23,7 +27,7 @@ public class CardVisualizer : IDisposable
     public CardVisualizer(RectTransform cardsContainer, RectTransform initialCardsPanel, GameObject cardPrefab, PlayerHand playerHand)
     {
         _cardsContainer = cardsContainer;
-        _initialCardsPanel = initialCardsPanel;
+        _initialCardsContainer = initialCardsPanel;
         _cardPrefab = cardPrefab;
         _playerHand = playerHand;
 
@@ -50,9 +54,51 @@ public class CardVisualizer : IDisposable
         }
     }
 
-    public void ShowInitialCards()
+    public void ShowInitialCards(List<CardData> initialCards)
     {
-        GameObject go = GameObject.Instantiate(_cardPrefab, _initialCardsPanel, false);
+        ClearInitialCards();
+
+        _initialCardDatas = new List<CardData>(initialCards);
+
+        for (int i = 0; i < initialCards.Count; i++)
+        {
+            var go = GameObject.Instantiate(_cardPrefab, _initialCardsContainer, false);
+            var rt = go.GetComponent<RectTransform>();
+            rt.anchorMin = rt.anchorMax = Vector2.one / 2;
+            rt.pivot = Vector2.one / 2;
+            rt.sizeDelta *= Vector2.one * 1.5f;
+
+            //Center arrangement for exactly 3 cards
+            float offset = 0f;
+            if (i == 0) offset = -_cardSpacing;   //Left
+            else if (i == 2) offset = _cardSpacing; //Right
+
+            rt.anchoredPosition = new Vector2(offset * 3, 0);
+
+            go.TryGetComponent<CardDisplay>(out var display);
+            display.Init(initialCards[i]);
+            display.IsInteractive = false;
+
+            _initialCardGOs.Add(go);
+        }
+    }
+
+    public void MoveInitialsToHand(float duration = 0.5f)
+    {
+        Debug.LogWarning("Missing UI movement into bottom left.");
+    }
+
+    //Called by UI
+    public void ConfirmInitialCards()
+    {
+        OnInitialConfirmed?.Invoke(new List<CardData>(_initialCardDatas));
+    }
+
+    public void ClearInitialCards()
+    {
+        foreach (var go in _initialCardGOs) Object.Destroy(go);
+        _initialCardGOs.Clear();
+        _initialCardDatas.Clear();
     }
 
     private void OnCardDisplayClicked(CardData data, GameObject card)

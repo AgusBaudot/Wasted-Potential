@@ -32,7 +32,3 @@ public class TowerPlacementFacade : MonoBehaviour
         return buildCommand.Execute();
     }
 }
-
-//Inject dependencies into BuildTowerCommand (pass resourcemanager, gridmanager and a tower factory).
-//Command should update tile state (set buildable = false) so that other towers aren't built upon it.
-//Use factory/pool for towers and use DI

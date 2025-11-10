@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour, IUpdatable, IPoolable, ITargetable
     {
         if (currentTile == null || currentTile.Type == GridTileType.Goal)
         {
-            OnRemoved?.Invoke(this);
+            ReachedEnd();
             return;
         }
 
@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour, IUpdatable, IPoolable, ITargetable
 
             if (currentTile.Type == GridTileType.Goal)
             {
-                OnRemoved?.Invoke(this);
+                ReachedEnd();
                 return;
             }
 
@@ -60,7 +60,7 @@ public class Enemy : MonoBehaviour, IUpdatable, IPoolable, ITargetable
 
             if (nextTile == null)
             {
-                OnRemoved?.Invoke(this);
+                ReachedEnd();
                 return;
             }
 
@@ -90,5 +90,11 @@ public class Enemy : MonoBehaviour, IUpdatable, IPoolable, ITargetable
         _health -= amount;
         if (_health <= 0)
             Die();
+    }
+
+    private void ReachedEnd()
+    {
+        ServiceLocator.Get<HealthManager>().ApplyDamage(5);
+        OnRemoved?.Invoke(this);
     }
 }

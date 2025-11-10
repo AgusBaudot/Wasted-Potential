@@ -1,11 +1,7 @@
-using UnityEngine;
+using System.Collections.Generic;
 
 public class ShowCards : ISubState
 {
-    //First, show cards and let player advance on button press.
-    //Then, animate cards.
-    //After animation completes, add cards to their container.
-
     private CardManager _cardManager;
 
     public ShowCards()
@@ -15,17 +11,24 @@ public class ShowCards : ISubState
 
     public void Enter()
     {
-        //Show cards centered.
-        _cardManager.CardVisualizer.ShowInitialCards();
+        //Show initial cards
+        _cardManager.GiveInitialCards();
+        _cardManager.CardVisualizer.OnInitialConfirmed += HandleInitialConfirmed;
     }
+
+    public void Update() { }
 
     public void Exit()
     {
-        throw new System.NotImplementedException();
+        _cardManager.CardVisualizer.OnInitialConfirmed -= HandleInitialConfirmed;
     }
 
-    public void Update()
+    private void HandleInitialConfirmed(List<CardData> cards)
     {
-        throw new System.NotImplementedException();
+        _cardManager.FinalizeInitialCards(cards);
+
+        _cardManager.CardVisualizer.MoveInitialsToHand();
+        
+        _cardManager.CardVisualizer.OnInitialConfirmed -= HandleInitialConfirmed;
     }
 }

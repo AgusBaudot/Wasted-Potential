@@ -7,7 +7,6 @@ using Random = UnityEngine.Random;
 /// </summary>
 public class CardManager : MonoBehaviour
 {
-    [SerializeField] private WaveManager waveManager;
     
     [Header("Card Pools")]
     [SerializeField] private List<CardData> initialPool;
@@ -19,11 +18,13 @@ public class CardManager : MonoBehaviour
 
     [Header("UI Containers")]
     [SerializeField] private RectTransform initialCardsPanel;
+    [SerializeField] private GameObject playingUI;
 
     private int _wavesUntilChoice = 3;
     private int _waveCounter = 0;
     private PlayerHand _playerHand;
     private CardVisualizer _cardVisualizer;
+    private WaveManager waveManager;
     
     public PlayerHand PlayerHand => _playerHand;
     public CardVisualizer CardVisualizer => _cardVisualizer;
@@ -37,8 +38,8 @@ public class CardManager : MonoBehaviour
 
     private void Start()
     {
+        waveManager = ServiceLocator.Get<WaveManager>();
         waveManager.OnWaveCompleted += HandleWaveCompleted;
-        GiveInitialCards();
     }
 
     private void OnDestroy()
@@ -48,11 +49,23 @@ public class CardManager : MonoBehaviour
         _cardVisualizer?.Dispose();
     }
 
-    private void GiveInitialCards()
+    public void GiveInitialCards()
     {
-        //For now, gives 3 random cards from the initial pool.
+        var initial3 = new List<CardData>();
         for (int i = 0; i < 3; i++)
-            _playerHand.AddCard(initialPool[Random.Range(0, initialPool.Count)]);
+            initial3.Add(initialPool[Random.Range(0, initialPool.Count)]);
+        
+        _cardVisualizer.ShowInitialCards(initial3);
+    }
+
+    public void FinalizeInitialCards(List<CardData> cardsToAdd)
+    {
+        foreach (var c in cardsToAdd)
+            _playerHand.AddCard(c);
+        
+        //Hide/clear initial cards/panel UI.
+        initialCardsPanel.transform.parent.gameObject.SetActive(false);
+        playingUI.SetActive(true);
     }
 
     private void HandleWaveCompleted(int waveIndex)

@@ -278,6 +278,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4326437459743109790}
   - component: {fileID: 6055318163422920411}
+  - component: {fileID: -2593518466538952298}
   - component: {fileID: 7824613714105297209}
   - component: {fileID: 8575298765808816406}
   m_Layer: 0
@@ -326,6 +327,18 @@ MonoBehaviour:
   cardPriceText: {fileID: 6052255660758510354}
   cardRarityText: {fileID: 782226946764607948}
   cardImage: {fileID: 6767560668162458312}
+--- !u!114 &-2593518466538952298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6169785189784625387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4227ecd36689ad34c8d9c31a3aa464d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &7824613714105297209
 CanvasRenderer:
   m_ObjectHideFlags: 0

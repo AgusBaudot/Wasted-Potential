@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,24 +9,16 @@ public class PlayingState : IState
     public PlayingState(int level)
     {
         _controller = ServiceLocator.Get<IGameStateController>();
-        switch (level)
-        {
-            case 1:
-                SceneManager.LoadScene("Level 1");
-                break;
-            case 2:
-                SceneManager.LoadScene("Level 2");
-                break;
-            case 3:
-                SceneManager.LoadScene("Level 3");
-                break;
-            case 4:
-                SceneManager.LoadScene("Level 4");
-                break;
+        SceneManager.LoadScene($"Level {level}");
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
 
-            default:
-                throw new NotImplementedException($"Level {nameof(level)} not implemented yet.");
-        }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        //Called after awake/start of scene objects
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        
+        SetSubState(new ShowCards());
     }
 
     public void SetSubState(ISubState newSubState)
@@ -40,7 +31,6 @@ public class PlayingState : IState
     public void EnterState()
     {
         Debug.Log("Entering Playing State");
-        SetSubState(new ShowCards());
         // Enable gameplay systems, spawn player, etc.
     }
 

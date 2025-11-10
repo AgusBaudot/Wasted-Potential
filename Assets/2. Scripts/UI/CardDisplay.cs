@@ -5,10 +5,12 @@ using UnityEngine.EventSystems;
 using TMPro;
 using DG.Tweening;
 
-public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class CardDisplay : MonoBehaviour
 {
     public event Action<CardData, GameObject> OnClicked;
     public bool Selected => _selected;
+
+    public bool IsInteractive { get; set; } = true;
 
     [SerializeField] private TextMeshProUGUI cardNameText;
     [SerializeField] private TextMeshProUGUI cardPriceText;
@@ -35,26 +37,28 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         cardImage.sprite = data.image;
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public void HandlePointerEnter(PointerEventData eventData)
     {
-        if (_mouseOver || _selected)
-            return;
+        if (_mouseOver || _selected) return;
+        if (!IsInteractive) return;
+        
         _mouseOver = true;
-
         GetComponent<RectTransform>().DOAnchorPosY(50f, 0.2f).SetEase(Ease.OutQuad);
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public void HandlePointerExit(PointerEventData eventData)
     {
-        if (!_mouseOver || _selected)
-            return;
+        if (!_mouseOver || _selected) return;
+        if (!IsInteractive) return;
+        
         _mouseOver = false;
-
         GetComponent<RectTransform>().DOAnchorPosY(-50f, 0.2f).SetEase(Ease.OutQuad);
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void HandlePointerClick(PointerEventData eventData)
     {
+        if (!IsInteractive) return;
+        
         if (eventData.button == PointerEventData.InputButton.Left)
             OnClicked?.Invoke(data, gameObject);
     }
