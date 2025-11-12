@@ -11,7 +11,7 @@ public class PlayingUIManager : MonoBehaviour
     {
         ServiceLocator.Get<WaveManager>().OnWaveStarted += HandleWaveStarted;
         ServiceLocator.Get<ResourceManager>().OnResourcesChanged += HandleResourcesChanged;
-        ServiceLocator.Get<HealthManager>().OnHealthChanged += HandleHealthChanged;
+        ServiceLocator.Get<PlayerHealthManager>().OnHealthChanged += HandleHealthChanged;
     }
 
     private void HandleResourcesChanged(int amount)

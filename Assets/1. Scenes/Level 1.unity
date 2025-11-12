@@ -768,6 +768,41 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &271528081
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 271528082}
+  m_Layer: 0
+  m_Name: Health bar container
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &271528082
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271528081}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 578959175}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1920, y: 1080}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &347707235
 GameObject:
   m_ObjectHideFlags: 0
@@ -3278,6 +3313,7 @@ RectTransform:
   - {fileID: 1331574268}
   - {fileID: 947982019}
   - {fileID: 1470349954}
+  - {fileID: 271528082}
   m_Father: {fileID: 474177649}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3657,6 +3693,7 @@ Transform:
   - {fileID: 771278012}
   - {fileID: 1194206463}
   - {fileID: 457071829}
+  - {fileID: 1743849523}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &771278011
@@ -3895,6 +3932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bearPrefab: {fileID: 2479859231047093008, guid: adf7b48f807e32c4595ebd7a875d63f0, type: 3}
+  bearData: {fileID: 11400000, guid: db8328ba424d18b4e9c0d3f95489cfee, type: 2}
 --- !u!114 &977167672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3907,7 +3945,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b945e9dfd0ec31148a584ed226f68916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rabbitPrefab: {fileID: 0}
+  rabbitPrefab: {fileID: -7406292473001852407, guid: 732fad8664e096f42b3b4aa5095b6cac, type: 3}
+  rabbitData: {fileID: 11400000, guid: 38753e74005714d4e9604fd220f13db3, type: 2}
 --- !u!1 &995232553
 GameObject:
   m_ObjectHideFlags: 0
@@ -5587,6 +5626,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1732285906}
   m_CullTransparentMesh: 1
+--- !u!1 &1743849522
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1743849523}
+  - component: {fileID: 1743849524}
+  m_Layer: 0
+  m_Name: Health bar manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1743849523
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743849522}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 694080442}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1743849524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743849522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f4d6090385e7f439d5e2f80e56f7cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBarPrefab: {fileID: 2704373408998593771, guid: d60e323f37f3e8043bfb1fc2e19c20d8, type: 3}
+  canvasRect: {fileID: 271528082}
 --- !u!1 &1769959439
 GameObject:
   m_ObjectHideFlags: 0

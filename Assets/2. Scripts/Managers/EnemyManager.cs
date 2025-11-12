@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    private readonly HashSet<Enemy> _enemies = new();
+    private readonly HashSet<EnemyBase> _enemies = new();
 
     private void Awake()
     {
@@ -15,23 +15,23 @@ public class EnemyManager : MonoBehaviour
         ServiceLocator.Unregister(this);
     }
 
-    public void RegisterEnemy(Enemy enemy)
+    public void RegisterEnemy(EnemyBase enemy)
     {
         _enemies.Add(enemy);
         enemy.OnRemoved += UnregisterEnemy;
     }
 
-    private void UnregisterEnemy (Enemy enemy)
+    private void UnregisterEnemy(EnemyBase enemy)
     {
         _enemies.Remove(enemy);
         enemy.OnRemoved -= UnregisterEnemy;
     }
 
-    public List<Enemy> GetAllEnemies() => new List<Enemy>(_enemies);
+    public List<EnemyBase> GetAllEnemies() => new List<EnemyBase>(_enemies);
 
-    public List<Enemy> GetEnemiesInRange(Vector3 position, float range)
+    public List<EnemyBase> GetEnemiesInRange(Vector3 position, float range)
     {
-        var list = new List<Enemy>();
+        var list = new List<EnemyBase>();
         foreach (var enemy in _enemies)
         {
             if (!enemy.IsAlive) continue;

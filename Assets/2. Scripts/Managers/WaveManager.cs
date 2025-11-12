@@ -70,14 +70,14 @@ public class WaveManager : MonoBehaviour
     private void SpawnAndTrack()
     {
         int randomIndex = GetRandomSpawnIndex(waves[_currentWaveIndex].spawnDistribution);
-        var spawnGridPos = GridManager.Instance.SpawnTile[randomIndex].GridPosition;
+        var spawnGridPos = ServiceLocator.Get<GridManager>().SpawnTile[randomIndex].GridPosition;
         var enemy = spawner.Spawn(spawnGridPos);
         
         //Subscribe to removal events
         enemy.OnRemoved += HandleEnemyRemoved;
     }
 
-    private void HandleEnemyRemoved(Enemy enemy)
+    private void HandleEnemyRemoved(EnemyBase enemy)
     {
         //Unsubscribe, decrement alive count, and return to pool via spawner.
         enemy.OnRemoved -= HandleEnemyRemoved;

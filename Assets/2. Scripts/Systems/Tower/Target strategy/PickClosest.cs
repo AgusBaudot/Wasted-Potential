@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class PickClosest : ITargetingStrategy
 {
-    public Enemy SelectTarget(IEnumerable<Enemy> candidates, Tower tower)
+    public EnemyBase SelectTarget(IEnumerable<EnemyBase> candidates, Tower tower)
     {
-        Enemy closest = null;
+        EnemyBase closest = null;
         float distance = float.PositiveInfinity;
 
-        foreach (Enemy e in candidates)
+        foreach (EnemyBase e in candidates)
         {
             if (e == null || !e.IsAlive) continue;
 

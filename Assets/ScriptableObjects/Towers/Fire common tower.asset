@@ -10,17 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e34e216798b9544dad20149b89aab4f, type: 3}
-  m_Name: Blueprint test
+  m_Name: Fire common tower
   m_EditorClassIdentifier: 
-  cardName: First tower
+  cardName: Fire Foundry
   rarity: 0
-  cost: 20
+  cost: 40
   image: {fileID: 0}
-  description: 'The first tower created
-
-'
+  description: Fires a small fireball to the enemies. If enemy attacked has oil applied
+    to them, they will burn way more!
   towerPrefab: {fileID: 4351859319987583695, guid: 3afd684114e0aa7458717e0edc94cbdc, type: 3}
   ghostPrefab: {fileID: 4351859319987583695, guid: f83810f51e267a34a9fd3e3c0f291a18, type: 3}
-  damage: 50
-  range: 2
+  damage: 3
+  range: 3.5
   fireRate: 2

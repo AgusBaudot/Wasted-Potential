@@ -20,5 +20,7 @@ public class FactoryProvider : MonoBehaviour
 public enum EnemyType
 {
     Bear,
-    Rabbit
+    Rabbit,
+    Deer,
+    Beaver
 }

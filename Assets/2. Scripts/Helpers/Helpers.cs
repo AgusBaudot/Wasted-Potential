@@ -8,7 +8,7 @@ public static class Helpers
 	
 	public static Camera GetCamera()
 	{
-		if (MainCamera == null) MainCamera = Camera.main;
+		MainCamera ??= Camera.main;
 		return MainCamera;
 	}
 

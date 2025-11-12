@@ -4,11 +4,13 @@ using UnityEngine.Pool;
 public class RabbitFactory : MonoBehaviour, IEnemyFactory
 {
     [SerializeField] private Rabbit rabbitPrefab;
-    private ObjectPool<Rabbit> _pool;
+    [SerializeField] private EnemyData rabbitData;
+    
+    private ObjectPool<EnemyBase> _pool;
 
     private void Awake()
     {
-        _pool = new ObjectPool<Rabbit>(
+        _pool = new ObjectPool<EnemyBase>(
             createFunc: () => Instantiate(rabbitPrefab),
             actionOnGet: (r) => r.gameObject.SetActive(true),
             actionOnRelease: (r) => r.Reset(),
@@ -19,14 +21,14 @@ public class RabbitFactory : MonoBehaviour, IEnemyFactory
         );
     }
     
-    public Enemy Create(Vector3 spawnPosition, IEnemyFactory originFactory = null)
+    public EnemyBase Create(Vector3 spawnPosition, IEnemyFactory originFactory = null)
     {
         var rabbit = _pool.Get();
-        rabbit.Initialize(spawnPosition, originFactory);
+        rabbit.Initialize(rabbitData, spawnPosition, originFactory);
         return rabbit;
     }
 
-    public void Release(Enemy enemy)
+    public void Release(EnemyBase enemy)
     {
         if (enemy is Rabbit rabbit)
             _pool.Release(rabbit);

@@ -7,7 +7,7 @@ public enum CardRarity
     Epic
 }
 
-[CreateAssetMenu(fileName = "New card", menuName = "Cards/Card data")]
+[CreateAssetMenu(fileName = "New card", menuName = "TD/Cards/New card")]
 public class CardData : ScriptableObject
 {
     [Header("Card Info")] 

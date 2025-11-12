@@ -4,11 +4,13 @@ using UnityEngine.Pool;
 public class BearFactory : MonoBehaviour, IEnemyFactory
 {
     [SerializeField] private Bear bearPrefab;
-    private ObjectPool<Bear> _pool;
-
+    [SerializeField] private EnemyData bearData;
+    
+    private ObjectPool<EnemyBase> _pool;
+    
     private void Awake()
     {
-        _pool = new ObjectPool<Bear>(
+        _pool = new ObjectPool<EnemyBase>(
             createFunc: () => Instantiate(bearPrefab),
             actionOnGet: (b) => b.gameObject.SetActive(true),
             actionOnRelease: (b) => b.Reset(),
@@ -19,14 +21,14 @@ public class BearFactory : MonoBehaviour, IEnemyFactory
         );
     }
     
-    public Enemy Create(Vector3 spawnPosition, IEnemyFactory  originFactory = null)
+    public EnemyBase Create(Vector3 spawnPosition, IEnemyFactory  originFactory = null)
     {
         var bear = _pool.Get();
-        bear.Initialize(spawnPosition, originFactory);
+        bear.Initialize(bearData, spawnPosition, originFactory);
         return bear;
     }
 
-    public void Release(Enemy enemy)
+    public void Release(EnemyBase enemy)
     {
         if (enemy is Bear bear)
             _pool.Release(bear);

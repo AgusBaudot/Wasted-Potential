@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class HealthManager : MonoBehaviour
+public class PlayerHealthManager : MonoBehaviour
 {
     public event Action<int> OnHealthChanged;
     public event Action OnDeath;

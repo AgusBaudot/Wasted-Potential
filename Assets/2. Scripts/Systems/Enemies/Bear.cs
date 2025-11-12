@@ -1,7 +1,1 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Bear : Enemy
-{
-}
+public class Bear : EnemyBase { }

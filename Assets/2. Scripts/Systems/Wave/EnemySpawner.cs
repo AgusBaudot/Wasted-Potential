@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(FactoryProvider))]
@@ -15,14 +14,14 @@ public class EnemySpawner : MonoBehaviour
         _enemyFactory = _factoryProvider.GetFactory(EnemyType.Bear);
     }
 
-    public Enemy Spawn(Vector2Int gridPos)
+    public EnemyBase Spawn(Vector2Int gridPos)
     {
         _grid??= GridManager.Instance;
         Vector3 world = _grid.GridToWorld(gridPos);
         return Spawn(world);
     }
 
-    public Enemy Spawn(Vector3 worldPos)
+    public EnemyBase Spawn(Vector3 worldPos)
     {
         _grid??= GridManager.Instance;
         var enemy = _enemyFactory.Create(worldPos, _enemyFactory);
@@ -33,7 +32,7 @@ public class EnemySpawner : MonoBehaviour
         return enemy;
     }
 
-    public void Release(Enemy enemy)
+    public void Release(EnemyBase enemy)
     {
         //Spawner-specific cleanup if needed in future (VFX, sound), then:
         enemy.ReturnToPool();

@@ -17,7 +17,7 @@ public class Tower : MonoBehaviour, IUpdatable
     private float _fireTimer;
     private UpdateManager _updateManager;
     private EnemyManager _enemyManager;
-    private Enemy _currentTarget;
+    private EnemyBase _currentTarget;
     private TowerManager _towerManager;
 
 
@@ -71,7 +71,7 @@ public class Tower : MonoBehaviour, IUpdatable
             _strategy = new PickClosest();
 
         // Get valid candidates
-        List<Enemy> candidates = _enemyManager.GetEnemiesInRange(transform.position, Data.range);
+        List<EnemyBase> candidates = _enemyManager.GetEnemiesInRange(transform.position, Data.range);
         if (candidates == null || candidates.Count == 0)
             return;
 
@@ -80,7 +80,7 @@ public class Tower : MonoBehaviour, IUpdatable
             return;
 
         // Select target
-        Enemy target = _strategy.SelectTarget(candidates, this);
+        EnemyBase target = _strategy.SelectTarget(candidates, this);
         if (target == null || !target.IsAlive)
             return;
 

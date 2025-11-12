@@ -1,43 +1,50 @@
 using UnityEngine;
 using System;
 
-public class Enemy : MonoBehaviour, IUpdatable, IPoolable, ITargetable
+public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargetable
 {
     //Enemy has to fire event when end is reached or dies.
-    public event Action<Enemy> OnRemoved;
-    public int Health => _health;
-
-    private GridManager _grid;
-    private GridTile currentTile;
-
-    private Vector3 _spawnPosition;
-    private Vector3 _targetPos;
-    private UpdateManager _updateManager;
-    private IEnemyFactory _originFactory;
-    private int _health;
-    private int _maxHealth = 100;
+    public event Action<EnemyBase> OnRemoved;
+    
+    public EnemyData Data { get; private set; }
+    
+    public Health Health { get; private set; }
 
     public Vector3 WorldPosition => transform.position;
+    public bool IsAlive => Health.Current > 0;
+    
+    protected GridManager _grid;
+    protected GridTile currentTile;
+    protected Vector3 _spawnPosition;
+    protected Vector3 _targetPos;
+    protected UpdateManager _updateManager;
+    protected IEnemyFactory _originFactory;
 
-    public bool IsAlive => _health > 0;
 
-    public void Initialize(Vector3 spawnPosition, IEnemyFactory originFactory = null)
+    public virtual void Initialize(EnemyData data, Vector3 spawnPosition, IEnemyFactory originFactory = null)
     {
+        Data = data;
         _spawnPosition = spawnPosition;
         _originFactory = originFactory;
         transform.position = _spawnPosition;
-        
-        _grid = GridManager.Instance;
+
+        _grid = ServiceLocator.Get<GridManager>();
         currentTile = _grid.GetTile(_grid.WorldToGrid(spawnPosition));
         _targetPos = _grid.GetTile(currentTile.Next).Center;
 
         _updateManager ??= ServiceLocator.Get<UpdateManager>();
         _updateManager.Register(this);
-
-        _health = _maxHealth;
+        
+        if (Health == null)
+        {
+            Health = new Health(Data.maxHealth);
+            Health.OnDeath += Die;
+        }
+        Health.Reset();
+        ServiceLocator.Get<HealthBarManager>().Register(Health, transform);
     }
 
-    public void Tick(float deltaTime)
+    public virtual void Tick(float deltaTime)
     {
         if (currentTile == null || currentTile.Type == GridTileType.Goal)
         {
@@ -48,15 +55,7 @@ public class Enemy : MonoBehaviour, IUpdatable, IPoolable, ITargetable
         if (Vector3.Distance(transform.position, _targetPos) < 0.1f)
         {
             transform.position = _targetPos;
-
-            if (currentTile.Type == GridTileType.Goal)
-            {
-                ReachedEnd();
-                return;
-            }
-
-            var nextPos = currentTile.Next;
-            var nextTile = _grid.GetTile(nextPos);
+            var nextTile = _grid.GetTile(currentTile.Next);
 
             if (nextTile == null)
             {
@@ -68,33 +67,35 @@ public class Enemy : MonoBehaviour, IUpdatable, IPoolable, ITargetable
             _targetPos = nextTile.Center;
         }
 
-        transform.position = Vector3.MoveTowards(transform.position, _targetPos, deltaTime * 3);
+        //Since speed represents seconds per tile (less speed number actually means faster), divide instead of multiply.
+        transform.position = Vector3.MoveTowards(transform.position, _targetPos, deltaTime / Data.moveSpeed);
     }
 
-    public void Reset()
+    public virtual void ApplyDamage(int amount, GameObject source)
+    {
+        Health.TakeDamage(amount);
+        //Handle hit reactions, damage source, etc.
+    }
+    
+    public virtual void Die()
+    {
+        ServiceLocator.Get<HealthBarManager>().Unregister(Health);
+        OnRemoved?.Invoke(this);
+    }
+
+    protected virtual void ReachedEnd()
+    {
+        ServiceLocator.Get<HealthBarManager>().Unregister(Health);
+        ServiceLocator.Get<PlayerHealthManager>().ApplyDamage(Data.damageOnReach);
+        OnRemoved?.Invoke(this);
+    }
+
+    public virtual void Reset()
     {
         _updateManager.Unregister(this);
         transform.position = _spawnPosition;
         gameObject.SetActive(false);
     }
 
-    public void ReturnToPool()
-    {
-        _originFactory?.Release(this);
-    }
-
-    public void Die() => OnRemoved?.Invoke(this);
-
-    public void ApplyDamage(int amount, GameObject source)
-    {
-        _health -= amount;
-        if (_health <= 0)
-            Die();
-    }
-
-    private void ReachedEnd()
-    {
-        ServiceLocator.Get<HealthManager>().ApplyDamage(5);
-        OnRemoved?.Invoke(this);
-    }
+    public void ReturnToPool() => _originFactory?.Release(this);
 }

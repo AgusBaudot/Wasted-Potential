@@ -22,10 +22,13 @@ public class GridManager : MonoBehaviour
 
     private void Awake()
     {
+        ServiceLocator.Register(this);
         Instance = this;
         BuildGridFromTilemap();
         CalculatePath();
     }
+
+    private void OnDestroy() => ServiceLocator.Unregister(this);
 
     private void BuildGridFromTilemap()
     {
