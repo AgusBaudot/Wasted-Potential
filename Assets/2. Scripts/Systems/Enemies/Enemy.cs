@@ -76,7 +76,18 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
         Health.TakeDamage(amount);
         //Handle hit reactions, damage source, etc.
     }
-    
+
+    public void ApplyDot(int dmgPerSec, float duration)
+    {
+        //Every 1 second, call ApplyDamage(dmgPerSec).
+        
+    }
+
+    public void ApplySlow(float factor, float duration)
+    {
+        //Modify speed for duration.
+    }
+
     public virtual void Die()
     {
         ServiceLocator.Get<HealthBarManager>().Unregister(Health);

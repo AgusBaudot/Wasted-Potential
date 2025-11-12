@@ -17,6 +17,5 @@ public class PlayerHand
     {
         AvailableCards.Add(card);
         OnCardAdded?.Invoke(card);
-        Debug.Log($"Added {card.cardName} to hand.");
     }
 }

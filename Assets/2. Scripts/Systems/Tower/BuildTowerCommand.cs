@@ -34,7 +34,6 @@ public class BuildTowerCommand : ICommand
         if (tile != null)
             tile.SetBuildable(false);
         
-        Debug.Log($"Built {_card.cardName} at {_gridPosition}");
         return true;
     }
 }

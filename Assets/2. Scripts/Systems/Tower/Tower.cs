@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using System;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class Tower : MonoBehaviour, IUpdatable
 {
@@ -38,6 +36,7 @@ public class Tower : MonoBehaviour, IUpdatable
 
         _canShoot = true;
         _fireTimer = 0;
+        Data.ability?.OnPlaced(this);
     }
 
     public void OnDestroy()
@@ -61,6 +60,8 @@ public class Tower : MonoBehaviour, IUpdatable
             _fireTimer = 0;
             TryAttack();
         }
+
+        Data.ability?.OnTick(this, deltaTime);
     }
 
     private void TryAttack()
@@ -85,12 +86,31 @@ public class Tower : MonoBehaviour, IUpdatable
             return;
 
         // Deal damage
-        if (target is ITargetable targetable)
-            targetable.ApplyDamage(Data.damage, gameObject);
+        if (Data.ability != null)
+        {
+            //Make OnFire spawn projectile and notify when OnEnemyHit occurs.
+            Data.ability.OnFire(this, target.gameObject);
+
+            //var proj = ServiceLocator.Get<ProjectilePool>().Spawn(customProjectilePrefab, transform.position);
+            var proj = ServiceLocator.Get<ProjectilePool>().Spawn(transform.position);
+            proj.Init(target, this, Data.damage);
+        }
 
         // Begin cooldown
         _canShoot = false;
         _fireTimer = 0f;
+    }
+
+    public void NotifyHitEnemy(EnemyBase enemy, Projectile projectile)
+    {
+        var handled = Data.ability.OnEnemyHit(this, enemy);
+
+        //Analyze return of OnEnemyHit to know if I need to call ApplyDamage from here.
+        if (!handled)
+        {
+            Debug.LogWarning("Ability did not handle OnEnemyHit, applying damage directly.");
+            if (enemy is ITargetable t) t.ApplyDamage(Data.damage, gameObject);
+        }
     }
 
     public void OnDrawGizmos()

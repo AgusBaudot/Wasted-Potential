@@ -81,7 +81,7 @@ public class CardManager : MonoBehaviour
     private void PresentCardChoice()
     {
         //This is where we trigger the UI to show 3 random cards form the globalPool. The UI would then call back with the chosen card.
-        Debug.Log("Present Card Choice");
+        Debug.LogWarning("Present Card Choice");
         
         //For now, we simulate the player choosing one randomly.
         CardData chosenCard = globalPool[Random.Range(0, globalPool.Count)];
