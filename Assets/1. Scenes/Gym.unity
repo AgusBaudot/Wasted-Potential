@@ -123,51 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &126519899
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 126519900}
-  - component: {fileID: 126519901}
-  m_Layer: 0
-  m_Name: Delete
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &126519900
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 126519899}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &126519901
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 126519899}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05ab6662c85a6094089fea4b8f5662a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wave: {fileID: 1661019734}
 --- !u!1 &224204377
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,7 +268,6 @@ GameObject:
   - component: {fileID: 236266693}
   - component: {fileID: 236266695}
   - component: {fileID: 236266694}
-  - component: {fileID: 236266696}
   m_Layer: 0
   m_Name: Resources amount
   m_TagString: Untagged
@@ -437,18 +391,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 236266692}
   m_CullTransparentMesh: 1
---- !u!114 &236266696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 236266692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b34ba12582279f46937e1ac8c6453dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &271371611
 GameObject:
   m_ObjectHideFlags: 0
@@ -3559,6 +3501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bearPrefab: {fileID: 2479859231047093008, guid: adf7b48f807e32c4595ebd7a875d63f0, type: 3}
+  bearData: {fileID: 0}
 --- !u!114 &977167672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3572,6 +3515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rabbitPrefab: {fileID: 0}
+  rabbitData: {fileID: 0}
 --- !u!1 &995232553
 GameObject:
   m_ObjectHideFlags: 0
@@ -3853,7 +3797,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9414b24043dfebe498eb8120f0bb4490, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 6051315446310128119, guid: 3afd684114e0aa7458717e0edc94cbdc, type: 3}
   towersParent: {fileID: 1319566048}
 --- !u!1 &1319566047
 GameObject:
@@ -4292,13 +4235,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0513702a06c55cd469960b779923709d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveManager: {fileID: 1661019734}
   initialPool:
   - {fileID: 11400000, guid: f2502b3890e36bb49baf4f52afffd25c, type: 2}
   globalPool:
   - {fileID: 11400000, guid: f2502b3890e36bb49baf4f52afffd25c, type: 2}
   cardsContainer: {fileID: 995232554}
   cardPrefab: {fileID: 6169785189784625387, guid: 81a67c6003ff21640a4ff279d79d9133, type: 3}
+  initialCardsPanel: {fileID: 0}
+  playingUI: {fileID: 0}
 --- !u!1 &1562468522
 GameObject:
   m_ObjectHideFlags: 0
@@ -4890,5 +4834,4 @@ SceneRoots:
   - {fileID: 433211636}
   - {fileID: 835892511}
   - {fileID: 1123016640}
-  - {fileID: 126519900}
   - {fileID: 1018104181}

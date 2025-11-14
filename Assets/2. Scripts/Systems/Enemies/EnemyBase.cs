@@ -1,6 +1,5 @@
-using UnityEngine;
 using System;
-using Unity.Mathematics;
+using UnityEngine;
 
 public enum EnemyStatus
 {
@@ -116,7 +115,7 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
                 }
             }
         }
-        
+
         if (_statusTimer <= 0f)
             ClearStatus();
     }
@@ -154,7 +153,7 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
         _status = EnemyStatus.Slow;
         _statusTimer = duration;
         _moveSpeedMultiplier = Mathf.Clamp(factor, 0.0001f, 10f);
-        //Reset DOT accumulator so old DOT doesn;t apply later (statuses are replaced)
+        //Reset DOT accumulator so old DOT doesn't apply later (statuses are replaced)
         _dotTickAcc = 0;
         _dotDmgPerSec = 0;
     }

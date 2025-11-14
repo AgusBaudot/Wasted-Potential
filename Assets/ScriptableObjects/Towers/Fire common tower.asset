@@ -21,6 +21,6 @@ MonoBehaviour:
   towerPrefab: {fileID: 4351859319987583695, guid: 3afd684114e0aa7458717e0edc94cbdc, type: 3}
   ghostPrefab: {fileID: 4351859319987583695, guid: f83810f51e267a34a9fd3e3c0f291a18, type: 3}
   damage: 3
-  range: 3.5
-  fireRate: 3
+  range: 1.5
+  fireRate: 2
   ability: {fileID: 11400000, guid: 5a992ffae73754a4cb894e0961efd336, type: 2}

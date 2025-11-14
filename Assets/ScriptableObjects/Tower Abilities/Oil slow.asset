@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd75cadd08b55784a80d0f93713616a8, type: 3}
   m_Name: Oil slow
   m_EditorClassIdentifier: 
-  oilPrefab: {fileID: 0}
-  lifeTime: 5
+  oilPrefab: {fileID: -4953758145742548511, guid: 1d3f57811602a93419dd56cfedf83c78, type: 3}
+  slowFactor: 0.35
+  lifeTime: 3

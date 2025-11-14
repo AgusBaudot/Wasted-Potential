@@ -1,19 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TowerFactory : MonoBehaviour, ITowerFactory
 {
-    [SerializeField] private Tower towerPrefab;
     [SerializeField] private Transform towersParent;
-
 
     public bool TryCreate(CardData card, Vector3 worldPos, Vector2Int gridPos, out Tower createdTower)
     {
         createdTower = null;
-        if (towerPrefab == null) return false;
+        if (card == null || card.towerPrefab == null) return false;
         
-        var go = Instantiate(towerPrefab.gameObject, worldPos, Quaternion.identity, towersParent);
+        var go = Instantiate(card.towerPrefab, worldPos, Quaternion.identity, towersParent);
         createdTower = go.GetComponent<Tower>();
         if (createdTower == null)
         {

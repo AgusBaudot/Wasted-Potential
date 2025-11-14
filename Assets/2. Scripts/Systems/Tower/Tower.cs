@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Tower : MonoBehaviour, IUpdatable
 {
@@ -116,7 +117,8 @@ public class Tower : MonoBehaviour, IUpdatable
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
-        Gizmos.DrawWireSphere(transform.position, Data.range);
+        Vector3 size = new Vector3(Data.range * 2, Data.range * 2);
+        Gizmos.DrawWireCube(transform.position, size);
     }
     
     private void OnMouseEnter()

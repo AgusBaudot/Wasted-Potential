@@ -5,7 +5,8 @@ public class OilLifeTime : MonoBehaviour, IUpdatable
 {
     public event Action OnLifeTimeExpired;
 
-    private float _lifeTime = 5f;
+    [SerializeField] private float _lifeTime = 2f;
+
     private float _currentTime;
 
     public void Init(float lifeTime)

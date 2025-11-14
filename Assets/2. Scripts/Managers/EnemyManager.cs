@@ -35,8 +35,11 @@ public class EnemyManager : MonoBehaviour
         foreach (var enemy in _enemies)
         {
             if (!enemy.IsAlive) continue;
-            if ((enemy.transform.position - position).sqrMagnitude <= range * range)
+
+            Vector3 diff = enemy.transform.position - position;
+            if (Mathf.Abs(diff.x) <= range && Mathf.Abs(diff.y) <= range)
                 list.Add(enemy);
+            //if ((enemy.transform.position - position).sqrMagnitude <= range * range)
         }
         return list;
     }

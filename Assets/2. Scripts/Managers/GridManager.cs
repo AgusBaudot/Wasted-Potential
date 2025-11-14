@@ -81,34 +81,33 @@ public class GridManager : MonoBehaviour
 
     private void CalculatePath()
     {
-        if (GoalTile == null)
-        {
-            Debug.LogError("GridManager: No goal tile found!");
-            return;
-        }
-        
+        // Call the pathfinder and get the dictionary it returns:
         PathFinder finder = new PathFinder();
         var walkables = _tiles.Values.Where(a => a.Walkable).Select(a => a.GridPosition);
+        var spawns = SpawnTile.Select(a => a.GridPosition);
 
-        var mappedTiles = finder.CalculatePath(GoalTile.GridPosition, walkables);
+        var mappedPaths = finder.CalculatePath(GoalTile.GridPosition, walkables, spawns);
 
+        // Clear previous nexts
         foreach (var tile in _tiles.Values)
-        {
             tile.ClearNext();
-        }
 
-        foreach (var kvp in mappedTiles.mappedPos)
+        // Map directed edges current -> list(next) into GridTile.SetNext
+        foreach (var kvp in mappedPaths)
         {
-            GridTile tile = GetTile(kvp.Key);
-            foreach (var neighbor in kvp.Value)
+            var currentPos = kvp.Key;
+            var nextPositions = kvp.Value;
+
+            var currentTile = GetTile(currentPos);
+            if (currentTile == null)
+                continue; // skip missing tiles
+
+            foreach (var nextPos in nextPositions)
             {
-                tile.SetNext(neighbor);
+                // If SetNext accepts Vector2Int positions (your original code used this),
+                // pass the position directly. If it expects a GridTile, call GetTile(nextPos).
+                currentTile.SetNext(nextPos);
             }
-        }
-
-        foreach (var spawnNeighbor in mappedTiles.spawnNeighbors)
-        {
-            SearchForSpawn(spawnNeighbor);
         }
     }
 
@@ -149,4 +148,41 @@ public class GridManager : MonoBehaviour
             }
         }
     }
+
+    // Put this in your GridManager / WaveManager class
+
+    private void DebugDumpMappedPaths(Dictionary<Vector2Int, List<Vector2Int>> mappedPaths, Vector2Int goal, IEnumerable<Vector2Int> spawns)
+    {
+        if (mappedPaths == null)
+        {
+            Debug.Log("DebugDumpMappedPaths: mappedPaths is null");
+            return;
+        }
+
+        Debug.Log($"DebugDumpMappedPaths: nodes={mappedPaths.Count}, goal={goal}, spawns={string.Join(", ", spawns.Select(s => s.ToString()))}");
+
+        // Print every mapping (current -> [next,next,...])
+        foreach (var kvp in mappedPaths.OrderBy(k => k.Key.x).ThenBy(k => k.Key.y))
+        {
+            var current = kvp.Key;
+            var nexts = kvp.Value;
+            Debug.Log($"  {current} -> [{string.Join(", ", nexts)}]");
+        }
+
+        // Validate references: every next should correspond to an existing tile (or be goal)
+        int missingTiles = 0;
+        foreach (var kvp in mappedPaths)
+        {
+            foreach (var next in kvp.Value)
+            {
+                if (next != goal && GetTile(next) == null)
+                {
+                    Debug.LogWarning($"MappedPaths references missing tile at {next} (from {kvp.Key})");
+                    missingTiles++;
+                }
+            }
+        }
+        Debug.Log($"DebugDumpMappedPaths: missingTiles={missingTiles}");
+    }
+
 }
