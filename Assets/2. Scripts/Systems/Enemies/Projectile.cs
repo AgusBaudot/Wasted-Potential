@@ -15,6 +15,8 @@ public class Projectile : MonoBehaviour, IUpdatable
         _source = source;
         _baseDamage = dmg;
         ServiceLocator.Get<UpdateManager>().Register(this);
+        
+        transform.position = source.gameObject.transform.position;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

@@ -15,13 +15,19 @@ public class ProjectilePool : MonoBehaviour
     {
         if (prefab == null) prefab = defaultProjectilePrefab;
 
+        if (_pool.Count > 0)
+        {
+            var proj = _pool.Dequeue();
+            proj.gameObject.SetActive(true);
+            return proj;
+        }
         var projObj = Instantiate(defaultProjectilePrefab, startPos, Quaternion.identity);
         return projObj;
     }
 
     public void Release(Projectile proj)
     {
-        Destroy(proj.gameObject);
-        Debug.LogWarning("Make actual pool");
+        proj.gameObject.SetActive(false);
+        _pool.Enqueue(proj);
     }
 }
