@@ -14,17 +14,18 @@ public class EnemySpawner : MonoBehaviour
         _enemyFactory = _factoryProvider.GetFactory(EnemyType.Bear);
     }
 
-    public EnemyBase Spawn(Vector2Int gridPos)
+    public EnemyBase Spawn(EnemyType type, Vector2Int gridPos)
     {
-        _grid??= GridManager.Instance;
+        _grid ??= ServiceLocator.Get<GridManager>();
         Vector3 world = _grid.GridToWorld(gridPos);
-        return Spawn(world);
+        return Spawn(type, world);
     }
 
-    public EnemyBase Spawn(Vector3 worldPos)
+    public EnemyBase Spawn(EnemyType type, Vector3 worldPos)
     {
-        _grid??= GridManager.Instance;
-        var enemy = _enemyFactory.Create(worldPos, _enemyFactory);
+        _grid ??= ServiceLocator.Get<GridManager>();
+        var factory = _factoryProvider.GetFactory(type);
+        var enemy = factory.Create(worldPos, factory);
 
         _enemyManager ??= ServiceLocator.Get<EnemyManager>();
         _enemyManager.RegisterEnemy(enemy);

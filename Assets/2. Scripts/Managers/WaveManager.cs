@@ -17,6 +17,9 @@ public class WaveManager : MonoBehaviour
     private int _currentWaveIndex = -1;
     private int _aliveCount = 0;
     private bool _isRunning = false;
+    
+    //Track running coroutines so they can be stopped cleanly.
+    private readonly List<Coroutine> _spawnCoroutines = new();
 
     private void Awake()
     {
@@ -45,21 +48,18 @@ public class WaveManager : MonoBehaviour
             Debug.Log($"Wave {i + 1} starting.");
             
             //Optional start delay.
-            yield return new WaitForSeconds(wave.startDelay);
+            yield return Helpers.GetWait(wave.startDelay);
 
-            _aliveCount = wave.enemyCount;
+            _aliveCount = 0; //Spawn entries track this.
             
-            //Spawn loop
-            for (int s = 0; s < wave.enemyCount; s++)
-            {
-                SpawnAndTrack();
-                yield return new WaitForSeconds(wave.spawnInterval);
-            }
-            
-            //Wait until all spawned enemies are gone (killed or reached goal)
-            while (_aliveCount > 0)
+            _spawnCoroutines.Clear();
+            foreach (var entry in wave.entries)
+                _spawnCoroutines.Add(StartCoroutine(RunSpawnEntry(entry)));
+
+            while (_aliveCount > 0 || AnyCoroutineActive())
                 yield return null;
             
+            _spawnCoroutines.Clear();
             OnWaveCompleted?.Invoke(i);
         }
         
@@ -67,15 +67,46 @@ public class WaveManager : MonoBehaviour
         _isRunning = false;
     }
 
-    private void SpawnAndTrack()
+    private bool AnyCoroutineActive()
     {
-        int randomIndex = GetRandomSpawnIndex(waves[_currentWaveIndex].spawnDistribution);
-        var spawnGridPos = ServiceLocator.Get<GridManager>().SpawnTile[randomIndex].GridPosition;
-        var enemy = spawner.Spawn(spawnGridPos);
-        
-        //Subscribe to removal events
-        enemy.OnRemoved += HandleEnemyRemoved;
+        foreach (var c in _spawnCoroutines)
+            if (c != null)
+                return true;
+
+        return false;
     }
+
+    private IEnumerator RunSpawnEntry(SpawnEntry entry)
+    {
+        yield return Helpers.GetWait(entry.startDelay);
+
+        for (int k = 0; k < entry.count; k++)
+        {
+            int[] dist = entry.spawnDistribution;
+            if(dist == null || dist.Length == 0)
+                dist = waves[_currentWaveIndex].defaultSpawnDistribution;
+            
+            int spawnIndex = GetRandomSpawnIndex(dist);
+            var spawnGridPos = ServiceLocator.Get<GridManager>().SpawnTile[spawnIndex].GridPosition;
+
+            var enemy = spawner.Spawn(entry.enemyType, spawnGridPos);
+            enemy.OnRemoved += HandleEnemyRemoved;
+
+            _aliveCount++;
+
+            yield return Helpers.GetWait(entry.interval);
+        }
+    }
+
+    // private void SpawnAndTrack()
+    // {
+    //     int randomIndex = GetRandomSpawnIndex(waves[_currentWaveIndex].spawnDistribution);
+    //     var spawnGridPos = ServiceLocator.Get<GridManager>().SpawnTile[randomIndex].GridPosition;
+    //     var enemy = spawner.Spawn(spawnGridPos);
+    //     
+    //     //Subscribe to removal events
+    //     enemy.OnRemoved += HandleEnemyRemoved;
+    // }
 
     private void HandleEnemyRemoved(EnemyBase enemy)
     {
@@ -105,6 +136,8 @@ public class WaveManager : MonoBehaviour
     public void StopWaves()
     {
         StopAllCoroutines();
+        _spawnCoroutines.Clear();
         _isRunning = false;
+        _aliveCount = 0;
     }
 }
