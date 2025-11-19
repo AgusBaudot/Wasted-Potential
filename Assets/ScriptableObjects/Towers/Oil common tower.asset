@@ -20,7 +20,8 @@ MonoBehaviour:
     or until the wave finishes. Enemies affected by oil are slowed down.
   towerPrefab: {fileID: 4351859319987583695, guid: 59448e0b3a9aa85419f7d7a7eb63cbd7, type: 3}
   ghostPrefab: {fileID: 4351859319987583695, guid: fed689070a399af4ebac57b2ff9456e8, type: 3}
-  damage: 0
+  damage: 2
   range: 1.5
   fireRate: 3
+  usesProjectile: 1
   ability: {fileID: 11400000, guid: 2dfb08cb201b3d04288986fcd774ff00, type: 2}

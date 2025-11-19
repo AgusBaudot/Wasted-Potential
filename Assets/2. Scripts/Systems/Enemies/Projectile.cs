@@ -21,10 +21,8 @@ public class Projectile : MonoBehaviour, IUpdatable
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Triggered");
         var enemy = other.GetComponent<EnemyBase>();
         if (enemy == null) return;
-        Debug.Log("Triggered with enemy");
 
         _source.NotifyHitEnemy(enemy, this);
         ReturnToPool();

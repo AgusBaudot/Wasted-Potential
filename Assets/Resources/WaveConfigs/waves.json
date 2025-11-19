@@ -1,0 +1,75 @@
+{
+  "waves": [
+    {
+      "startDelay": 2,
+        "defaultSpawnDistribution": [ 1 ],
+      "entries": [
+        { "enemyType": "Beaver", "count": 5, "interval": 2.0, "spawnDistribution": 100 }
+      ]
+    },
+    {
+      "startDelay": 2,
+        "defaultSpawnDistribution": [ 1 ],
+      "entries": [
+        { "enemyType": "Beaver", "count": 10, "interval": 2.0, "spawnDistribution": 100 }
+      ]
+    },
+    {
+      "startDelay": 2,
+        "defaultSpawnDistribution": [ 1 ],
+      "entries": [
+        { "enemyType": "Rabbit", "count": 7, "interval": 1.0, "spawnDistribution": 100 }
+      ]
+    },
+    {
+      "startDelay": 2,
+        "defaultSpawnDistribution": [ 1 ],
+      "entries": [
+        { "enemyType": "Beaver", "count": 5, "interval": 2.0, "spawnDistribution": 100 },
+        { "enemyType": "Rabbit", "count": 3, "interval": 1.0, "spawnDistribution": 100 },
+        { "enemyType": "Beaver", "count": 5, "interval": 2.0, "spawnDistribution": 100 },
+        { "enemyType": "Rabbit", "count": 3, "interval": 1.0, "spawnDistribution": 100 }
+      ]
+    },
+    {
+      "startDelay": 2,
+        "defaultSpawnDistribution": [ 1 ],
+      "entries": [
+        { "enemyType": "Bear", "count": 3, "interval": 2.5, "spawnDistribution": 100 }
+      ]
+    },
+    {
+      "startDelay": 2,
+        "defaultSpawnDistribution": [ 1 ],
+      "entries": [
+        { "enemyType": "Bear", "count": 1, "interval": 2.5, "spawnDistribution": 100 },
+        { "enemyType": "Rabbit", "count": 4, "interval": 1.0, "spawnDistribution": 100 },
+        { "enemyType": "Bear", "count": 1, "interval": 2.5, "spawnDistribution": 100 },
+        { "enemyType": "Rabbit", "count": 4, "interval": 1.0, "spawnDistribution": 100 }
+      ]
+    },
+    {
+      "startDelay": 2,
+        "defaultSpawnDistribution": [ 1 ],
+      "entries": [
+        { "enemyType": "Deer", "count": 4, "interval": 1.5, "spawnDistribution": 100 }
+      ]
+    },
+    {
+      "startDelay": 2,
+        "defaultSpawnDistribution": [ 1 ],
+      "entries": [
+        { "enemyType": "Deer", "count": 3, "interval": 1.5, "spawnDistribution": 100 },
+        { "enemyType": "Beaver", "count": 15, "interval": 2.0, "spawnDistribution": 100 }
+      ]
+    },
+    {
+      "startDelay": 2,
+        "defaultSpawnDistribution": [ 1 ],
+      "entries": [
+        { "enemyType": "Bear", "count": 5, "interval": 2.5, "spawnDistribution": 100 },
+        { "enemyType": "Beaver", "count": 13, "interval": 2.0, "spawnDistribution": 100 }
+      ]
+    }
+  ]
+}

@@ -25,6 +25,7 @@ public class CardData : ScriptableObject
     public int damage;
     public float range;
     public float fireRate;
+    public bool usesProjectile;
 
     [Header("Behaviour")]
     public TowerAbility ability;

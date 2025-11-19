@@ -15,5 +15,5 @@ MonoBehaviour:
   enemyName: Bear
   maxHealth: 40
   moveSpeed: 1.5
-  damageOnReach: 15
+  damageOnReach: 8
   image: {fileID: -1645247247, guid: 3760158a3c457dc48a5985830e54614e, type: 3}

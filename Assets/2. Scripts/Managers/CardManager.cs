@@ -53,7 +53,13 @@ public class CardManager : MonoBehaviour
     {
         var initial3 = new List<CardData>();
         for (int i = 0; i < 3; i++)
-            initial3.Add(initialPool[Random.Range(0, initialPool.Count)]);
+        {
+            var card = initialPool[Random.Range(0, initialPool.Count)];
+            initial3.Add(card);
+            initialPool.Remove(card);
+            //if (globalPool.Contains(card))
+            //    globalPool.Remove(card);
+        }
         
         _cardVisualizer.ShowInitialCards(initial3);
     }
@@ -82,7 +88,7 @@ public class CardManager : MonoBehaviour
     {
         //This is where we trigger the UI to show 3 random cards form the globalPool. The UI would then call back with the chosen card.
         Debug.LogWarning("Present Card Choice");
-        
+
         //For now, we simulate the player choosing one randomly.
         CardData chosenCard = globalPool[Random.Range(0, globalPool.Count)];
         _playerHand.AddCard(chosenCard);

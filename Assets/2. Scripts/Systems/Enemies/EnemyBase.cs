@@ -5,7 +5,8 @@ public enum EnemyStatus
 {
     None,
     Dot,
-    Slow
+    Slow,
+    Stun
 }
 
 public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargetable
@@ -90,7 +91,10 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
 
         //Since speed represents seconds per tile (less speed number actually means faster), divide instead of multiply.
         float effectiveSecondsPerTile = _baseMoveSpeed / Mathf.Clamp(_moveSpeedMultiplier, 0.0001f, 1000f);
-        transform.position = Vector3.MoveTowards(transform.position, _targetPos, deltaTime / effectiveSecondsPerTile);
+        if (_status != EnemyStatus.Stun)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, _targetPos, deltaTime / effectiveSecondsPerTile);
+        }
     }
 
     protected void ProcessStatus(float deltaTime)
@@ -156,6 +160,13 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
         //Reset DOT accumulator so old DOT doesn't apply later (statuses are replaced)
         _dotTickAcc = 0;
         _dotDmgPerSec = 0;
+    }
+
+    //Public API used by tower abilities
+    public void ApplyStun(float time)
+    {
+        _statusTimer = time;
+        _status = EnemyStatus.Stun;
     }
 
     public virtual void Die()

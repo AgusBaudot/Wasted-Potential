@@ -2882,6 +2882,55 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &414506579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 414506580}
+  - component: {fileID: 414506581}
+  m_Layer: 4
+  m_Name: DELETE
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &414506580
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 414506579}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &414506581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 414506579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: 10d7e6794319b47449107819c817afe5, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 0
 --- !u!1 &433211635
 GameObject:
   m_ObjectHideFlags: 0
@@ -3137,6 +3186,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420035}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3278,6 +3328,66 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 0
+--- !u!114 &519420035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 519420032}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 0
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
 --- !u!1 &578959174
 GameObject:
   m_ObjectHideFlags: 0
@@ -3975,6 +4085,8 @@ GameObject:
   - component: {fileID: 977167670}
   - component: {fileID: 977167671}
   - component: {fileID: 977167672}
+  - component: {fileID: 977167673}
+  - component: {fileID: 977167674}
   m_Layer: 0
   m_Name: Enemy factory
   m_TagString: Untagged
@@ -4025,6 +4137,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rabbitPrefab: {fileID: -7406292473001852407, guid: 732fad8664e096f42b3b4aa5095b6cac, type: 3}
   rabbitData: {fileID: 11400000, guid: 38753e74005714d4e9604fd220f13db3, type: 2}
+--- !u!114 &977167673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977167669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35b1801dd223c2849a31a4ae565a772c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deerPrefab: {fileID: -9181129079280057222, guid: 81bfbc33dc2cdba46b77b7434f6f33d4, type: 3}
+  deerData: {fileID: 11400000, guid: bbfdbfbf812b4fe4e9682eb87ea6657c, type: 2}
+--- !u!114 &977167674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977167669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baa96fdad90416647b989eabc1d5dc63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  beaverPrefab: {fileID: -6675311864334700061, guid: e920278417d7ee94cbe7fa6c9b18d94c, type: 3}
+  beaverData: {fileID: 11400000, guid: b78ee777e4528124b9a1bf8f0f12aaa8, type: 2}
 --- !u!1 &995232553
 GameObject:
   m_ObjectHideFlags: 0
@@ -4478,6 +4618,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bearFactory: {fileID: 977167671}
   rabbitFactory: {fileID: 977167672}
+  deerFactory: {fileID: 977167673}
+  beaverFactory: {fileID: 977167674}
 --- !u!1 &1287628668
 GameObject:
   m_ObjectHideFlags: 0
@@ -5134,9 +5276,11 @@ MonoBehaviour:
   initialPool:
   - {fileID: 11400000, guid: f2502b3890e36bb49baf4f52afffd25c, type: 2}
   - {fileID: 11400000, guid: 0c93225541c7e234b9622124821f07cd, type: 2}
+  - {fileID: 11400000, guid: 660d7fbab77282440a4bc54d34776394, type: 2}
   globalPool:
   - {fileID: 11400000, guid: f2502b3890e36bb49baf4f52afffd25c, type: 2}
   - {fileID: 11400000, guid: 0c93225541c7e234b9622124821f07cd, type: 2}
+  - {fileID: 11400000, guid: 660d7fbab77282440a4bc54d34776394, type: 2}
   cardsContainer: {fileID: 995232554}
   cardPrefab: {fileID: 6169785189784625387, guid: 81a67c6003ff21640a4ff279d79d9133, type: 3}
   initialCardsPanel: {fileID: 1203472832}
@@ -5527,18 +5671,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
-  - enemyCount: 1
-    spawnInterval: 1
-    startDelay: 0
-    spawnDistribution: 64000000
-  - enemyCount: 3
-    spawnInterval: 4
-    startDelay: 4
-    spawnDistribution: 64000000
-  - enemyCount: 5
-    spawnInterval: 2
-    startDelay: 2
-    spawnDistribution: 64000000
+  - startDelay: 0
+    entries: []
+    defaultSpawnDistribution: 
+  - startDelay: 4
+    entries: []
+    defaultSpawnDistribution: 
+  - startDelay: 2
+    entries: []
+    defaultSpawnDistribution: 
   spawner: {fileID: 1204056628}
 --- !u!1 &1729686974
 GameObject:
@@ -6246,3 +6387,4 @@ SceneRoots:
   - {fileID: 835892511}
   - {fileID: 1123016640}
   - {fileID: 1018104181}
+  - {fileID: 414506580}

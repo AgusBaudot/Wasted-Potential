@@ -17,13 +17,11 @@ public class WaveManager : MonoBehaviour
     private int _currentWaveIndex = -1;
     private int _aliveCount = 0;
     private bool _isRunning = false;
-    
-    //Track running coroutines so they can be stopped cleanly.
-    private readonly List<Coroutine> _spawnCoroutines = new();
 
     private void Awake()
     {
         ServiceLocator.Register(this);
+        waves = WaveJsonLoader.LoadWavesFromResources("WaveConfigs/waves");
     }
 
     private void OnDestroy()
@@ -50,30 +48,19 @@ public class WaveManager : MonoBehaviour
             //Optional start delay.
             yield return Helpers.GetWait(wave.startDelay);
 
-            _aliveCount = 0; //Spawn entries track this.
-            
-            _spawnCoroutines.Clear();
-            foreach (var entry in wave.entries)
-                _spawnCoroutines.Add(StartCoroutine(RunSpawnEntry(entry)));
+            _aliveCount = ComputeEnemyCount(wave);
 
-            while (_aliveCount > 0 || AnyCoroutineActive())
+            foreach (var entry in wave.entries)
+                StartCoroutine(RunSpawnEntry(entry));
+
+            while (_aliveCount > 0)
                 yield return null;
             
-            _spawnCoroutines.Clear();
             OnWaveCompleted?.Invoke(i);
         }
         
         AllWavesCompleted?.Invoke();
         _isRunning = false;
-    }
-
-    private bool AnyCoroutineActive()
-    {
-        foreach (var c in _spawnCoroutines)
-            if (c != null)
-                return true;
-
-        return false;
     }
 
     private IEnumerator RunSpawnEntry(SpawnEntry entry)
@@ -92,10 +79,16 @@ public class WaveManager : MonoBehaviour
             var enemy = spawner.Spawn(entry.enemyType, spawnGridPos);
             enemy.OnRemoved += HandleEnemyRemoved;
 
-            _aliveCount++;
-
             yield return Helpers.GetWait(entry.interval);
         }
+    }
+
+    private int ComputeEnemyCount(Wave wave)
+    {
+        int total = 0;
+        foreach (var entry in wave.entries)
+            total += entry.count;
+        return total;
     }
 
     // private void SpawnAndTrack()
@@ -136,7 +129,6 @@ public class WaveManager : MonoBehaviour
     public void StopWaves()
     {
         StopAllCoroutines();
-        _spawnCoroutines.Clear();
         _isRunning = false;
         _aliveCount = 0;
     }

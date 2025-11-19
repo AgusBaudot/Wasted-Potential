@@ -15,5 +15,5 @@ MonoBehaviour:
   enemyName: Beaver
   maxHealth: 20
   moveSpeed: 1
-  damageOnReach: 5
+  damageOnReach: 2
   image: {fileID: 259413828, guid: 3760158a3c457dc48a5985830e54614e, type: 3}

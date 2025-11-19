@@ -12,6 +12,8 @@ public class Tower : MonoBehaviour, IUpdatable
     public CardData Data { get; private set; }
 
     private ITargetingStrategy _strategy;
+    private IAttackBehavior _attackBehavior;
+
     private bool _canShoot = true;
     private float _fireTimer;
     private UpdateManager _updateManager;
@@ -34,6 +36,9 @@ public class Tower : MonoBehaviour, IUpdatable
         _towerManager.RegisterTower(this);
 
         _strategy = new PickClosest();
+        _attackBehavior = data.usesProjectile
+            ? new ProjectileAttack()
+            : new InstantAttack();
 
         _canShoot = true;
         _fireTimer = 0;
@@ -86,16 +91,18 @@ public class Tower : MonoBehaviour, IUpdatable
         if (target == null || !target.IsAlive)
             return;
 
-        // Deal damage
-        if (Data.ability != null)
-        {
-            //Make OnFire spawn projectile and notify when OnEnemyHit occurs.
-            Data.ability.OnFire(this, target.gameObject);
+        _attackBehavior.Execute(this, target);
 
-            //var proj = ServiceLocator.Get<ProjectilePool>().Spawn(customProjectilePrefab, transform.position);
-            var proj = ServiceLocator.Get<ProjectilePool>().Spawn(transform.position);
-            proj.Init(target, this, Data.damage);
-        }
+        //// Deal damage
+        //if (Data.ability != null)
+        //{
+        //    //Make OnFire spawn projectile and notify when OnEnemyHit occurs.
+        //    Data.ability.OnFire(this, target.gameObject);
+
+        //    //var proj = ServiceLocator.Get<ProjectilePool>().Spawn(customProjectilePrefab, transform.position);
+        //    var proj = ServiceLocator.Get<ProjectilePool>().Spawn(transform.position);
+        //    proj.Init(target, this, Data.damage);
+        //}
 
         // Begin cooldown
         _canShoot = false;

@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 [CreateAssetMenu(menuName = "TD/Towers/Ability/Oil Slow")]
 public class OilAbility : TowerAbility
@@ -13,6 +14,7 @@ public class OilAbility : TowerAbility
         var oilGO = Instantiate(oilPrefab, enemy.transform.position, Quaternion.identity);
         oilGO.Init(lifeTime);
         oilGO.OnLifeTimeExpired += HandleOnLifeTimeExpired;
+        enemy.ApplyDamage(tower.Data.damage, tower.gameObject);
         enemy.ApplySlow(slowFactor, lifeTime);
         return true;
     }

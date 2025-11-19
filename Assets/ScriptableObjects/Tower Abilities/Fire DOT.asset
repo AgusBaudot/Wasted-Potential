@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Fire DOT
   m_EditorClassIdentifier: 
   dotDuration: 3
-  dotDamagePerSecond: 3
+  dotDamagePerSecond: 5
