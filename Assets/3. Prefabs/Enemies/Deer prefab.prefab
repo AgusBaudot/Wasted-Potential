@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2792483538607587580}
   - component: {fileID: 2580959699248702582}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 8231883156997012303}
   - component: {fileID: -9181129079280057222}
   - component: {fileID: -2381845990200645333}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Deer prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,13 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class InstantAttack : IAttackBehavior
+[CreateAssetMenu(menuName = "TD/Attacks/Instant attack")]
+public class InstantAttack : TowerAbility
 {
-    public void Execute(Tower tower, EnemyBase target)
+    public GameObject visualVFX; // Optional visual
+
+    public override void Fire(Tower tower, EnemyBase target)
     {
-        //Instant attacks are done in the "Fire" event.
-        if (tower.Data.ability != null)
-            tower.Data.ability.OnFire(tower, target);
+        // 1. Visuals
+        if (visualVFX) Instantiate(visualVFX, tower.transform.position, Quaternion.identity);
+
+        // 2. Logic: Since it's instant, we manually trigger the Hit phase immediately.
+        OnEnemyHit(tower, target);
     }
+
+    // We use the base OnEnemyHit (deals damage), 
+    // or we can override it here to add "Chain Lightning" etc.
 }

@@ -6,7 +6,12 @@ public abstract class TowerAbility : ScriptableObject
 
     public virtual void OnTick(Tower tower, float deltaTime) { }
 
-    public virtual void OnFire(Tower tower, EnemyBase target) { }
+    public abstract void Fire(Tower tower, EnemyBase target);
 
-    public virtual bool OnEnemyHit(Tower tower, EnemyBase enemy/*, Projectile projectile = null*/) { return false; }
+    public virtual void OnEnemyHit(Tower tower, EnemyBase target)
+    {
+        //Default behvaior: just deal damage.
+        if (target is ITargetable t)
+            t.ApplyDamage(tower.Data.damage, tower.gameObject);
+    }
 }

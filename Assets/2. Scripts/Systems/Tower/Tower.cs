@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Tower : MonoBehaviour, IUpdatable
 {
@@ -12,7 +11,6 @@ public class Tower : MonoBehaviour, IUpdatable
     public CardData Data { get; private set; }
 
     private ITargetingStrategy _strategy;
-    private IAttackBehavior _attackBehavior;
 
     private bool _canShoot = true;
     private float _fireTimer;
@@ -36,9 +34,6 @@ public class Tower : MonoBehaviour, IUpdatable
         _towerManager.RegisterTower(this);
 
         _strategy = new PickClosest();
-        _attackBehavior = data.usesProjectile
-            ? new ProjectileAttack()
-            : new InstantAttack();
 
         _canShoot = true;
         _fireTimer = 0;
@@ -53,6 +48,8 @@ public class Tower : MonoBehaviour, IUpdatable
 
     public void Tick(float deltaTime)
     {
+        Data.ability?.OnTick(this, deltaTime);
+
         if (_canShoot)
         {
             TryAttack();
@@ -66,8 +63,6 @@ public class Tower : MonoBehaviour, IUpdatable
             _fireTimer = 0;
             TryAttack();
         }
-
-        Data.ability?.OnTick(this, deltaTime);
     }
 
     private void TryAttack()
@@ -91,18 +86,7 @@ public class Tower : MonoBehaviour, IUpdatable
         if (target == null || !target.IsAlive)
             return;
 
-        _attackBehavior.Execute(this, target);
-
-        //// Deal damage
-        //if (Data.ability != null)
-        //{
-        //    //Make OnFire spawn projectile and notify when OnEnemyHit occurs.
-        //    Data.ability.OnFire(this, target.gameObject);
-
-        //    //var proj = ServiceLocator.Get<ProjectilePool>().Spawn(customProjectilePrefab, transform.position);
-        //    var proj = ServiceLocator.Get<ProjectilePool>().Spawn(transform.position);
-        //    proj.Init(target, this, Data.damage);
-        //}
+        Data.ability.Fire(this, target);
 
         // Begin cooldown
         _canShoot = false;
@@ -111,14 +95,7 @@ public class Tower : MonoBehaviour, IUpdatable
 
     public void NotifyHitEnemy(EnemyBase enemy, Projectile projectile)
     {
-        var handled = Data.ability.OnEnemyHit(this, enemy);
-
-        //Analyze return of OnEnemyHit to know if I need to call ApplyDamage from here.
-        if (!handled)
-        {
-            Debug.LogWarning("Ability did not handle OnEnemyHit, applying damage directly.");
-            if (enemy is ITargetable t) t.ApplyDamage(Data.damage, gameObject);
-        }
+        Data.ability.OnEnemyHit(this, enemy);
     }
 
     public void OnDrawGizmos()

@@ -36,6 +36,8 @@ public class Projectile : MonoBehaviour, IUpdatable
 
     public void Tick(float deltaTime)
     {
+        if (!_target.isActiveAndEnabled) 
+            ReturnToPool();
         transform.position = Vector2.MoveTowards(transform.position, _target.WorldPosition, Time.deltaTime * speed); 
     }
 }

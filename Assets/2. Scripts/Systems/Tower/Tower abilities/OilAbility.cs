@@ -1,22 +1,20 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 [CreateAssetMenu(menuName = "TD/Towers/Ability/Oil Slow")]
-public class OilAbility : TowerAbility
+public class OilAbility : ProjectileAttack
 {
     public OilLifeTime oilPrefab; //Prefab with sprite renderer & OilLifeTime component
     [Tooltip("Speed will be base/factor")]
     public float slowFactor = 0.5f;
     public float lifeTime = 5f;
 
-    public override bool OnEnemyHit(Tower tower, EnemyBase enemy)
+    public override void OnEnemyHit(Tower tower, EnemyBase enemy)
     {
         var oilGO = Instantiate(oilPrefab, enemy.transform.position, Quaternion.identity);
         oilGO.Init(lifeTime);
         oilGO.OnLifeTimeExpired += HandleOnLifeTimeExpired;
         enemy.ApplyDamage(tower.Data.damage, tower.gameObject);
         enemy.ApplySlow(slowFactor, lifeTime);
-        return true;
     }
 
     private void HandleOnLifeTimeExpired()

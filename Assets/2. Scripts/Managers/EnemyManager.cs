@@ -39,7 +39,6 @@ public class EnemyManager : MonoBehaviour
             Vector3 diff = enemy.transform.position - position;
             if (Mathf.Abs(diff.x) <= range && Mathf.Abs(diff.y) <= range)
                 list.Add(enemy);
-            //if ((enemy.transform.position - position).sqrMagnitude <= range * range)
         }
         return list;
     }
