@@ -29,7 +29,7 @@ public class HealthBarUI : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    private void HandleOnHealthChanged(int current, int max) => _slider.value = current;
+    private void HandleOnHealthChanged(float current, int max) => _slider.value = current;
     private void HandleOnDeath() => gameObject.SetActive(false);
 
     public void Unbind()

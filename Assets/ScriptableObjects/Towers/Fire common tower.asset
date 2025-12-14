@@ -20,8 +20,8 @@ MonoBehaviour:
     to them, they will burn way more!
   towerPrefab: {fileID: 4351859319987583695, guid: 3afd684114e0aa7458717e0edc94cbdc, type: 3}
   ghostPrefab: {fileID: 4351859319987583695, guid: f83810f51e267a34a9fd3e3c0f291a18, type: 3}
-  damage: 5
+  damage: 0
   range: 1.5
   fireRate: 1
-  usesProjectile: 1
-  ability: {fileID: 11400000, guid: 5a992ffae73754a4cb894e0961efd336, type: 2}
+  ability: {fileID: 11400000, guid: 9381996e8608bbb4588ef06b9cdc4a8c, type: 2}
+  onHitStatus: {fileID: 11400000, guid: f5ea7ab33de527f4eb8787d9f087f09c, type: 2}

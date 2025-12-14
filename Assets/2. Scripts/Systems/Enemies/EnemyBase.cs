@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum EnemyStatus
@@ -22,6 +23,7 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
     public bool IsAlive => Health.Current > 0;
     
     protected EnemyStatus _status = EnemyStatus.None;
+    protected EnemyStatusManager _statusManager;
     protected float _statusTimer = 0f;
     
     //DOT specific.
@@ -62,18 +64,32 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
         }
         Health.Reset();
         ServiceLocator.Get<HealthBarManager>().Register(Health, transform);
+
+        _statusManager = new EnemyStatusManager(this);
     }
 
     public virtual void Tick(float deltaTime)
     {
+        //1. Tick the manager since it handles DoT, expirations and reactions.
+        _statusManager.Tick(deltaTime);
+        
+        //2. Check stun via manager.
+        if (_statusManager.IsStunned())
+        {
+            //Visual feedback for stunned could go here.
+            return;
+        }
+
+        #region Tile logic
+        
+        //Navigation logic.
         if (currentTile == null || currentTile.Type == GridTileType.Goal)
         {
             ReachedEnd();
             return;
         }
         
-        ProcessStatus(deltaTime);
-
+        //Tile switching logic.
         if (Vector3.Distance(transform.position, _targetPos) < 0.1f)
         {
             transform.position = _targetPos;
@@ -89,12 +105,15 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
             _targetPos = nextTile.Center;
         }
 
-        //Since speed represents seconds per tile (less speed number actually means faster), divide instead of multiply.
-        float effectiveSecondsPerTile = _baseMoveSpeed / Mathf.Clamp(_moveSpeedMultiplier, 0.0001f, 1000f);
-        if (_status != EnemyStatus.Stun)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, _targetPos, deltaTime / effectiveSecondsPerTile);
-        }
+        #endregion
+        
+        //3. Get speed via manager.
+        float currentSpeedMod = _statusManager.GetSpeedMultiplier();
+        
+        //Safety clamp to prevent negative speed or division by zero errors.
+        float effectiveSpeed = _baseMoveSpeed / Mathf.Clamp(currentSpeedMod, 0.01f, 5);
+
+        transform.position = Vector3.MoveTowards(transform.position, _targetPos, deltaTime / effectiveSpeed);
     }
 
     protected void ProcessStatus(float deltaTime)
@@ -126,48 +145,51 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
 
     protected void ClearStatus()
     {
-        _status = EnemyStatus.None;
-        _statusTimer = 0f;
-        _dotDmgPerSec = 0;
-        _dotTickAcc = 0;
-        _moveSpeedMultiplier = 1;
+        // _status = EnemyStatus.None;
+        // _statusTimer = 0f;
+        // _dotDmgPerSec = 0;
+        // _dotTickAcc = 0;
+        // _moveSpeedMultiplier = 1;
+        _statusManager?.ClearAll();
     }
 
-    public virtual void ApplyDamage(int amount, GameObject source)
+    //API needed by StatusEffects that do Instant Damage.
+    public virtual void ApplyDamage(float amount, GameObject source)
     {
         Health.TakeDamage(amount);
-        //Handle hit reactions, damage source, etc.
     }
 
-    //Public API used by tower abilities
-    public void ApplyDot(int dmgPerSec, float duration)
-    {
-        //Replace current status with DOT.
-        _status = EnemyStatus.Dot;
-        _statusTimer = duration;
-        _dotDmgPerSec = Mathf.Max(0, dmgPerSec);
-        _dotTickAcc = 0; //Start tick fresh.
-        //Optionally: trigger VFX or status icon.
-    }
+    public void ApplyStatus(StatusEffect def) => _statusManager.Apply(def);
 
-    //Public API used by tower abilities
-    public void ApplySlow(float factor, float duration)
-    {
-        //Replace current status ith Slow.
-        _status = EnemyStatus.Slow;
-        _statusTimer = duration;
-        _moveSpeedMultiplier = Mathf.Clamp(factor, 0.0001f, 10f);
-        //Reset DOT accumulator so old DOT doesn't apply later (statuses are replaced)
-        _dotTickAcc = 0;
-        _dotDmgPerSec = 0;
-    }
-
-    //Public API used by tower abilities
-    public void ApplyStun(float time)
-    {
-        _statusTimer = time;
-        _status = EnemyStatus.Stun;
-    }
+    // //Public API used by tower abilities
+    // public void ApplyDot(int dmgPerSec, float duration)
+    // {
+    //     //Replace current status with DOT.
+    //     _status = EnemyStatus.Dot;
+    //     _statusTimer = duration;
+    //     _dotDmgPerSec = Mathf.Max(0, dmgPerSec);
+    //     _dotTickAcc = 0; //Start tick fresh.
+    //     //Optionally: trigger VFX or status icon.
+    // }
+    //
+    // //Public API used by tower abilities
+    // public void ApplySlow(float factor, float duration)
+    // {
+    //     //Replace current status ith Slow.
+    //     _status = EnemyStatus.Slow;
+    //     _statusTimer = duration;
+    //     _moveSpeedMultiplier = Mathf.Clamp(factor, 0.0001f, 10f);
+    //     //Reset DOT accumulator so old DOT doesn't apply later (statuses are replaced)
+    //     _dotTickAcc = 0;
+    //     _dotDmgPerSec = 0;
+    // }
+    //
+    // //Public API used by tower abilities
+    // public void ApplyStun(float time)
+    // {
+    //     _statusTimer = time;
+    //     _status = EnemyStatus.Stun;
+    // }
 
     public virtual void Die()
     {

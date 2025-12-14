@@ -28,4 +28,5 @@ public class CardData : ScriptableObject
 
     [Header("Behaviour")]
     public TowerAbility ability;
+    public StatusEffect onHitStatus;
 }

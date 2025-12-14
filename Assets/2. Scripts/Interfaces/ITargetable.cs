@@ -6,5 +6,5 @@ public interface ITargetable
 
     bool IsAlive { get; }
 
-    void ApplyDamage(int amount, GameObject source);
+    void ApplyDamage(float amount, GameObject source);
 }

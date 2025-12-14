@@ -22,6 +22,6 @@ MonoBehaviour:
   ghostPrefab: {fileID: 4351859319987583695, guid: fed689070a399af4ebac57b2ff9456e8, type: 3}
   damage: 2
   range: 1.5
-  fireRate: 3
-  usesProjectile: 1
-  ability: {fileID: 11400000, guid: 2dfb08cb201b3d04288986fcd774ff00, type: 2}
+  fireRate: 2
+  ability: {fileID: 11400000, guid: 881a0f7498e3e73408689b27c316b7e6, type: 2}
+  onHitStatus: {fileID: 11400000, guid: 2a27635838588d747a909fea5d81ab0e, type: 2}

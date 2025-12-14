@@ -10,8 +10,17 @@ public abstract class TowerAbility : ScriptableObject
 
     public virtual void OnEnemyHit(Tower tower, EnemyBase target)
     {
-        //Default behvaior: just deal damage.
+        //1. Standard damage
         if (target is ITargetable t)
+        {
             t.ApplyDamage(tower.Data.damage, tower.gameObject);
+        }
+        
+        //2. Standard status application.
+        //The ability automatically checks if the CardData has a status to apply.
+        if (tower.Data.onHitStatus != null)
+        {
+            target.ApplyStatus(tower.Data.onHitStatus);
+        }
     }
 }

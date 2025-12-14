@@ -2,8 +2,8 @@ using System;
 
 public interface IHasHealth
 {
-    int Current { get; }
+    float Current { get; }
     int Max { get; }
-    event Action<int, int> OnHealthChanged;
+    event Action<float, int> OnHealthChanged;
     event Action OnDeath;
 }
