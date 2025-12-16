@@ -19,16 +19,18 @@ public class CardVisualizer : IDisposable
     private RectTransform _cardsContainer;
     private RectTransform _initialCardsContainer;
     private GameObject _cardPrefab;
+    private GameObject _initialCardPrefab;
     private List<GameObject> _cards = new();
     private PlayerHand _playerHand;
-    private float _cardSpacing = 130;
+    private float _cardSpacing = 200;
     private GameObject _selectedCard;
 
-    public CardVisualizer(RectTransform cardsContainer, RectTransform initialCardsPanel, GameObject cardPrefab, PlayerHand playerHand)
+    public CardVisualizer(RectTransform cardsContainer, RectTransform initialCardsPanel, GameObject cardPrefab, GameObject initialCardPrefab, PlayerHand playerHand)
     {
         _cardsContainer = cardsContainer;
         _initialCardsContainer = initialCardsPanel;
         _cardPrefab = cardPrefab;
+        _initialCardPrefab = initialCardPrefab;
         _playerHand = playerHand;
 
         playerHand.OnCardAdded += HandleCardAdded;
@@ -62,11 +64,8 @@ public class CardVisualizer : IDisposable
 
         for (int i = 0; i < initialCards.Count; i++)
         {
-            var go = GameObject.Instantiate(_cardPrefab, _initialCardsContainer, false);
+            var go = GameObject.Instantiate(_initialCardPrefab, _initialCardsContainer, false);
             var rt = go.GetComponent<RectTransform>();
-            rt.anchorMin = rt.anchorMax = Vector2.one / 2;
-            rt.pivot = Vector2.one / 2;
-            rt.sizeDelta *= Vector2.one * 1.5f;
 
             //Center arrangement for exactly 3 cards
             float offset = 0f;

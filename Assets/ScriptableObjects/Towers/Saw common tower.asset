@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e34e216798b9544dad20149b89aab4f, type: 3}
+  m_Name: Saw common tower
+  m_EditorClassIdentifier: 
+  cardName: Industrial Saw
+  rarity: 0
+  cost: 40
+  image: {fileID: 0}
+  description: Basic DPS factory that quickly attacks every half a second, dealing
+    3 damage per hit and acting as a core tool to survive waves.
+  towerPrefab: {fileID: 4351859319987583695, guid: dfb2a0235aa72474899b8af707e3ddd4, type: 3}
+  ghostPrefab: {fileID: 4351859319987583695, guid: 6165bc8cf4e9dc742b04c43a8b1e29df, type: 3}
+  damage: 3
+  range: 1.5
+  fireRate: 0.5
+  ability: {fileID: 11400000, guid: 9381996e8608bbb4588ef06b9cdc4a8c, type: 2}
+  onHitStatus: {fileID: 0}

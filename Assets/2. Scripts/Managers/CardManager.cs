@@ -15,6 +15,7 @@ public class CardManager : MonoBehaviour
     [Header("Cards UI")]
     [SerializeField] private RectTransform cardsContainer;
     [SerializeField] private GameObject cardPrefab;
+    [SerializeField] private GameObject initialCardPrefab;
 
     [Header("UI Containers")]
     [SerializeField] private RectTransform initialCardsPanel;
@@ -32,7 +33,7 @@ public class CardManager : MonoBehaviour
     private void Awake()
     {
         _playerHand = new PlayerHand();
-        _cardVisualizer = new CardVisualizer(cardsContainer, initialCardsPanel, cardPrefab, _playerHand);
+        _cardVisualizer = new CardVisualizer(cardsContainer, initialCardsPanel, cardPrefab, initialCardPrefab, _playerHand);
         ServiceLocator.Register(this);
     }
 
@@ -57,8 +58,8 @@ public class CardManager : MonoBehaviour
             var card = initialPool[Random.Range(0, initialPool.Count)];
             initial3.Add(card);
             initialPool.Remove(card);
-            //if (globalPool.Contains(card))
-            //    globalPool.Remove(card);
+            if (globalPool.Contains(card))
+                globalPool.Remove(card);
         }
         
         _cardVisualizer.ShowInitialCards(initial3);

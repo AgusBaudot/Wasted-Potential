@@ -11,15 +11,7 @@ public class AreaInstantAttack : InstantAttack
         {
             if (hit.TryGetComponent(out EnemyBase enemy))
             {
-                //1. Deal damage
-                enemy.ApplyDamage(tower.Data.damage, tower.gameObject);
-                
-                //2. Apply status (Generic)
-                //This can apply Stun, Poison, or whatever is in the CardData.
-                if (tower.Data.onHitStatus != null)
-                {
-                    enemy.ApplyStatus(tower.Data.onHitStatus);
-                }
+                OnEnemyHit(tower, enemy);
             }
         }
     }

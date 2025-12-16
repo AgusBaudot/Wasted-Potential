@@ -446,27 +446,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Levels Tilemap_17
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 256
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dfb3b5d122fd1164db1068eb5c56cacb
-      internalID: -1580356641
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Spawn_horizontal
       rect:
         serializedVersion: 2

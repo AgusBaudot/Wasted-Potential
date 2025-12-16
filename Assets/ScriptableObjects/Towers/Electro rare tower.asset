@@ -15,7 +15,7 @@ MonoBehaviour:
   cardName: Electro coil
   rarity: 1
   cost: 60
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 77ac3a8e4a59b764290f2d03b1066ff1, type: 3}
   description: Fires a beam (lightning?) that jumps from one enemy to another, hitting
     multiple nearby targets up to a maximum of 5. Each bounce decreases damage dealt
     by 1.

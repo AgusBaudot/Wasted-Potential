@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e34e216798b9544dad20149b89aab4f, type: 3}
+  m_Name: Carnage epic tower
+  m_EditorClassIdentifier: 
+  cardName: Carnage
+  rarity: 2
+  cost: 80
+  image: {fileID: 0}
+  description: Factory that can permanently disable up to 3 enemies per wave. When
+    enemy enters its range, it is trapped inside the factory for the rest of the
+    wave.
+  towerPrefab: {fileID: 4351859319987583695, guid: 2000a1d542d3f7f4aba44f08db0d98b5, type: 3}
+  ghostPrefab: {fileID: 4351859319987583695, guid: 558611ea4a7f88c4b9b5f930bbfbf5ba, type: 3}
+  damage: 10000
+  range: 1.5
+  fireRate: 4
+  ability: {fileID: 11400000, guid: d5bcd910111a4e944830dde39668645a, type: 2}
+  onHitStatus: {fileID: 0}

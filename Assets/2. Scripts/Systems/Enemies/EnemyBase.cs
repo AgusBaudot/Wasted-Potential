@@ -21,6 +21,7 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
 
     public Vector3 WorldPosition => transform.position;
     public bool IsAlive => Health.Current > 0;
+    public EnemyStatusManager StatusManager => _statusManager;
     
     protected EnemyStatus _status = EnemyStatus.None;
     protected EnemyStatusManager _statusManager;
@@ -145,11 +146,6 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
 
     protected void ClearStatus()
     {
-        // _status = EnemyStatus.None;
-        // _statusTimer = 0f;
-        // _dotDmgPerSec = 0;
-        // _dotTickAcc = 0;
-        // _moveSpeedMultiplier = 1;
         _statusManager?.ClearAll();
     }
 

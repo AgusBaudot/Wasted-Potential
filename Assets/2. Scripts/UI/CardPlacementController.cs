@@ -1,9 +1,11 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class CardPlacementController : MonoBehaviour, IUpdatable
 {
     [SerializeField] private CardManager _cardManager;
+    [SerializeField] private TextMeshProUGUI _resourcesText;
     
     private CardVisualizer _cardVisualizer;
     private PlayerHand _playerHand;
@@ -39,10 +41,6 @@ public class CardPlacementController : MonoBehaviour, IUpdatable
     {
         if (card == null) 
             CancelSelection();
-        
-        var resourceManager = ServiceLocator.Get<ResourceManager>();
-        if (resourceManager != null && !resourceManager.CanAfford(card.cost))
-            return;
         
         _selectedCard = card;
         CreateGhost();
@@ -111,8 +109,14 @@ public class CardPlacementController : MonoBehaviour, IUpdatable
         }
         else
         {
-            //failed (affordability or other), keep selection active or notify player.
-            //Shake resources text?
+            //If fail was because of insufficient resources.
+            if (!ServiceLocator.Get<ResourceManager>().CanAfford(_selectedCard.cost))
+            {
+                CancelSelection();
+                if (_resourcesText.TryGetComponent<UITextShake>(out var shaker))
+                    shaker.Shake();
+                Debug.LogError("Play SFX");
+            }
         }
     }
 
