@@ -20,7 +20,7 @@ MonoBehaviour:
   isStun: 0
   instantDamage: 0
   damagePerTick: 0
-  tickInterval: 0
+  tickInterval: 1
   reactions:
   - otherId: Fire
     resultEffect: {fileID: 11400000, guid: 7ebaefd4dba8d47499034439eec38b93, type: 2}

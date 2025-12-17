@@ -25,4 +25,4 @@ MonoBehaviour:
   range: 1.5
   fireRate: 5
   ability: {fileID: 11400000, guid: 39b8fb340b7190e478076d772172922a, type: 2}
-  onHitStatus: {fileID: 0}
+  onHitStatus: {fileID: 11400000, guid: e01db8d1e865b194cb04710fbb565b6e, type: 2}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class EnemyStatusManager
 {
@@ -72,7 +73,7 @@ public class EnemyStatusManager
         {
             var inst = kvp.Value;
             if (inst.definition.reactions == null) continue;
-
+        
             foreach (var r in inst.definition.reactions)
             {
                 if (r.otherId == def.id)

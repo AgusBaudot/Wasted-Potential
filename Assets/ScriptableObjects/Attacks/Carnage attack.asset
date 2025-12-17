@@ -13,3 +13,8 @@ MonoBehaviour:
   m_Name: Carnage attack
   m_EditorClassIdentifier: 
   visualVFX: {fileID: 0}
+  tiers:
+  - {fileID: 21300000, guid: 35cd2e2d52d2328479410de0b91939a1, type: 3}
+  - {fileID: 21300000, guid: c9cc708edb4ea14498bf5837e55882e8, type: 3}
+  - {fileID: 21300000, guid: c127910efac9de04aa290fd801dd1b9a, type: 3}
+  - {fileID: 21300000, guid: 925b92a8ff0690148a9d90a92dd23ccc, type: 3}

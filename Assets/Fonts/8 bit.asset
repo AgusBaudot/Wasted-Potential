@@ -58,11 +58,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: 8 bit Font
+  m_Name: 8 bit
   m_EditorClassIdentifier: 
-  hashCode: 1956800372
+  hashCode: 65369159
   material: {fileID: 2968800980125109348}
-  materialHashCode: -559658924
+  materialHashCode: -1139125753
   m_Version: 1.1.0
   m_SourceFontFileGUID: be3487cbc638bbc4eb8d1c305a4c2d22
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: be3487cbc638bbc4eb8d1c305a4c2d22, type: 3}

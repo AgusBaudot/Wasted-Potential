@@ -12,7 +12,6 @@ public class SpawnOnHitAbility : ProjectileAttack
         //1. Visual Logic (Specific to this ability)
         var go = Instantiate(oilPrefab, enemy.transform.position, Quaternion.identity);
         go.Init(lifeTime);
-        go.OnLifeTimeExpired += HandleOnLifeTimeExpired;
         
         //2. Damage (standard)
         enemy.ApplyDamage(tower.Data.damage, tower.gameObject);
@@ -20,10 +19,5 @@ public class SpawnOnHitAbility : ProjectileAttack
         //3. Status logic (Generic)
         if (tower.Data.onHitStatus != null)
             enemy.ApplyStatus(tower.Data.onHitStatus);
-    }
-
-    private void HandleOnLifeTimeExpired()
-    {
-        //Additional logic when oil lifetime expires can be added here.
     }
 }

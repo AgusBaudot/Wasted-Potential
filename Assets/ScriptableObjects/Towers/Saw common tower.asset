@@ -15,7 +15,7 @@ MonoBehaviour:
   cardName: Industrial Saw
   rarity: 0
   cost: 40
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 5c243ce70688c3c45b722aa5d0ffe432, type: 3}
   description: Basic DPS factory that quickly attacks every half a second, dealing
     3 damage per hit and acting as a core tool to survive waves.
   towerPrefab: {fileID: 4351859319987583695, guid: dfb2a0235aa72474899b8af707e3ddd4, type: 3}
@@ -24,4 +24,4 @@ MonoBehaviour:
   range: 1.5
   fireRate: 0.5
   ability: {fileID: 11400000, guid: 4c4e6a2539c79564fa2705500a9c6e92, type: 2}
-  onHitStatus: {fileID: 0}
+  onHitStatus: {fileID: 11400000, guid: a5b34cd6480634b47b212422501b96a0, type: 2}

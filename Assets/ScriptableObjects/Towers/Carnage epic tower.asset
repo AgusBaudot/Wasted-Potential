@@ -15,7 +15,7 @@ MonoBehaviour:
   cardName: Carnage
   rarity: 2
   cost: 80
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 025cde4b1f58c5948820310545d5626b, type: 3}
   description: Factory that can permanently disable up to 3 enemies per wave. When
     enemy enters its range, it is trapped inside the factory for the rest of the
     wave.

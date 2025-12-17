@@ -16,4 +16,7 @@ MonoBehaviour:
   bounceCount: 3
   bounceRange: 4
   damageDecay: 0.2
-  lightningPrefab: {fileID: 0}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  lightningPrefab: {fileID: 7140776062767974654, guid: 40a2dd17e6613f44f9fe58183cdd0a55, type: 3}

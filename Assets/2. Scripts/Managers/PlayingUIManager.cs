@@ -16,7 +16,7 @@ public class PlayingUIManager : MonoBehaviour
 
     private void HandleResourcesChanged(int amount)
     {
-        _resourcesText.text = $"Gear: {amount}";
+        _resourcesText.text = amount.ToString();
     }
 
     private void HandleWaveStarted(int index)

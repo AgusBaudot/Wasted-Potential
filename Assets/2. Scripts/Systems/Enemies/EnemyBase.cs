@@ -23,17 +23,7 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
     public bool IsAlive => Health.Current > 0;
     public EnemyStatusManager StatusManager => _statusManager;
     
-    protected EnemyStatus _status = EnemyStatus.None;
     protected EnemyStatusManager _statusManager;
-    protected float _statusTimer = 0f;
-    
-    //DOT specific.
-    protected int _dotDmgPerSec = 0;
-    protected float _dotTickAcc = 0f;
-    
-    //Slow specific.
-    //Factor: 1 = normal, 0.5 = half speed (slower).
-    protected float _moveSpeedMultiplier = 1f;
     protected float _baseMoveSpeed => Data.moveSpeed;
     
     protected GridManager _grid;
@@ -117,33 +107,6 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
         transform.position = Vector3.MoveTowards(transform.position, _targetPos, deltaTime / effectiveSpeed);
     }
 
-    protected void ProcessStatus(float deltaTime)
-    {
-        if (_status == EnemyStatus.None) return;
-        
-        _statusTimer -= deltaTime;
-        if (_status == EnemyStatus.Dot)
-        {
-            //Accumulate fractional seconds and apply damage every full second.
-            _dotTickAcc += deltaTime;
-            while (_dotTickAcc >= 1f && _statusTimer > 0f)
-            {
-                _dotTickAcc -= 1f;
-                ApplyDamage(_dotDmgPerSec, null);
-                
-                //If enemy died form the DOT, stop processing
-                if (!IsAlive)
-                {
-                    //Status will be cleaned in Die()
-                    return;
-                }
-            }
-        }
-
-        if (_statusTimer <= 0f)
-            ClearStatus();
-    }
-
     protected void ClearStatus()
     {
         _statusManager?.ClearAll();
@@ -156,36 +119,6 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
     }
 
     public void ApplyStatus(StatusEffect def) => _statusManager.Apply(def);
-
-    // //Public API used by tower abilities
-    // public void ApplyDot(int dmgPerSec, float duration)
-    // {
-    //     //Replace current status with DOT.
-    //     _status = EnemyStatus.Dot;
-    //     _statusTimer = duration;
-    //     _dotDmgPerSec = Mathf.Max(0, dmgPerSec);
-    //     _dotTickAcc = 0; //Start tick fresh.
-    //     //Optionally: trigger VFX or status icon.
-    // }
-    //
-    // //Public API used by tower abilities
-    // public void ApplySlow(float factor, float duration)
-    // {
-    //     //Replace current status ith Slow.
-    //     _status = EnemyStatus.Slow;
-    //     _statusTimer = duration;
-    //     _moveSpeedMultiplier = Mathf.Clamp(factor, 0.0001f, 10f);
-    //     //Reset DOT accumulator so old DOT doesn't apply later (statuses are replaced)
-    //     _dotTickAcc = 0;
-    //     _dotDmgPerSec = 0;
-    // }
-    //
-    // //Public API used by tower abilities
-    // public void ApplyStun(float time)
-    // {
-    //     _statusTimer = time;
-    //     _status = EnemyStatus.Stun;
-    // }
 
     public virtual void Die()
     {
