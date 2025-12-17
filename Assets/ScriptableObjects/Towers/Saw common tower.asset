@@ -23,5 +23,5 @@ MonoBehaviour:
   damage: 3
   range: 1.5
   fireRate: 0.5
-  ability: {fileID: 11400000, guid: 9381996e8608bbb4588ef06b9cdc4a8c, type: 2}
+  ability: {fileID: 11400000, guid: 4c4e6a2539c79564fa2705500a9c6e92, type: 2}
   onHitStatus: {fileID: 0}

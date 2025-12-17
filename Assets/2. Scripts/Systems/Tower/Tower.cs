@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Tower : MonoBehaviour, IUpdatable
@@ -86,6 +87,13 @@ public class Tower : MonoBehaviour, IUpdatable
         if (target == null || !target.IsAlive)
             return;
 
+        if (TryGetComponent<Animator>(out var anim))
+        {
+            if (anim.parameters.Any(param => param.name == "Attack"))
+            {
+                anim.SetTrigger("Attack");
+            }
+        }
         Data.ability.Fire(this, target);
 
         // Begin cooldown

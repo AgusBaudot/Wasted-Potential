@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -16,13 +17,13 @@ public class CardManager : MonoBehaviour
     [SerializeField] private RectTransform cardsContainer;
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private GameObject initialCardPrefab;
+    [SerializeField] private GameObject choiceCardPrefab;
 
     [Header("UI Containers")]
     [SerializeField] private RectTransform initialCardsPanel;
+    [SerializeField] private RectTransform cardChoicePanel;
     [SerializeField] private GameObject playingUI;
-
-    private int _wavesUntilChoice = 3;
-    private int _waveCounter = 0;
+    
     private PlayerHand _playerHand;
     private CardVisualizer _cardVisualizer;
     private WaveManager waveManager;
@@ -30,23 +31,31 @@ public class CardManager : MonoBehaviour
     public PlayerHand PlayerHand => _playerHand;
     public CardVisualizer CardVisualizer => _cardVisualizer;
 
+    #region Base weights for card pool rarity
+
+    private const float WEIGHT_COMMON = 70;
+    private const float WEIGHT_RARE = 25;
+    private const float WEIGHT_EPIC = 5;
+
+    #endregion
+
     private void Awake()
     {
         _playerHand = new PlayerHand();
-        _cardVisualizer = new CardVisualizer(cardsContainer, initialCardsPanel, cardPrefab, initialCardPrefab, _playerHand);
+        _cardVisualizer = new CardVisualizer(cardsContainer, initialCardsPanel, cardChoicePanel, cardPrefab, initialCardPrefab, choiceCardPrefab, _playerHand);
         ServiceLocator.Register(this);
     }
 
     private void Start()
     {
         waveManager = ServiceLocator.Get<WaveManager>();
-        waveManager.OnWaveCompleted += HandleWaveCompleted;
+        waveManager.OnNewCardOffer += HandleCardOffered;
     }
 
     private void OnDestroy()
     {
         ServiceLocator.Unregister(this);
-        waveManager.OnWaveCompleted -= HandleWaveCompleted;
+        waveManager.OnNewCardOffer -= HandleCardOffered;
         _cardVisualizer?.Dispose();
     }
 
@@ -74,24 +83,75 @@ public class CardManager : MonoBehaviour
         initialCardsPanel.transform.parent.gameObject.SetActive(false);
         playingUI.SetActive(true);
     }
-
-    private void HandleWaveCompleted(int waveIndex)
+    
+    public void FinalizeCardChoice(CardData selectedCard)
     {
-        _waveCounter++;
-        if (_waveCounter >= _wavesUntilChoice)
-        {
-            _waveCounter = 0;
-            PresentCardChoice();
-        }
+        _playerHand.AddCard(selectedCard);
+        
+        cardChoicePanel.transform.parent.gameObject.SetActive(false);
+        playingUI.SetActive(true);
+    }
+
+    private void HandleCardOffered()
+    {
+        PresentCardChoice();
     }
 
     private void PresentCardChoice()
     {
-        //This is where we trigger the UI to show 3 random cards form the globalPool. The UI would then call back with the chosen card.
-        Debug.LogWarning("Present Card Choice");
+        cardChoicePanel.transform.parent.gameObject.SetActive(true);
 
-        //For now, we simulate the player choosing one randomly.
-        CardData chosenCard = globalPool[Random.Range(0, globalPool.Count)];
-        _playerHand.AddCard(chosenCard);
+        var selection = new List<CardData>();
+        for (int i = 0; i < 3; i++)
+        {
+            CardData card = GetWeightedCard(globalPool);
+            if (card != null) selection.Add(card);
+            globalPool.Remove(card);
+        }
+        
+        _cardVisualizer.ShowCardChoice(selection);
     }
+
+    #region Card choice selection
+    
+    private CardData GetWeightedCard(List<CardData> availableCards)
+    {
+        //1. Separate available cards into buckets.
+        List<CardData> commons = availableCards.Where(c => c.rarity == CardRarity.Common).ToList();
+        List<CardData> rares = availableCards.Where(c => c.rarity == CardRarity.Rare).ToList();
+        List<CardData> epics =  availableCards.Where(c => c.rarity == CardRarity.Epic).ToList();
+        
+        //2. Calculate valid weights (if a list is empty, its weight is 0).
+        float currentCommonWeight = commons.Count > 0 ? WEIGHT_COMMON : 0;
+        float currentRareWeight = rares.Count > 0 ? WEIGHT_RARE : 0;
+        float currentEpicWeight = epics.Count > 0 ? WEIGHT_EPIC : 0;
+        
+        //3. Sum total weight to create "die size"
+        float totalWeight = currentCommonWeight + currentRareWeight + currentEpicWeight;
+        
+        //Safety check: pool is empty
+        if (totalWeight <= 0)
+        {
+            Debug.LogWarning("Card pool is empty!");
+            return null;
+        }
+        
+        //4. Roll the dice
+        float randomValue = Random.Range(0, totalWeight);
+        
+        //5. Determine which bucket we landed in checking "ranges" of probability
+        if (randomValue < currentCommonWeight)
+            return GetRandomFromList(commons);
+        else if (randomValue < currentCommonWeight + currentRareWeight)
+            return GetRandomFromList(rares);
+        else
+            return GetRandomFromList(epics);
+    }
+
+    private CardData GetRandomFromList(List<CardData> list)
+    {
+        if (list.Count == 0) return null; //Should not happen given logic above
+        return list[Random.Range(0, list.Count)];
+    }
+    #endregion
 }

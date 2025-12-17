@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd75cadd08b55784a80d0f93713616a8, type: 3}
   m_Name: Oil attack
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 6727200088015134766, guid: 7d9d073df6f2d0444a742b65119d8b5a, type: 3}
+  projectilePrefab: {fileID: 6727200088015134766, guid: e268b770a6ca6454da634481817172dc, type: 3}
   oilPrefab: {fileID: -4953758145742548511, guid: 1d3f57811602a93419dd56cfedf83c78, type: 3}
   lifeTime: 2

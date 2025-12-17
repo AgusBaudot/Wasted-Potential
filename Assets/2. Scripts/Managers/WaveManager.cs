@@ -13,10 +13,12 @@ public class WaveManager : MonoBehaviour
     public event Action<int> OnWaveStarted; //Wave index
     public event Action<int> OnWaveCompleted;
     public event Action AllWavesCompleted;
+    public event Action OnNewCardOffer;
 
     private int _currentWaveIndex = -1;
     private int _aliveCount = 0;
     private bool _isRunning = false;
+    private bool _continueConfirmed = false;
 
     private void Awake()
     {
@@ -36,10 +38,20 @@ public class WaveManager : MonoBehaviour
         StartCoroutine(RunWaves());
     }
 
+    public void ConfirmNextWave() => _continueConfirmed = true;
+
     private IEnumerator RunWaves()
     {
         for (int i = 0; i < waves.Count; i++)
         {
+            if (i > 0 && i % 3 == 0)
+            {
+                Debug.Log("Waiting for player confirmation...");
+                OnNewCardOffer?.Invoke();
+                _continueConfirmed = false;
+                yield return new WaitUntil(() => _continueConfirmed);
+            }
+            
             var wave = waves[i];
             _currentWaveIndex = i;
             OnWaveStarted?.Invoke(i);
@@ -90,16 +102,6 @@ public class WaveManager : MonoBehaviour
             total += entry.count;
         return total;
     }
-
-    // private void SpawnAndTrack()
-    // {
-    //     int randomIndex = GetRandomSpawnIndex(waves[_currentWaveIndex].spawnDistribution);
-    //     var spawnGridPos = ServiceLocator.Get<GridManager>().SpawnTile[randomIndex].GridPosition;
-    //     var enemy = spawner.Spawn(spawnGridPos);
-    //     
-    //     //Subscribe to removal events
-    //     enemy.OnRemoved += HandleEnemyRemoved;
-    // }
 
     private void HandleEnemyRemoved(EnemyBase enemy)
     {

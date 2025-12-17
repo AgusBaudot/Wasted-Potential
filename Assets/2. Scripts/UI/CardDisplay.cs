@@ -11,6 +11,8 @@ public class CardDisplay : MonoBehaviour
     public bool Selected => _selected;
 
     public bool IsInteractive { get; set; } = true;
+    
+    public CardData Data => data;
 
     [SerializeField] private TextMeshProUGUI cardNameText;
     [SerializeField] private TextMeshProUGUI cardPriceText;
@@ -35,6 +37,18 @@ public class CardDisplay : MonoBehaviour
         cardPriceText.text = data.cost.ToString();
         cardRarityText.text = data.rarity.ToString();
         cardImage.sprite = data.image;
+        switch (data.rarity)
+        {
+            case CardRarity.Common:
+                GetComponent<Image>().sprite = Resources.Load<Sprite>("Cards/Common card");
+                break;
+            case CardRarity.Rare:
+                GetComponent<Image>().sprite = Resources.Load<Sprite>("Cards/Rare card");
+                break;
+            case CardRarity.Epic:
+                GetComponent<Image>().sprite = Resources.Load<Sprite>("Cards/Epic card");
+                break;
+        }
     }
 
     public void HandlePointerEnter(PointerEventData eventData)

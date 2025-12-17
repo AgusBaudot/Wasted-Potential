@@ -21,11 +21,11 @@ public class PlayingUIManager : MonoBehaviour
 
     private void HandleWaveStarted(int index)
     {
-        _wavesText.text = $"Wave #{index + 1}";
+        _wavesText.text = (index + 1).ToString();
     }
 
     private void HandleHealthChanged(int amount)
     {
-        _healthText.text = $"Health: {amount}";
+        _healthText.text = amount.ToString();
     }
 }

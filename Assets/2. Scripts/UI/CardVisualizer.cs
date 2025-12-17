@@ -18,19 +18,27 @@ public class CardVisualizer : IDisposable
 
     private RectTransform _cardsContainer;
     private RectTransform _initialCardsContainer;
+    private RectTransform _choiceCardsContainer;
+    
     private GameObject _cardPrefab;
     private GameObject _initialCardPrefab;
+    private GameObject _choiceCardPrefab;
+    
     private List<GameObject> _cards = new();
     private PlayerHand _playerHand;
     private float _cardSpacing = 200;
     private GameObject _selectedCard;
 
-    public CardVisualizer(RectTransform cardsContainer, RectTransform initialCardsPanel, GameObject cardPrefab, GameObject initialCardPrefab, PlayerHand playerHand)
+    public CardVisualizer(RectTransform cardsContainer, RectTransform initialCardsPanel, RectTransform choiceCardsContainer, GameObject cardPrefab, GameObject initialCardPrefab, GameObject choiceCardPrefab, PlayerHand playerHand)
     {
         _cardsContainer = cardsContainer;
         _initialCardsContainer = initialCardsPanel;
+        _choiceCardsContainer = choiceCardsContainer;
+        
         _cardPrefab = cardPrefab;
         _initialCardPrefab = initialCardPrefab;
+        _choiceCardPrefab = choiceCardPrefab;
+        
         _playerHand = playerHand;
 
         playerHand.OnCardAdded += HandleCardAdded;
@@ -75,9 +83,31 @@ public class CardVisualizer : IDisposable
             rt.anchoredPosition = new Vector2(offset * 3, 0);
 
             go.TryGetComponent<CardDisplay>(out var display);
-            display.Init(initialCards[i]);
             display.IsInteractive = false;
+            display.Init(initialCards[i]);
 
+            _initialCardGOs.Add(go);
+        }
+    }
+
+    public void ShowCardChoice(List<CardData> choice)
+    {
+        for (int i = 0; i < choice.Count; i++)
+        {
+            var go = GameObject.Instantiate(_choiceCardPrefab, _choiceCardsContainer, false);
+            var rt = go.GetComponent<RectTransform>();
+            
+            //Center arrangement for 3 cards
+            float offset = 0;
+            if (i == 0) offset = -_cardSpacing;
+            else if (i == 2) offset = _cardSpacing;
+            
+            rt.anchoredPosition = new Vector2(offset * 3, 0);
+            
+            go.TryGetComponent<CardDisplay>(out var display);
+            display.Init(choice[i]);
+            display.IsInteractive = false;
+            
             _initialCardGOs.Add(go);
         }
     }
