@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35bacf23ba877ed4ab90299b2de09a96, type: 3}
   m_Name: Deer
   m_EditorClassIdentifier: 
+  type: 2
   enemyName: Deer
   maxHealth: 30
   moveSpeed: 2

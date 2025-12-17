@@ -67,34 +67,19 @@
     },
     {
       "startDelay": 2,
-      "defaultSpawnDistribution": [
-        1
-      ],
+        "defaultSpawnDistribution": [ 1 ],
       "entries": [
-        {
-          "enemyType": "Bear",
-          "count": 3,
-          "interval": 2.5,
-          "spawnDistribution": 100
-        },
-        {
-          "enemyType": "Beaver",
-          "count": 5,
-          "interval": 2.0,
-          "spawnDistribution": 100
-        },
-        {
-          "enemyType": "Bear",
-          "count": 3,
-          "interval": 2.5,
-          "spawnDistribution": 100
-        },
-        {
-          "enemyType": "Beaver",
-          "count": 5,
-          "interval": 2.0,
-          "spawnDistribution": 100
-        }
+        { "enemyType": "Bear", "count": 3, "interval": 2.5, "spawnDistribution": 100 },
+        { "enemyType": "Beaver", "count": 5, "interval": 2.0, "spawnDistribution": 100 },
+        { "enemyType": "Bear", "count": 3, "interval": 2.5, "spawnDistribution": 100 },
+        { "enemyType": "Beaver", "count": 5, "interval": 2.0, "spawnDistribution": 100 }
+      ]
+    },
+    {
+      "startDelay": 4,
+      "defaultSpawnDistribution": [1],
+      "entries": [
+        { "enemyType": "Boss", "count": 1, "interval":  0, "spawnDistribution":  100}
       ]
     }
   ]

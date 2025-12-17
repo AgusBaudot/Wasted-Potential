@@ -1,8 +1,11 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public class PlayerHealthManager : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI _healthText;
+    
     public event Action<int> OnHealthChanged;
     public event Action OnDeath;
     
@@ -22,6 +25,11 @@ public class PlayerHealthManager : MonoBehaviour
         OnHealthChanged?.Invoke(_currentHealth);
         if (_currentHealth <= 0)
             OnDeath?.Invoke();
+        else
+        {
+            _healthText.GetComponent<UITextShake>().Shake();
+            GetComponent<AudioSource>().Play();
+        }
     }
 
     private void Die()

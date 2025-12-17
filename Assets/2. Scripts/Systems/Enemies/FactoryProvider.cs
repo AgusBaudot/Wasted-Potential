@@ -7,6 +7,7 @@ public class FactoryProvider : MonoBehaviour
     public RabbitFactory rabbitFactory;
     public DeerFactory deerFactory;
     public BeaverFactory beaverFactory;
+    public ForestBeastFactory forestBeastFactory;
 
     public IEnemyFactory GetFactory(EnemyType type)
     {
@@ -16,15 +17,8 @@ public class FactoryProvider : MonoBehaviour
             EnemyType.Rabbit => rabbitFactory,
             EnemyType.Deer => deerFactory,
             EnemyType.Beaver => beaverFactory,
+            EnemyType.Boss => forestBeastFactory,
             _ => throw new ArgumentOutOfRangeException()
         };
     }
-}
-
-public enum EnemyType
-{
-    Bear,
-    Rabbit,
-    Deer,
-    Beaver
 }

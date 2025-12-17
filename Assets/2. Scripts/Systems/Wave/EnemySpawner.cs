@@ -25,7 +25,9 @@ public class EnemySpawner : MonoBehaviour
     {
         _grid ??= ServiceLocator.Get<GridManager>();
         var factory = _factoryProvider.GetFactory(type);
+        Debug.Log(factory);
         var enemy = factory.Create(worldPos, factory);
+        Debug.Log(enemy);
 
         _enemyManager ??= ServiceLocator.Get<EnemyManager>();
         _enemyManager.RegisterEnemy(enemy);

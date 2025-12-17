@@ -3,6 +3,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Enemy", menuName = "TD/Enemies/New enemy")]
 public class EnemyData : ScriptableObject
 {
+    [Header("Classification")]
+    public EnemyType type;
+    
+    [Header("Stats")]
     public string enemyName;
     public int maxHealth;
     public float moveSpeed;

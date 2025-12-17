@@ -16,6 +16,7 @@ public class CarnageAbility : InstantAttack
 
     public override void Fire(Tower tower, EnemyBase target)
     {
+        if (target.Data.type == EnemyType.Boss)
         OnEnemyHit(tower, target);
         
         // Find the tracker on this specific tower and tell it to update

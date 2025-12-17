@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35bacf23ba877ed4ab90299b2de09a96, type: 3}
-  m_Name: Rabbit
+  m_Name: Forest Beast
   m_EditorClassIdentifier: 
-  type: 1
-  enemyName: Rabbit
-  maxHealth: 10
-  moveSpeed: 0.5
-  damageOnReach: 1
-  image: {fileID: -1015166145, guid: 3760158a3c457dc48a5985830e54614e, type: 3}
+  type: 4
+  enemyName: Forest beast
+  maxHealth: 200
+  moveSpeed: 2.5
+  damageOnReach: 100
+  image: {fileID: 0}

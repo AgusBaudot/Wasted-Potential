@@ -2,14 +2,6 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum EnemyStatus
-{
-    None,
-    Dot,
-    Slow,
-    Stun
-}
-
 public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargetable
 {
     //Enemy has to fire event when end is reached or dies.

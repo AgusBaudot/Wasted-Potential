@@ -2,7 +2,7 @@ using System;
 
 public class Health : IHasHealth
 {
-    public int Max { get;  }
+    public int Max { get; }
     public float Current { get; private set; }
 
     public event Action<float, int> OnHealthChanged; //Current, max
