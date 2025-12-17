@@ -16,8 +16,8 @@ MonoBehaviour:
   rarity: 0
   cost: 40
   image: {fileID: 21300000, guid: f2e22227d18e1f047885b52df7ce1b58, type: 3}
-  description: Leaves a small pool of oil in the path that can affect up to 3 enemies
-    or until the wave finishes. Enemies affected by oil are slowed down.
+  description: Slows down 35% enemies. Upon hitting an enemy, leaves an oil pool
+    behind.
   towerPrefab: {fileID: 4351859319987583695, guid: 59448e0b3a9aa85419f7d7a7eb63cbd7, type: 3}
   ghostPrefab: {fileID: 4351859319987583695, guid: fed689070a399af4ebac57b2ff9456e8, type: 3}
   damage: 2

@@ -15,6 +15,7 @@ public class CardDisplay : MonoBehaviour
     public CardData Data => data;
 
     [SerializeField] private TextMeshProUGUI cardNameText;
+    [SerializeField] private TextMeshProUGUI cardDescriptionText;
     [SerializeField] private TextMeshProUGUI cardPriceText;
     [SerializeField] private TextMeshProUGUI cardRarityText;
     [SerializeField] private Image cardImage;
@@ -34,9 +35,11 @@ public class CardDisplay : MonoBehaviour
     private void UISetup()
     {
         cardNameText.text = data.cardName;
+        cardDescriptionText.text = data.description;
         cardPriceText.text = data.cost.ToString();
         cardRarityText.text = data.rarity.ToString();
         cardImage.sprite = data.image;
+        
         switch (data.rarity)
         {
             case CardRarity.Common:

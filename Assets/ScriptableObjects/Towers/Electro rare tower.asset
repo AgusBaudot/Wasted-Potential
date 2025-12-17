@@ -16,9 +16,8 @@ MonoBehaviour:
   rarity: 1
   cost: 60
   image: {fileID: 21300000, guid: 77ac3a8e4a59b764290f2d03b1066ff1, type: 3}
-  description: Fires a beam (lightning?) that jumps from one enemy to another, hitting
-    multiple nearby targets up to a maximum of 5. Each bounce decreases damage dealt
-    by 1.
+  description: Fires a lightning that jumps from one enemy to another, hitting multiple
+    nearby targets.
   towerPrefab: {fileID: 4351859319987583695, guid: 7e3de79d0cc86fb4cb490bcdb59fd044, type: 3}
   ghostPrefab: {fileID: 4351859319987583695, guid: 8811c564583871047ad7a9591c1d4dfe, type: 3}
   damage: 10

@@ -16,8 +16,7 @@ MonoBehaviour:
   rarity: 0
   cost: 40
   image: {fileID: 21300000, guid: 5c243ce70688c3c45b722aa5d0ffe432, type: 3}
-  description: Basic DPS factory that quickly attacks every half a second, dealing
-    3 damage per hit and acting as a core tool to survive waves.
+  description: DPS factory that hits fast and hard.
   towerPrefab: {fileID: 4351859319987583695, guid: dfb2a0235aa72474899b8af707e3ddd4, type: 3}
   ghostPrefab: {fileID: 4351859319987583695, guid: 6165bc8cf4e9dc742b04c43a8b1e29df, type: 3}
   damage: 3

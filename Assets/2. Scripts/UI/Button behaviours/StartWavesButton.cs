@@ -30,6 +30,7 @@ public class StartWavesButton : MonoBehaviour
 
     private void HandleOnClick()
     {
+        StopCoroutine("StartMoving");
         if (!_hasStarted)
         {
             _waveManager.StartWaves();

@@ -87,6 +87,9 @@ public class CardManager : MonoBehaviour
     public void FinalizeCardChoice(CardData selectedCard)
     {
         _playerHand.AddCard(selectedCard);
+
+        if (globalPool.Contains(selectedCard))
+            globalPool.Remove(selectedCard);
         
         cardChoicePanel.transform.parent.gameObject.SetActive(false);
         playingUI.SetActive(true);
@@ -96,17 +99,29 @@ public class CardManager : MonoBehaviour
     {
         PresentCardChoice();
     }
-
+    
     private void PresentCardChoice()
     {
         cardChoicePanel.transform.parent.gameObject.SetActive(true);
 
         var selection = new List<CardData>();
+        
+        // 1. Create a temporary list that copies the globalPool.
+        // We modify this list instead of the master list.
+        List<CardData> tempPool = new List<CardData>(globalPool);
+
         for (int i = 0; i < 3; i++)
         {
-            CardData card = GetWeightedCard(globalPool);
-            if (card != null) selection.Add(card);
-            globalPool.Remove(card);
+            // 2. Pass the tempPool to your weight calculator
+            CardData card = GetWeightedCard(tempPool);
+            
+            if (card != null) 
+            {
+                selection.Add(card);
+                // 3. Remove from tempPool so we don't get duplicates 
+                // in the SAME choice of 3 cards.
+                tempPool.Remove(card); 
+            }
         }
         
         _cardVisualizer.ShowCardChoice(selection);
