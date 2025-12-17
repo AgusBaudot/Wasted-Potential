@@ -19,7 +19,11 @@ public class StartWavesButton : MonoBehaviour
         
         GetComponent<Button>().onClick.AddListener(HandleOnClick);
         _waveManager = ServiceLocator.Get<WaveManager>();
-        _waveManager.OnNewCardOffer += () => StartCoroutine(HandleActivation());
+        _waveManager.OnNewCardOffer += () =>
+        {
+            gameObject.SetActive(true);
+            StartCoroutine(HandleActivation());
+        };
         //Check if coroutine starts. If not, call it from here.
         StartCoroutine(HandleActivation());
     }
@@ -42,7 +46,6 @@ public class StartWavesButton : MonoBehaviour
 
     private IEnumerator HandleActivation()
     {
-        gameObject.SetActive(true);
         yield return Helpers.GetWait(3);
         StartMoving();
     }
