@@ -2,7 +2,11 @@ using UnityEngine;
 
 public abstract class TowerAbility : ScriptableObject
 {
-    public virtual void OnPlaced(Tower tower) { }
+    
+    public virtual void OnPlaced(Tower tower)
+    {
+        tower.GetComponent<AudioSource>().Play();
+    }
 
     public virtual void OnTick(Tower tower, float deltaTime) { }
 

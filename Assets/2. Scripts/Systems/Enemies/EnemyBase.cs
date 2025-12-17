@@ -24,7 +24,12 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
     public EnemyStatusManager StatusManager => _statusManager;
     
     protected EnemyStatusManager _statusManager;
-    protected float _baseMoveSpeed => Data.moveSpeed;
+
+    protected float _baseMoveSpeed
+    {
+        get => Data.moveSpeed;
+        set => _baseMoveSpeed = value;
+    }
     
     protected GridManager _grid;
     protected GridTile currentTile;
