@@ -92,6 +92,8 @@ public class CardVisualizer : IDisposable
 
     public void ShowCardChoice(List<CardData> choice)
     {
+        ClearChoiceCards();
+        
         for (int i = 0; i < choice.Count; i++)
         {
             var go = GameObject.Instantiate(_choiceCardPrefab, _choiceCardsContainer, false);
@@ -128,6 +130,14 @@ public class CardVisualizer : IDisposable
         foreach (var go in _initialCardGOs) Object.Destroy(go);
         _initialCardGOs.Clear();
         _initialCardDatas.Clear();
+    }
+
+    public void ClearChoiceCards()
+    {
+        for (int i = _choiceCardsContainer.childCount - 1; i >= 0; i--)
+        {
+            GameObject.Destroy(_choiceCardsContainer.GetChild(i).gameObject);
+        }
     }
 
     private void OnCardDisplayClicked(CardData data, GameObject card)
