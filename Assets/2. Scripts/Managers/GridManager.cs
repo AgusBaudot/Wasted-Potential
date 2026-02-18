@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class GridManager : MonoBehaviour
+public class GridManager : MonoBehaviour, IGridQuery
 {
     public static GridManager Instance { get; private set; }
 
@@ -15,10 +15,11 @@ public class GridManager : MonoBehaviour
     [SerializeField] private TileBase[] spawnTile;
     [SerializeField] private TileBase[] goalTile;
 
-    public List<GridTile> SpawnTile = new List<GridTile>();
+    public IReadOnlyList<GridTile> SpawnTiles => _spawnTiles.AsReadOnly();
     public GridTile GoalTile { get; private set; }
 
     private Dictionary<Vector2Int, GridTile> _tiles;
+    private List<GridTile> _spawnTiles = new();
 
     private void Awake()
     {
@@ -57,7 +58,7 @@ public class GridManager : MonoBehaviour
             var tile = new GridTile(gridPos, type);
             _tiles[gridPos] = tile;
 
-            if (type == GridTileType.Spawn) SpawnTile.Add(tile);
+            if (type == GridTileType.Spawn) _spawnTiles.Add(tile);
             if (type == GridTileType.Goal) GoalTile = tile;
         }
     }

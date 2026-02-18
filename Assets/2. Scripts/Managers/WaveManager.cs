@@ -86,7 +86,7 @@ public class WaveManager : MonoBehaviour
                 dist = waves[_currentWaveIndex].defaultSpawnDistribution;
             
             int spawnIndex = GetRandomSpawnIndex(dist);
-            var spawnGridPos = ServiceLocator.Get<GridManager>().SpawnTile[spawnIndex].GridPosition;
+            var spawnGridPos = ServiceLocator.Get<GridManager>().SpawnTiles[spawnIndex].GridPosition;
 
             var enemy = spawner.Spawn(entry.enemyType, spawnGridPos);
             enemy.OnRemoved += HandleEnemyRemoved;

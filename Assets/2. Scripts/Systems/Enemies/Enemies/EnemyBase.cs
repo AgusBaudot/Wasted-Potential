@@ -1,6 +1,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using VContainer;
 
 public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargetable
 {
@@ -23,12 +24,18 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
         set => _baseMoveSpeed = value;
     }
     
-    protected GridManager _grid;
+    private IGridQuery _grid;
     protected GridTile currentTile;
     protected Vector3 _spawnPosition;
     protected Vector3 _targetPos;
     protected UpdateManager _updateManager;
     protected IEnemyFactory _originFactory;
+
+    [Inject]
+    public void Construct(IGridQuery grid)
+    {
+        _grid = grid ?? throw new ArgumentNullException(nameof(grid));
+    }
 
 
     public virtual void Initialize(EnemyData data, Vector3 spawnPosition, IEnemyFactory originFactory = null)
@@ -38,7 +45,6 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
         _originFactory = originFactory;
         transform.position = _spawnPosition;
 
-        _grid = ServiceLocator.Get<GridManager>();
         currentTile = _grid.GetTile(_grid.WorldToGrid(spawnPosition));
         _targetPos = _grid.GetTile(currentTile.Next).Center;
 
