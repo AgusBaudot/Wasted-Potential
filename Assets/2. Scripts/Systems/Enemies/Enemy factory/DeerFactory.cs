@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Pool;
+using VContainer;
+using VContainer.Unity;
 
 public class DeerFactory : MonoBehaviour, IEnemyFactory
 {
@@ -8,10 +10,16 @@ public class DeerFactory : MonoBehaviour, IEnemyFactory
     
     private ObjectPool<EnemyBase> _pool;
 
-    private void Awake()
+    [Inject]
+    public void Construct(IObjectResolver container)
     {
         _pool = new ObjectPool<EnemyBase>(
-            createFunc: () => Instantiate(deerPrefab),
+            createFunc: () =>
+            {
+                var instance = Instantiate(deerPrefab);
+                container.InjectGameObject(instance.gameObject);
+                return instance;
+            },
             actionOnGet: (d) => d.gameObject.SetActive(true),
             actionOnRelease: (d) => d.Reset(),
             actionOnDestroy: (d) => Destroy(d.gameObject),

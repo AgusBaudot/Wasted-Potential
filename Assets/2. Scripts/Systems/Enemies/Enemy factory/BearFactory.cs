@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Pool;
+using VContainer;
+using VContainer.Unity;
 
 public class BearFactory : MonoBehaviour, IEnemyFactory
 {
@@ -7,11 +9,17 @@ public class BearFactory : MonoBehaviour, IEnemyFactory
     [SerializeField] private EnemyData bearData;
     
     private ObjectPool<EnemyBase> _pool;
-    
-    private void Awake()
+
+    [Inject]
+    public void Construct(IObjectResolver container)
     {
         _pool = new ObjectPool<EnemyBase>(
-            createFunc: () => Instantiate(bearPrefab),
+            createFunc: () =>
+            {
+                var instance = Instantiate(bearPrefab);
+                container.InjectGameObject(instance.gameObject);
+                return instance;
+            },
             actionOnGet: (b) => b.gameObject.SetActive(true),
             actionOnRelease: (b) => b.Reset(),
             actionOnDestroy: (b) => Destroy(b.gameObject),

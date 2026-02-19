@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Pool;
+using VContainer;
+using VContainer.Unity;
 
 public class ForestBeastFactory : MonoBehaviour, IEnemyFactory
 {
@@ -8,10 +10,16 @@ public class ForestBeastFactory : MonoBehaviour, IEnemyFactory
     
     private ObjectPool<EnemyBase> _pool;
 
-    private void Awake()
+    [Inject]
+    public void Construct(IObjectResolver container)
     {
         _pool = new ObjectPool<EnemyBase>(
-            createFunc: () => Instantiate(bossPrefab),
+            createFunc: () =>
+            {
+                var instance = Instantiate(bossPrefab);
+                container.InjectGameObject(instance.gameObject);
+                return instance;
+            },
             actionOnGet: (f) => f.gameObject.SetActive(true),
             actionOnRelease: (f) => f.Reset(),
             actionOnDestroy: (f) => Destroy(f.gameObject),

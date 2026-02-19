@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Pool;
+using VContainer;
+using VContainer.Unity;
 
 public class RabbitFactory : MonoBehaviour, IEnemyFactory
 {
@@ -8,10 +10,16 @@ public class RabbitFactory : MonoBehaviour, IEnemyFactory
     
     private ObjectPool<EnemyBase> _pool;
 
-    private void Awake()
+    [Inject]
+    public void Construct(IObjectResolver container)
     {
         _pool = new ObjectPool<EnemyBase>(
-            createFunc: () => Instantiate(rabbitPrefab),
+            createFunc: () =>
+            {
+                var instance = Instantiate(rabbitPrefab);
+                container.InjectGameObject(instance.gameObject);
+                return instance;
+            },
             actionOnGet: (r) => r.gameObject.SetActive(true),
             actionOnRelease: (r) => r.Reset(),
             actionOnDestroy: (r) => Destroy(r.gameObject),
