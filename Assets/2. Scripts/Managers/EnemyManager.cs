@@ -1,19 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour
+public class EnemyManager : MonoBehaviour, IEnemyQuery
 {
     private readonly HashSet<EnemyBase> _enemies = new();
-
-    private void Awake()
-    {
-        ServiceLocator.Register(this);
-    }
-
-    private void OnDestroy()
-    {
-        ServiceLocator.Unregister(this);
-    }
 
     public void RegisterEnemy(EnemyBase enemy)
     {

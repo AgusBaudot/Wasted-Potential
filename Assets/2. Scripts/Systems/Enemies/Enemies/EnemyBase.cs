@@ -31,9 +31,11 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
     protected IEnemyFactory _originFactory;
 
     [Inject]
-    public void Construct(IGridQuery grid)
+    public void Construct(IGridQuery grid, UpdateManager updateManager)
     {
         _grid = grid ?? throw new ArgumentNullException(nameof(grid));
+        
+        _updateManager = updateManager ?? throw new ArgumentNullException(nameof(updateManager));
     }
 
 
@@ -44,11 +46,9 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
         _originFactory = originFactory;
         transform.position = _spawnPosition;
 
+        _updateManager.Register(this);
         currentTile = _grid.GetTile(_grid.WorldToGrid(spawnPosition));
         _targetPos = _grid.GetTile(currentTile.Next).Center;
-
-        _updateManager ??= ServiceLocator.Get<UpdateManager>();
-        _updateManager.Register(this);
         
         if (Health == null)
         {

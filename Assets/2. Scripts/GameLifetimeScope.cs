@@ -10,16 +10,22 @@ public class GameLifetimeScope : LifetimeScope
 
     [SerializeField] private UpdateManager updateManager;
     [SerializeField] private GridManager gridManager;
+    [SerializeField] private EnemyManager enemyManager;
+    [SerializeField] private TowerManager towerManager;
 
     #endregion
 
     #region Factories
     
-    [SerializeField] private BeaverFactory beaverFactory;
-    [SerializeField] private DeerFactory deerFactory;
-    [SerializeField] private BearFactory bearFactory;
-    [SerializeField] private RabbitFactory rabbitFactory;
-    [SerializeField] private ForestBeastFactory forestBeastFactory;
+    [SerializeField] private TowerFactory towerFactory;
+    [SerializeField] private FactoryProvider factoryProvider;
+
+    #endregion
+
+    #region Low-level
+
+    [SerializeField] private TowerInfoUI towerInfoUI;
+    [SerializeField] private EnemySpawner enemySpawner;
 
     #endregion
     
@@ -28,11 +34,13 @@ public class GameLifetimeScope : LifetimeScope
     {
         builder.RegisterComponent(updateManager).As<IUpdateManager>();
         builder.RegisterComponent(gridManager).As<IGridQuery>();
+        builder.RegisterComponent(enemyManager).As<IEnemyQuery>();
+        builder.RegisterComponent(towerManager).As<ITowerRegistry>();
 
-        builder.RegisterComponent(beaverFactory).As<IEnemyFactory>();
-        builder.RegisterComponent(deerFactory).As<IEnemyFactory>();
-        builder.RegisterComponent(bearFactory).As<IEnemyFactory>();
-        builder.RegisterComponent(rabbitFactory).As<IEnemyFactory>();
-        builder.RegisterComponent(forestBeastFactory).As<IEnemyFactory>();
+        builder.RegisterComponent(towerFactory).As<ITowerFactory>();
+        builder.RegisterComponent(factoryProvider).AsSelf();
+
+        builder.RegisterComponent(towerInfoUI).AsSelf();
+        builder.RegisterComponent(enemySpawner).AsSelf();
     }
 }

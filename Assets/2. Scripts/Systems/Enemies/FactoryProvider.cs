@@ -1,13 +1,25 @@
 using System;
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
 public class FactoryProvider : MonoBehaviour
 {
-    public BearFactory bearFactory;
-    public RabbitFactory rabbitFactory;
-    public DeerFactory deerFactory;
-    public BeaverFactory beaverFactory;
-    public ForestBeastFactory forestBeastFactory;
+    [SerializeField] private BearFactory bearFactory;
+    [SerializeField] private RabbitFactory rabbitFactory;
+    [SerializeField] private DeerFactory deerFactory;
+    [SerializeField] private BeaverFactory beaverFactory;
+    [SerializeField] private ForestBeastFactory forestBeastFactory;
+
+    [Inject]
+    public void Construct(IObjectResolver container)
+    {
+        container.InjectGameObject(beaverFactory.gameObject);
+        container.InjectGameObject(rabbitFactory.gameObject);
+        container.InjectGameObject(bearFactory.gameObject);
+        container.InjectGameObject(deerFactory.gameObject);
+        container.InjectGameObject(forestBeastFactory.gameObject);
+    }
 
     public IEnemyFactory GetFactory(EnemyType type)
     {

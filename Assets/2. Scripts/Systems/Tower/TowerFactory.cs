@@ -1,8 +1,18 @@
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
 public class TowerFactory : MonoBehaviour, ITowerFactory
 {
     [SerializeField] private Transform towersParent;
+
+    private IObjectResolver _container;
+
+    [Inject]
+    public void Construct(IObjectResolver container)
+    {
+        _container = container;
+    }
 
     public bool TryCreate(CardData card, Vector3 worldPos, Vector2Int gridPos, out Tower createdTower)
     {
@@ -16,7 +26,8 @@ public class TowerFactory : MonoBehaviour, ITowerFactory
             Destroy(go);
             return false;
         }
-        
+
+        _container.InjectGameObject(go);
         createdTower.Initialize(card, gridPos);
         return true;
     }

@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using VContainer;
 
 public class TowerInfoUI : MonoBehaviour
 {
@@ -19,6 +20,13 @@ public class TowerInfoUI : MonoBehaviour
     private RectTransform _canvasRect;
     private float _fadeTime = 0.1f;
     private RectTransform _panel;
+    private ITowerRegistry _towerManager;
+
+    [Inject]
+    public void Construct(ITowerRegistry towerManager)
+    {
+        _towerManager = towerManager ?? throw new ArgumentNullException(nameof(towerManager));
+    }
 
     private void Start()
     {
@@ -26,14 +34,13 @@ public class TowerInfoUI : MonoBehaviour
         var canvas = tooltipUI.GetComponentInParent<Canvas>();
         _canvasRect = canvas.GetComponent<RectTransform>();
 
-        var manager = ServiceLocator.Get<TowerManager>();
-        foreach (var tower in manager.AllTowers)
+        foreach (var tower in _towerManager.AllTowers)
         {
             tower.OnMouseEnterTower += Show;
             tower.OnMouseExitTower += Hide;
         }
         
-        manager.OnTowerAdded += HandleOnTowerAdded;
+        _towerManager.OnTowerAdded += HandleOnTowerAdded;
 
         _panel = _tooltipRect.gameObject.transform.GetChild(0) as RectTransform;
     }
@@ -79,14 +86,13 @@ public class TowerInfoUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        var manager = ServiceLocator.Get<TowerManager>();
-        foreach (var tower in manager.AllTowers)
+        foreach (var tower in _towerManager.AllTowers)
         {
             tower.OnMouseEnterTower -= Show;
             tower.OnMouseExitTower -= Hide;
         }
 
-        manager.OnTowerAdded -= HandleOnTowerAdded;
+        _towerManager.OnTowerAdded -= HandleOnTowerAdded;
     }
 
     private void Show(Tower tower)

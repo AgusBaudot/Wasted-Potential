@@ -7,7 +7,8 @@ using UnityEngine;
 /// <summary>
 /// 
 /// </summary>
-public class TowerManager : MonoBehaviour
+
+public class TowerManager : MonoBehaviour, ITowerRegistry
 {
     private List<Tower> _allTowers = new List<Tower>();
 
@@ -15,16 +16,6 @@ public class TowerManager : MonoBehaviour
     public event Action<Tower> OnTowerRemoved;
 
     public IReadOnlyList<Tower> AllTowers => _allTowers;
-
-    private void Awake()
-    {
-        ServiceLocator.Register(this);
-    }
-
-    private void OnDestroy()
-    {
-        ServiceLocator.Unregister(this);
-    }
 
     public void RegisterTower(Tower tower)
     {

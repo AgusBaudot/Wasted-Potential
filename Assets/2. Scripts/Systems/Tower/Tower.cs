@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using VContainer;
 
 public class Tower : MonoBehaviour, IUpdatable
 {
@@ -15,10 +16,18 @@ public class Tower : MonoBehaviour, IUpdatable
 
     private bool _canShoot = true;
     private float _fireTimer;
-    private UpdateManager _updateManager;
-    private EnemyManager _enemyManager;
+    private IUpdateManager _updateManager;
+    private IEnemyQuery _enemyManager;
+    private ITowerRegistry _towerManager;
     private EnemyBase _currentTarget;
-    private TowerManager _towerManager;
+
+    [Inject]
+    public void Construct(IUpdateManager updateManager, IEnemyQuery enemyManager, ITowerRegistry towerManager)
+    {
+        _updateManager = updateManager ?? throw new ArgumentNullException(nameof(updateManager));
+        _enemyManager = enemyManager ?? throw new ArgumentNullException(nameof(enemyManager));
+        _towerManager = towerManager ?? throw new ArgumentNullException(nameof(towerManager));
+    }
 
 
     //Called by factory/command immediately after creation.
@@ -26,10 +35,6 @@ public class Tower : MonoBehaviour, IUpdatable
     {
         Data = data;
         GridPosistion = gridPosition;
-
-        _updateManager ??= ServiceLocator.Get<UpdateManager>();
-        _enemyManager ??= ServiceLocator.Get<EnemyManager>();
-        _towerManager ??= ServiceLocator.Get<TowerManager>();
 
         _updateManager.Register(this);
         _towerManager.RegisterTower(this);
@@ -68,11 +73,6 @@ public class Tower : MonoBehaviour, IUpdatable
 
     private void TryAttack()
     {
-        if (_enemyManager == null)
-            _enemyManager = ServiceLocator.Get<EnemyManager>();
-        if (_strategy == null)
-            _strategy = new PickClosest();
-
         // Get valid candidates
         List<EnemyBase> candidates = _enemyManager.GetEnemiesInRange(transform.position, Data.range);
         if (candidates == null || candidates.Count == 0)
