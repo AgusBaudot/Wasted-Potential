@@ -1,17 +1,28 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using VContainer;
 
 public class CardPlacementController : MonoBehaviour, IUpdatable
 {
     [SerializeField] private CardManager _cardManager;
     [SerializeField] private TextMeshProUGUI _resourcesText;
     
+    private IGridQuery _gridManager;
+    private IUpdateManager _updateManager;
     private CardVisualizer _cardVisualizer;
     private PlayerHand _playerHand;
     private TowerPlacementFacade _placementFacade;
     private CardData _selectedCard;
     private GameObject _ghostInstance;
+
+    [Inject]
+    public void Construct(IGridQuery gridManager, IUpdateManager updateManager)
+    {
+        _gridManager = gridManager ?? throw new ArgumentNullException(nameof(gridManager));
+        _updateManager = updateManager ?? throw new ArgumentNullException(nameof(updateManager));
+    }
 
     private void Start()
     {
@@ -22,7 +33,7 @@ public class CardPlacementController : MonoBehaviour, IUpdatable
         _cardVisualizer.OnCardDeselected += HandleCardDeselected;
         
         _placementFacade = ServiceLocator.Get<TowerPlacementFacade>();
-        ServiceLocator.Get<UpdateManager>().Register(this);
+        _updateManager.Register(this);
     }
 
     private void OnDestroy()
@@ -33,7 +44,7 @@ public class CardPlacementController : MonoBehaviour, IUpdatable
             _cardVisualizer.OnCardDeselected -= HandleCardDeselected;
         }
 
-        ServiceLocator.Get<UpdateManager>().Unregister(this);
+        _updateManager.Unregister(this);
         DestroyGhost();
     }
 
@@ -76,9 +87,9 @@ public class CardPlacementController : MonoBehaviour, IUpdatable
 
         Vector3 mouseWorld = Helpers.GetCamera().ScreenToWorldPoint(Input.mousePosition);
         mouseWorld.z = 0f;
-        var gridPos = GridManager.Instance.WorldToGrid(mouseWorld);
-        var tile = GridManager.Instance.GetTile(gridPos);
-        _ghostInstance.transform.position = GridManager.Instance.GridToWorld(gridPos);
+        var gridPos = _gridManager.WorldToGrid(mouseWorld);
+        var tile = _gridManager.GetTile(gridPos);
+        _ghostInstance.transform.position = _gridManager.GridToWorld(gridPos);
         
         //Tiny red if over not buildable
         var sr = _ghostInstance.GetComponent<SpriteRenderer>();
@@ -92,9 +103,9 @@ public class CardPlacementController : MonoBehaviour, IUpdatable
     {
         Vector3 mouseWorld = Helpers.GetCamera().ScreenToWorldPoint(Input.mousePosition);
         mouseWorld.z = 0f;
-        Vector2Int gridPos = GridManager.Instance.WorldToGrid(mouseWorld);
+        Vector2Int gridPos = _gridManager.WorldToGrid(mouseWorld);
         
-        var tile = GridManager.Instance.GetTile(gridPos);
+        var tile = _gridManager.GetTile(gridPos);
         if (tile == null || !tile.Buildable)
         {
             // Show not placeable?

@@ -3,9 +3,7 @@ using UnityEngine;
 
 public interface IEnemyQuery
 {
-    public void RegisterEnemy(EnemyBase enemy);
-
-    public List<EnemyBase> GetAllEnemies() => new List<EnemyBase>();
-
-    public List<EnemyBase> GetEnemiesInRange(Vector3 position, float range);
+    void RegisterEnemy(EnemyBase enemy);
+    List<EnemyBase> GetAllEnemies();
+    List<EnemyBase> GetEnemiesInRange(Vector3 position, float range);
 }

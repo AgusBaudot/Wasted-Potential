@@ -7,12 +7,14 @@ public class BuildTowerCommand : ICommand
     private readonly Vector2Int _gridPosition;
     private ResourceManager _resourceManager;
     private readonly ITowerFactory _factory;
+    private readonly IGridQuery _gridManager;
 
-    public BuildTowerCommand(CardData card, Vector2Int gridPosition, ITowerFactory factory)
+    public BuildTowerCommand(CardData card, Vector2Int gridPosition, ITowerFactory factory, IGridQuery gridManager)
     {
         _card = card;
         _gridPosition = gridPosition;
         _factory = factory;
+        _gridManager = gridManager;
 
         _resourceManager = ServiceLocator.Get<ResourceManager>();
     }
@@ -22,7 +24,7 @@ public class BuildTowerCommand : ICommand
         if (!_resourceManager.TrySpend(_card.cost))
             return false;
         
-        Vector3 worldPos = GridManager.Instance.GridToWorld(_gridPosition);
+        Vector3 worldPos = _gridManager.GridToWorld(_gridPosition);
         if (!_factory.TryCreate(_card, worldPos, _gridPosition, out Tower tower))
         {
             //if failed to create, refund resources.
@@ -30,7 +32,7 @@ public class BuildTowerCommand : ICommand
             return false;
         }
 
-        var tile = GridManager.Instance.GetTile(_gridPosition);
+        var tile = _gridManager.GetTile(_gridPosition);
         if (tile != null)
             tile.SetBuildable(false);
         

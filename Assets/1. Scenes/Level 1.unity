@@ -7503,10 +7503,13 @@ MonoBehaviour:
   gridManager: {fileID: 2022849690}
   enemyManager: {fileID: 1562468524}
   towerManager: {fileID: 771278013}
+  waveManager: {fileID: 1661019734}
   towerFactory: {fileID: 1287628670}
   factoryProvider: {fileID: 1204056629}
   towerInfoUI: {fileID: 1612766616}
   enemySpawner: {fileID: 1204056628}
+  cardPlacementController: {fileID: 347707237}
+  towerPlacementFacade: {fileID: 1628167124}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

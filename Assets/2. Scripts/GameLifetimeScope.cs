@@ -12,6 +12,7 @@ public class GameLifetimeScope : LifetimeScope
     [SerializeField] private GridManager gridManager;
     [SerializeField] private EnemyManager enemyManager;
     [SerializeField] private TowerManager towerManager;
+    [SerializeField] private WaveManager waveManager;
 
     #endregion
 
@@ -26,6 +27,8 @@ public class GameLifetimeScope : LifetimeScope
 
     [SerializeField] private TowerInfoUI towerInfoUI;
     [SerializeField] private EnemySpawner enemySpawner;
+    [SerializeField] private CardPlacementController cardPlacementController;
+    [SerializeField] private TowerPlacementFacade towerPlacementFacade;
 
     #endregion
     
@@ -36,11 +39,16 @@ public class GameLifetimeScope : LifetimeScope
         builder.RegisterComponent(gridManager).As<IGridQuery>();
         builder.RegisterComponent(enemyManager).As<IEnemyQuery>();
         builder.RegisterComponent(towerManager).As<ITowerRegistry>();
+        builder.RegisterComponent(waveManager).As<IWaveQuery>();
 
         builder.RegisterComponent(towerFactory).As<ITowerFactory>();
         builder.RegisterComponent(factoryProvider).AsSelf();
 
         builder.RegisterComponent(towerInfoUI).AsSelf();
         builder.RegisterComponent(enemySpawner).AsSelf();
+        builder.RegisterComponent(cardPlacementController).AsSelf();
+        builder.RegisterComponent(towerPlacementFacade).AsSelf();
+
+        builder.Register<BuildTowerCommand>(Lifetime.Singleton);
     }
 }

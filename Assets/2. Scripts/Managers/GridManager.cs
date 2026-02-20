@@ -6,8 +6,6 @@ using UnityEngine.Tilemaps;
 
 public class GridManager : MonoBehaviour, IGridQuery
 {
-    public static GridManager Instance { get; private set; }
-
     [SerializeField] private Tilemap tilemap;
     [SerializeField] private TileBase[] pathTile;
     [SerializeField] private TileBase[] buildableTile;
@@ -23,13 +21,9 @@ public class GridManager : MonoBehaviour, IGridQuery
 
     private void Awake()
     {
-        ServiceLocator.Register(this);
-        Instance = this;
         BuildGridFromTilemap();
         CalculatePath();
     }
-
-    private void OnDestroy() => ServiceLocator.Unregister(this);
 
     private void BuildGridFromTilemap()
     {

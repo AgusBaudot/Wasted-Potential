@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VContainer;
 
-public class WaveManager : MonoBehaviour
+public class WaveManager : MonoBehaviour, IWaveQuery
 {
     [SerializeField] private List<Wave> waves = new();
     [SerializeField] private EnemySpawner spawner;
@@ -15,10 +16,17 @@ public class WaveManager : MonoBehaviour
     public event Action AllWavesCompleted;
     public event Action OnNewCardOffer;
 
+    private IGridQuery _gridManager;
     private int _currentWaveIndex = -1;
     private int _aliveCount = 0;
     private bool _isRunning = false;
     private bool _continueConfirmed = false;
+
+    [Inject]
+    public void Construct(IGridQuery gridManager)
+    {
+        _gridManager = gridManager ?? throw new ArgumentNullException(nameof(gridManager));
+    }
 
     private void Awake()
     {
@@ -86,7 +94,7 @@ public class WaveManager : MonoBehaviour
                 dist = waves[_currentWaveIndex].defaultSpawnDistribution;
             
             int spawnIndex = GetRandomSpawnIndex(dist);
-            var spawnGridPos = ServiceLocator.Get<GridManager>().SpawnTiles[spawnIndex].GridPosition;
+            var spawnGridPos = _gridManager.SpawnTiles[spawnIndex].GridPosition;
 
             var enemy = spawner.Spawn(entry.enemyType, spawnGridPos);
             enemy.OnRemoved += HandleEnemyRemoved;
