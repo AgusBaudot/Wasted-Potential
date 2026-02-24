@@ -30,13 +30,7 @@ public class WaveManager : MonoBehaviour, IWaveQuery
 
     private void Awake()
     {
-        ServiceLocator.Register(this);
         waves = WaveJsonLoader.LoadWavesFromResources("WaveConfigs/waves");
-    }
-
-    private void OnDestroy()
-    {
-        ServiceLocator.Unregister(this);
     }
 
     public void StartWaves()

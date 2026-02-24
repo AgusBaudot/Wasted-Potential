@@ -3,12 +3,11 @@ using System.Collections.Generic;
 
 public interface ITowerRegistry
 {
-    public event Action<Tower> OnTowerAdded;
-    public event Action<Tower> OnTowerRemoved;
+    event Action<Tower> OnTowerAdded;
+    event Action<Tower> OnTowerRemoved;
 
-    public IReadOnlyList<Tower> AllTowers => new List<Tower>();
+    IReadOnlyList<Tower> AllTowers => new List<Tower>();
     
-    public void RegisterTower(Tower tower);
-
-    public void UnregisterTower(Tower tower);
+    void RegisterTower(Tower tower);
+    void UnregisterTower(Tower tower);
 }

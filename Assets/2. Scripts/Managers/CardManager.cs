@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using VContainer;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -26,7 +28,7 @@ public class CardManager : MonoBehaviour
     
     private PlayerHand _playerHand;
     private CardVisualizer _cardVisualizer;
-    private WaveManager waveManager;
+    private IWaveQuery _waveManager;
     
     public PlayerHand PlayerHand => _playerHand;
     public CardVisualizer CardVisualizer => _cardVisualizer;
@@ -39,6 +41,12 @@ public class CardManager : MonoBehaviour
 
     #endregion
 
+    [Inject]
+    public void Construct(IWaveQuery waveManager)
+    {
+        _waveManager = waveManager ?? throw new ArgumentNullException(nameof(waveManager));
+    }
+    
     private void Awake()
     {
         _playerHand = new PlayerHand();
@@ -48,14 +56,13 @@ public class CardManager : MonoBehaviour
 
     private void Start()
     {
-        waveManager = ServiceLocator.Get<WaveManager>();
-        waveManager.OnNewCardOffer += HandleCardOffered;
+        _waveManager.OnNewCardOffer += HandleCardOffered;
     }
 
     private void OnDestroy()
     {
         ServiceLocator.Unregister(this);
-        waveManager.OnNewCardOffer -= HandleCardOffered;
+        _waveManager.OnNewCardOffer -= HandleCardOffered;
         _cardVisualizer?.Dispose();
     }
 

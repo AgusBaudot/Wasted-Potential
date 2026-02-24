@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using VContainer;
 
 public class CarnageTracker : MonoBehaviour
 {
@@ -6,13 +8,21 @@ public class CarnageTracker : MonoBehaviour
     private int _oilCount;
     private Sprite[] _tiers;
     private SpriteRenderer _spriteRenderer;
-    
+    private IWaveQuery _waveManager;
+
+    [Inject]
+    public void Construct(IWaveQuery waveManager)
+    {
+        _waveManager = waveManager ?? throw new ArgumentNullException(nameof(waveManager));
+        //Add resource manager
+    }
+
     public void Initialize(Sprite[] tierSprites)
     {
         _tiers = tierSprites;
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        
-        ServiceLocator.Get<WaveManager>().OnWaveCompleted += HandleOnWaveCompleted;
+
+        _waveManager.OnWaveCompleted += HandleOnWaveCompleted;
     }
 
     public void RegisterHit(EnemyBase target)
@@ -21,9 +31,9 @@ public class CarnageTracker : MonoBehaviour
 
         if (target.StatusManager.Has("Slow"))
             _oilCount++;
-            
+
         _enemyCount++;
-        
+
         if (_spriteRenderer != null && _enemyCount < _tiers.Length)
         {
             _spriteRenderer.sprite = _tiers[_enemyCount];
@@ -36,19 +46,15 @@ public class CarnageTracker : MonoBehaviour
         {
             var resourceManager = ServiceLocator.Get<ResourceManager>();
             resourceManager.GainResources(5 + System.Math.Max(0, _oilCount * 2 - 1));
-            
-            if (_spriteRenderer != null) _spriteRenderer.sprite = _tiers[0];
         }
 
-        
+        if (_spriteRenderer != null) _spriteRenderer.sprite = _tiers[0];
         _enemyCount = 0;
         _oilCount = 0;
     }
 
     private void OnDestroy()
     {
-        var waveManager = ServiceLocator.Get<WaveManager>();
-        if (waveManager != null) 
-            waveManager.OnWaveCompleted -= HandleOnWaveCompleted;
+        _waveManager.OnWaveCompleted -= HandleOnWaveCompleted;
     }
 }

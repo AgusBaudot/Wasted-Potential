@@ -5875,7 +5875,7 @@ MonoBehaviour:
   initialPool:
   - {fileID: 11400000, guid: 43b47cbbdca842e4b949d5dda0768b5e, type: 2}
   - {fileID: 11400000, guid: 0c93225541c7e234b9622124821f07cd, type: 2}
-  - {fileID: 11400000, guid: 660d7fbab77282440a4bc54d34776394, type: 2}
+  - {fileID: 11400000, guid: 31e879ccfd1431540924d3619e5c5e47, type: 2}
   globalPool:
   - {fileID: 11400000, guid: f2502b3890e36bb49baf4f52afffd25c, type: 2}
   - {fileID: 11400000, guid: e393ad09ed2ce3a409fe686bbae73730, type: 2}
@@ -7504,12 +7504,16 @@ MonoBehaviour:
   enemyManager: {fileID: 1562468524}
   towerManager: {fileID: 771278013}
   waveManager: {fileID: 1661019734}
+  cardManager: {fileID: 1487508640}
+  playingUIManager: {fileID: 1194206464}
   towerFactory: {fileID: 1287628670}
   factoryProvider: {fileID: 1204056629}
   towerInfoUI: {fileID: 1612766616}
   enemySpawner: {fileID: 1204056628}
   cardPlacementController: {fileID: 347707237}
   towerPlacementFacade: {fileID: 1628167124}
+  waveRewards: {fileID: 1847899364}
+  startWavesButton: {fileID: 227117474}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

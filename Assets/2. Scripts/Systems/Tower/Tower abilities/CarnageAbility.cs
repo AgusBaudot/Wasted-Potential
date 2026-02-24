@@ -11,13 +11,14 @@ public class CarnageAbility : InstantAttack
         
         // Add the tracker to the specific Tower instance
         var tracker = tower.gameObject.AddComponent<CarnageTracker>();
+        tower.Container.Inject(tracker);
         tracker.Initialize(tiers);
     }
 
     public override void Fire(Tower tower, EnemyBase target)
     {
-        if (target.Data.type == EnemyType.Boss)
-        OnEnemyHit(tower, target);
+        if (target.Data.type != EnemyType.Boss)
+            OnEnemyHit(tower, target);
         
         // Find the tracker on this specific tower and tell it to update
         var tracker = tower.gameObject.GetComponent<CarnageTracker>();

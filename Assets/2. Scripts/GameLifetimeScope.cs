@@ -13,6 +13,8 @@ public class GameLifetimeScope : LifetimeScope
     [SerializeField] private EnemyManager enemyManager;
     [SerializeField] private TowerManager towerManager;
     [SerializeField] private WaveManager waveManager;
+    [SerializeField] private CardManager cardManager;
+    [SerializeField] private PlayingUIManager playingUIManager;
 
     #endregion
 
@@ -29,6 +31,8 @@ public class GameLifetimeScope : LifetimeScope
     [SerializeField] private EnemySpawner enemySpawner;
     [SerializeField] private CardPlacementController cardPlacementController;
     [SerializeField] private TowerPlacementFacade towerPlacementFacade;
+    [SerializeField] private WaveRewards waveRewards;
+    [SerializeField] private StartWavesButton startWavesButton;
 
     #endregion
     
@@ -40,6 +44,8 @@ public class GameLifetimeScope : LifetimeScope
         builder.RegisterComponent(enemyManager).As<IEnemyQuery>();
         builder.RegisterComponent(towerManager).As<ITowerRegistry>();
         builder.RegisterComponent(waveManager).As<IWaveQuery>();
+        builder.RegisterComponent(cardManager).AsSelf();
+        builder.RegisterComponent(playingUIManager).AsSelf();
 
         builder.RegisterComponent(towerFactory).As<ITowerFactory>();
         builder.RegisterComponent(factoryProvider).AsSelf();
@@ -48,6 +54,8 @@ public class GameLifetimeScope : LifetimeScope
         builder.RegisterComponent(enemySpawner).AsSelf();
         builder.RegisterComponent(cardPlacementController).AsSelf();
         builder.RegisterComponent(towerPlacementFacade).AsSelf();
+        builder.RegisterComponent(waveRewards).AsSelf();
+        builder.RegisterComponent(startWavesButton).AsSelf();
 
         builder.Register<BuildTowerCommand>(Lifetime.Singleton);
     }

@@ -11,6 +11,7 @@ public class Tower : MonoBehaviour, IUpdatable
 
     public Vector2Int GridPosistion { get; private set; }
     public CardData Data { get; private set; }
+    public IObjectResolver Container => _container;
 
     private ITargetingStrategy _strategy;
 
@@ -20,13 +21,15 @@ public class Tower : MonoBehaviour, IUpdatable
     private IEnemyQuery _enemyManager;
     private ITowerRegistry _towerManager;
     private EnemyBase _currentTarget;
+    private IObjectResolver _container;
 
     [Inject]
-    public void Construct(IUpdateManager updateManager, IEnemyQuery enemyManager, ITowerRegistry towerManager)
+    public void Construct(IUpdateManager updateManager, IEnemyQuery enemyManager, ITowerRegistry towerManager, IObjectResolver container)
     {
         _updateManager = updateManager ?? throw new ArgumentNullException(nameof(updateManager));
         _enemyManager = enemyManager ?? throw new ArgumentNullException(nameof(enemyManager));
         _towerManager = towerManager ?? throw new ArgumentNullException(nameof(towerManager));
+        _container = container ?? throw new ArgumentNullException(nameof(container));
     }
 
 

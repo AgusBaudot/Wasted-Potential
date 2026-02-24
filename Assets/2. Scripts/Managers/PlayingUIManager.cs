@@ -1,5 +1,7 @@
+using System;
 using TMPro;
 using UnityEngine;
+using VContainer;
 
 public class PlayingUIManager : MonoBehaviour
 {
@@ -7,9 +9,18 @@ public class PlayingUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _wavesText;
     [SerializeField] private TextMeshProUGUI _resourcesText;
 
+    private IWaveQuery _waveManager;
+    // Resource & player health managers.
+
+    [Inject]
+    public void Construct(IWaveQuery waveManager)
+    {
+        _waveManager = waveManager ?? throw new ArgumentNullException(nameof(waveManager));
+    }
+
     private void Start()
     {
-        ServiceLocator.Get<WaveManager>().OnWaveStarted += HandleWaveStarted;
+        _waveManager.OnWaveStarted += HandleWaveStarted;
         ServiceLocator.Get<ResourceManager>().OnResourcesChanged += HandleResourcesChanged;
         ServiceLocator.Get<PlayerHealthManager>().OnHealthChanged += HandleHealthChanged;
     }

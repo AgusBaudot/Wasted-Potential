@@ -1,19 +1,21 @@
+using System;
 using UnityEngine;
+using VContainer;
 
 public class WaveRewards : MonoBehaviour
 {
-    private WaveManager _waveManager;
+    private IWaveQuery _waveManager;
     private ResourceManager _resourceManager;
+
+    [Inject]
+    public void Construct(IWaveQuery waveManager)
+    {
+        _waveManager = waveManager ?? throw new ArgumentNullException(nameof(waveManager));
+    }
     
     private void Start()
     {
-        Initialize();
-    }
-
-    private void Initialize()
-    {
         _resourceManager = ServiceLocator.Get<ResourceManager>();
-        _waveManager = ServiceLocator.Get<WaveManager>();
 
         _waveManager.OnWaveCompleted += HandleWaveCompleted;
     }

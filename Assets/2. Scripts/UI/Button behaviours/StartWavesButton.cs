@@ -1,24 +1,31 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using VContainer;
 
 public class StartWavesButton : MonoBehaviour
 {
     private bool _hasStarted = false;
-    private WaveManager _waveManager;
+    private IWaveQuery _waveManager;
 
     private RectTransform _rectTransform;
     private Vector2 _startPos;
 
-    private void Awake()
+    [Inject]
+    public void Construct(IWaveQuery waveManager)
+    {
+        _waveManager = waveManager ?? throw new ArgumentNullException(nameof(waveManager));
+    }
+
+    private void Start()
     {
         _rectTransform = GetComponent<RectTransform>();
         _startPos = _rectTransform.anchoredPosition;
         
         GetComponent<Button>().onClick.AddListener(HandleOnClick);
-        _waveManager = ServiceLocator.Get<WaveManager>();
         _waveManager.OnNewCardOffer += () =>
         {
             gameObject.SetActive(true);
