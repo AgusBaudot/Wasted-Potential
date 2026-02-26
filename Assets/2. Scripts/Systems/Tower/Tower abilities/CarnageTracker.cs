@@ -9,12 +9,13 @@ public class CarnageTracker : MonoBehaviour
     private Sprite[] _tiers;
     private SpriteRenderer _spriteRenderer;
     private IWaveQuery _waveManager;
+    private IResourcesQuery _resourceManager;
 
     [Inject]
-    public void Construct(IWaveQuery waveManager)
+    public void Construct(IWaveQuery waveManager, IResourcesQuery resourceManager)
     {
         _waveManager = waveManager ?? throw new ArgumentNullException(nameof(waveManager));
-        //Add resource manager
+        _resourceManager = resourceManager ?? throw new ArgumentNullException(nameof(resourceManager));
     }
 
     public void Initialize(Sprite[] tierSprites)
@@ -44,8 +45,7 @@ public class CarnageTracker : MonoBehaviour
     {
         if (_enemyCount >= 3)
         {
-            var resourceManager = ServiceLocator.Get<ResourceManager>();
-            resourceManager.GainResources(5 + System.Math.Max(0, _oilCount * 2 - 1));
+            _resourceManager.GainResources(5 + System.Math.Max(0, _oilCount * 2 - 1));
         }
 
         if (_spriteRenderer != null) _spriteRenderer.sprite = _tiers[0];

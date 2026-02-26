@@ -10,18 +10,20 @@ public class PlayingUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _resourcesText;
 
     private IWaveQuery _waveManager;
+    private IResourcesQuery _resourceManager;
     // Resource & player health managers.
 
     [Inject]
-    public void Construct(IWaveQuery waveManager)
+    public void Construct(IWaveQuery waveManager, IResourcesQuery resourceManager)
     {
         _waveManager = waveManager ?? throw new ArgumentNullException(nameof(waveManager));
+        _resourceManager = resourceManager ?? throw new ArgumentNullException(nameof(resourceManager));
     }
 
     private void Start()
     {
         _waveManager.OnWaveStarted += HandleWaveStarted;
-        ServiceLocator.Get<ResourceManager>().OnResourcesChanged += HandleResourcesChanged;
+        _resourceManager.OnResourcesChanged += HandleResourcesChanged;
         ServiceLocator.Get<PlayerHealthManager>().OnHealthChanged += HandleHealthChanged;
     }
 

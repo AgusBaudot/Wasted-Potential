@@ -1,12 +1,11 @@
 using System;
-using TMPro;
 using UnityEngine;
 
 /// <summary>
 /// Simple manager to track the player's money. Uses ServiceLocator for easy access from anywhere.
 /// </summary>
-/// 
-public class ResourceManager : MonoBehaviour
+
+public class ResourceManager : MonoBehaviour, IResourcesQuery
 {
     public event Action<int> OnResourcesChanged;
 
@@ -38,9 +37,9 @@ public class ResourceManager : MonoBehaviour
         return false;
     }
 
-    public void GainResources(int amonut)
+    public void GainResources(int amount)
     {
-        CurrentResources += amonut;
+        CurrentResources += amount;
         OnResourcesChanged?.Invoke(CurrentResources);
     }
 }

@@ -5,18 +5,17 @@ public class BuildTowerCommand : ICommand
 {
     private readonly CardData _card;
     private readonly Vector2Int _gridPosition;
-    private ResourceManager _resourceManager;
+    private readonly IResourcesQuery _resourceManager;
     private readonly ITowerFactory _factory;
     private readonly IGridQuery _gridManager;
 
-    public BuildTowerCommand(CardData card, Vector2Int gridPosition, ITowerFactory factory, IGridQuery gridManager)
+    public BuildTowerCommand(CardData card, Vector2Int gridPosition, ITowerFactory factory, IGridQuery gridManager, IResourcesQuery resourceManager)
     {
         _card = card;
         _gridPosition = gridPosition;
+        _resourceManager = resourceManager;
         _factory = factory;
         _gridManager = gridManager;
-
-        _resourceManager = ServiceLocator.Get<ResourceManager>();
     }
     
     public bool Execute()

@@ -5,18 +5,17 @@ using VContainer;
 public class WaveRewards : MonoBehaviour
 {
     private IWaveQuery _waveManager;
-    private ResourceManager _resourceManager;
+    private IResourcesQuery _resourceManager;
 
     [Inject]
-    public void Construct(IWaveQuery waveManager)
+    public void Construct(IWaveQuery waveManager, IResourcesQuery resourceManager)
     {
         _waveManager = waveManager ?? throw new ArgumentNullException(nameof(waveManager));
+        _resourceManager = resourceManager ?? throw new ArgumentNullException(nameof(resourceManager));
     }
     
     private void Start()
     {
-        _resourceManager = ServiceLocator.Get<ResourceManager>();
-
         _waveManager.OnWaveCompleted += HandleWaveCompleted;
     }
 

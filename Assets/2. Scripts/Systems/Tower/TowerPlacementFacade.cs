@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using VContainer;
 
@@ -5,13 +6,16 @@ using VContainer;
 public class TowerPlacementFacade : MonoBehaviour
 {
     [SerializeField] private MonoBehaviour towerFactoryComponent;
+    
     private ITowerFactory _towerFactory;
     private IGridQuery _gridManager;
+    private IResourcesQuery _resourceManager;
 
     [Inject]
-    public void Construct(IGridQuery gridQuery)
+    public void Construct(IGridQuery gridQuery, IResourcesQuery resourceManager)
     {
-        _gridManager = gridQuery;
+        _gridManager = gridQuery ?? throw new NullReferenceException(nameof(gridQuery));
+        _resourceManager = resourceManager ?? throw new NullReferenceException(nameof(resourceManager));
     }
     
     private void Awake()
@@ -33,10 +37,10 @@ public class TowerPlacementFacade : MonoBehaviour
         GridTile tile = _gridManager.GetTile(gridPosition);
         if (tile == null || !tile.Buildable) return false;
         
-        if (!ServiceLocator.Get<ResourceManager>().CanAfford(card.cost)) return false;
+        if (!_resourceManager.CanAfford(card.cost)) return false;
         
         //If all checks pass, create and execute the command.
-        ICommand buildCommand = new BuildTowerCommand(card, gridPosition,  _towerFactory, _gridManager);
+        ICommand buildCommand = new BuildTowerCommand(card, gridPosition,  _towerFactory, _gridManager, _resourceManager);
         return buildCommand.Execute();
     }
 }

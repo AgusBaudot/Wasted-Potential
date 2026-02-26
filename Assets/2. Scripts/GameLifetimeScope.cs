@@ -14,6 +14,7 @@ public class GameLifetimeScope : LifetimeScope
     [SerializeField] private TowerManager towerManager;
     [SerializeField] private WaveManager waveManager;
     [SerializeField] private CardManager cardManager;
+    [SerializeField] private ResourceManager resourceManager;
     [SerializeField] private PlayingUIManager playingUIManager;
     [SerializeField] private HealthBarManager healthBarManager;
 
@@ -47,6 +48,7 @@ public class GameLifetimeScope : LifetimeScope
         builder.RegisterComponent(towerManager).As<ITowerRegistry>();
         builder.RegisterComponent(waveManager).As<IWaveQuery>();
         builder.RegisterComponent(cardManager).AsSelf();
+        builder.RegisterComponent(resourceManager).As<IResourcesQuery>();
         builder.RegisterComponent(playingUIManager).AsSelf();
         builder.RegisterComponent(healthBarManager).As<IHealthBarManager>();
 

@@ -11,6 +11,7 @@ public class CardPlacementController : MonoBehaviour, IUpdatable
     
     private IGridQuery _gridManager;
     private IUpdateManager _updateManager;
+    private IResourcesQuery _resourceManager;
     private CardVisualizer _cardVisualizer;
     private PlayerHand _playerHand;
     private TowerPlacementFacade _placementFacade;
@@ -18,10 +19,11 @@ public class CardPlacementController : MonoBehaviour, IUpdatable
     private GameObject _ghostInstance;
 
     [Inject]
-    public void Construct(IGridQuery gridManager, IUpdateManager updateManager)
+    public void Construct(IGridQuery gridManager, IUpdateManager updateManager, IResourcesQuery resourceManager)
     {
         _gridManager = gridManager ?? throw new ArgumentNullException(nameof(gridManager));
         _updateManager = updateManager ?? throw new ArgumentNullException(nameof(updateManager));
+        _resourceManager = resourceManager ?? throw new ArgumentNullException(nameof(resourceManager));
     }
 
     private void Start()
@@ -121,7 +123,7 @@ public class CardPlacementController : MonoBehaviour, IUpdatable
         else
         {
             //If fail was because of insufficient resources.
-            if (!ServiceLocator.Get<ResourceManager>().CanAfford(_selectedCard.cost))
+            if (!_resourceManager.CanAfford(_selectedCard.cost))
             {
                 CancelSelection();
                 if (_resourcesText.TryGetComponent<UITextShake>(out var shaker))
