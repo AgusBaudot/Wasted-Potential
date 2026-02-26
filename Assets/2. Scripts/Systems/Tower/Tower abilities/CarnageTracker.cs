@@ -52,6 +52,8 @@ public class CarnageTracker : MonoBehaviour
         _enemyCount = 0;
         _oilCount = 0;
     }
+    
+    public bool CanRegisterHit() => _enemyCount < 3;
 
     private void OnDestroy()
     {

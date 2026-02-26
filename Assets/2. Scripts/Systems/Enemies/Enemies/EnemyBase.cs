@@ -27,11 +27,11 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
     protected GridTile currentTile;
     protected Vector3 _spawnPosition;
     protected Vector3 _targetPos;
-    protected UpdateManager _updateManager;
+    protected IUpdateManager _updateManager;
     protected IEnemyFactory _originFactory;
 
     [Inject]
-    public void Construct(IGridQuery grid, UpdateManager updateManager)
+    public void Construct(IGridQuery grid, IUpdateManager updateManager)
     {
         _grid = grid ?? throw new ArgumentNullException(nameof(grid));
         

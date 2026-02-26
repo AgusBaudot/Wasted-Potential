@@ -8,16 +8,6 @@ public class UpdateManager : MonoBehaviour, IUpdateManager
     private readonly List<IUpdatable> _toAdd = new List<IUpdatable>();
     private readonly List<IUpdatable> _toRemove = new List<IUpdatable>();
 
-    private void Awake()
-    {
-        ServiceLocator.Register(this);
-    }
-
-    private void OnDestroy()
-    {
-        ServiceLocator.Unregister(this);
-    }
-
     public void Register(IUpdatable updatable)
     {
         if (!_toAdd.Contains(updatable))

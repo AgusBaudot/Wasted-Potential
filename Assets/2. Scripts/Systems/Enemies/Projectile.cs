@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using VContainer;
 
 public class Projectile : MonoBehaviour, IUpdatable
 {
@@ -8,14 +9,23 @@ public class Projectile : MonoBehaviour, IUpdatable
     private EnemyBase _target;
     private Tower _source;
     private int _baseDamage;
+    private IUpdateManager _updateManager;
+    private IProjectilePool _pool;
 
-    public void Init(EnemyBase target, Tower source, int dmg)
+    [Inject]
+    public void Construct(IUpdateManager updateManager)
+    {
+        _updateManager = updateManager ?? throw new ArgumentNullException(nameof(updateManager));
+    }
+
+    public void Init(EnemyBase target, Tower source, int dmg, IProjectilePool pool)
     {
         _target = target;
         _source = source;
         _baseDamage = dmg;
-        ServiceLocator.Get<UpdateManager>().Register(this);
+        _pool = pool;
         
+        _updateManager.Register(this);
         transform.position = source.gameObject.transform.position;
     }
 
@@ -30,8 +40,8 @@ public class Projectile : MonoBehaviour, IUpdatable
 
     private void ReturnToPool()
     {
-        ServiceLocator.Get<UpdateManager>().Unregister(this);
-        ServiceLocator.Get<ProjectilePool>().Release(this);
+        _updateManager.Unregister(this);
+        _pool.Release(this);
     }
 
     public void Tick(float deltaTime)

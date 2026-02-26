@@ -7,12 +7,9 @@ public class ProjectileAttack : TowerAbility
 
     public override void Fire(Tower tower, EnemyBase target)
     {
-        // 1. Spawn
-        var proj = ServiceLocator.Get<ProjectilePool>().Spawn(tower.transform.position, projectilePrefab);
-
-        // 2. Initialize
-        // Note: We pass 'tower.Data.damage' to the projectile so it knows how hard to hit
-        proj.Init(target, tower, tower.Data.damage);
+        var pool = tower.Container.Resolve(typeof(IProjectilePool)) as IProjectilePool;
+        var proj = pool.Spawn(tower.transform.position, projectilePrefab);
+        proj.Init(target, tower, tower.Data.damage, pool);
     }
 
     // OnEnemyHit is NOT called here. 

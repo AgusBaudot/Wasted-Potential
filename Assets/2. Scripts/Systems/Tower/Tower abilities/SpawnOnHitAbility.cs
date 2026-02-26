@@ -1,16 +1,18 @@
 using UnityEngine;
+using VContainer.Unity;
 
 [CreateAssetMenu(menuName = "TD/Towers/Ability/Spawn On Hit")]
 public class SpawnOnHitAbility : ProjectileAttack
 {
     [Header("Visuals")]
-    public OilLifeTime oilPrefab; //Prefab with sprite renderer & OilLifeTime component
-    public float lifeTime = 5f;
+    [SerializeField] private OilLifeTime oilPrefab; //Prefab with sprite renderer & OilLifeTime component
+    [SerializeField] private float lifeTime = 5f;
 
     public override void OnEnemyHit(Tower tower, EnemyBase enemy)
     {
         //1. Visual Logic (Specific to this ability)
         var go = Instantiate(oilPrefab, enemy.transform.position, Quaternion.identity);
+        tower.Container.InjectGameObject(go.gameObject);
         go.Init(lifeTime);
         
         //2. Damage (standard)

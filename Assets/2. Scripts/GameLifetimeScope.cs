@@ -15,13 +15,15 @@ public class GameLifetimeScope : LifetimeScope
     [SerializeField] private WaveManager waveManager;
     [SerializeField] private CardManager cardManager;
     [SerializeField] private PlayingUIManager playingUIManager;
+    [SerializeField] private HealthBarManager healthBarManager;
 
     #endregion
 
-    #region Factories
+    #region Factories & Pools
     
     [SerializeField] private TowerFactory towerFactory;
     [SerializeField] private FactoryProvider factoryProvider;
+    [SerializeField] private ProjectilePool projectilePool;
 
     #endregion
 
@@ -46,9 +48,11 @@ public class GameLifetimeScope : LifetimeScope
         builder.RegisterComponent(waveManager).As<IWaveQuery>();
         builder.RegisterComponent(cardManager).AsSelf();
         builder.RegisterComponent(playingUIManager).AsSelf();
+        builder.RegisterComponent(healthBarManager).AsSelf();
 
         builder.RegisterComponent(towerFactory).As<ITowerFactory>();
         builder.RegisterComponent(factoryProvider).AsSelf();
+        builder.RegisterComponent(projectilePool).As<IProjectilePool>();
 
         builder.RegisterComponent(towerInfoUI).AsSelf();
         builder.RegisterComponent(enemySpawner).AsSelf();

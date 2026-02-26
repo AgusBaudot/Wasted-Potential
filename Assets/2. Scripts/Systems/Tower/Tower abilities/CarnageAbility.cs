@@ -17,14 +17,16 @@ public class CarnageAbility : InstantAttack
 
     public override void Fire(Tower tower, EnemyBase target)
     {
-        if (target.Data.type != EnemyType.Boss)
-            OnEnemyHit(tower, target);
-        
-        // Find the tracker on this specific tower and tell it to update
+        if (target.Data.type == EnemyType.Boss)
+            return;
+
         var tracker = tower.gameObject.GetComponent<CarnageTracker>();
-        if (tracker != null)
-        {
-            tracker.RegisterHit(target);
-        }
+        if (tracker == null) return;
+
+        // Check cap before doing anything
+        if (!tracker.CanRegisterHit()) return;
+
+        OnEnemyHit(tower, target);  // insta-kills via ApplyDamage
+        tracker.RegisterHit(target);
     }
 }

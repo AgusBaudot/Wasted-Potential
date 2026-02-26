@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using VContainer;
 
 public class OilLifeTime : MonoBehaviour, IUpdatable
 {
@@ -8,11 +9,18 @@ public class OilLifeTime : MonoBehaviour, IUpdatable
     [SerializeField] private float _lifeTime = 2f;
 
     private float _currentTime;
+    private IUpdateManager _updateManager;
+
+    [Inject]
+    public void Construct(IUpdateManager updateManager)
+    {
+        _updateManager = updateManager ?? throw new ArgumentNullException(nameof(updateManager));
+    }
 
     public void Init(float lifeTime)
     {
         _lifeTime = lifeTime;
-        ServiceLocator.Get<UpdateManager>().Register(this);
+        _updateManager.Register(this);
     }
 
     public void Tick(float deltaTime)
@@ -20,7 +28,7 @@ public class OilLifeTime : MonoBehaviour, IUpdatable
         _currentTime += deltaTime;
         if (_currentTime >= _lifeTime)
         {
-            ServiceLocator.Get<UpdateManager>().Unregister(this);
+            _updateManager.Unregister(this);
             OnLifeTimeExpired?.Invoke();
             Destroy(gameObject);
         }

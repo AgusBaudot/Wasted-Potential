@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using VContainer;
 
-public class HealthBarManager : MonoBehaviour, IUpdatable
+public class HealthBarManager : MonoBehaviour, IUpdatable, IHealthBarManager
 {
     [SerializeField] private HealthBarUI healthBarPrefab;
     [SerializeField] private RectTransform canvasRect;
@@ -10,14 +12,21 @@ public class HealthBarManager : MonoBehaviour, IUpdatable
     private readonly Queue<HealthBarUI> _pool = new();
     private List<HealthBarUI> _active = new();
     private Dictionary<IHasHealth, HealthBarUI> _map = new();
+    private IUpdateManager _updateManager;
+
+    [Inject]
+    public void Construct(IUpdateManager updateManager)
+    {
+        _updateManager = updateManager ?? throw new ArgumentNullException(nameof(updateManager));
+    }
 
     private void Awake() => ServiceLocator.Register(this);
-    private void Start() => ServiceLocator.Get<UpdateManager>().Register(this);
+    private void Start() => _updateManager.Register(this);
 
     private void OnDestroy()
     {
         ServiceLocator.Unregister(this);
-        ServiceLocator.Get<UpdateManager>().Unregister(this);
+        _updateManager.Unregister(this);
     }
 
     public void Register(IHasHealth source, Transform target)

@@ -5,6 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Simple manager to track the player's money. Uses ServiceLocator for easy access from anywhere.
 /// </summary>
+/// 
 public class ResourceManager : MonoBehaviour
 {
     public event Action<int> OnResourcesChanged;
