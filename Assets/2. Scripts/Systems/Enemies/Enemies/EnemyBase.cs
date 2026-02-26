@@ -24,18 +24,19 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
     }
     
     private IGridQuery _grid;
-    protected GridTile currentTile;
-    protected Vector3 _spawnPosition;
-    protected Vector3 _targetPos;
-    protected IUpdateManager _updateManager;
-    protected IEnemyFactory _originFactory;
+    private IUpdateManager _updateManager;
+    private IEnemyFactory _originFactory;
+    private IHealthBarManager _healthBarManager;
+    private GridTile currentTile;
+    private Vector3 _spawnPosition;
+    private Vector3 _targetPos;
 
     [Inject]
-    public void Construct(IGridQuery grid, IUpdateManager updateManager)
+    public void Construct(IGridQuery grid, IUpdateManager updateManager, IHealthBarManager healthBarManager)
     {
         _grid = grid ?? throw new ArgumentNullException(nameof(grid));
-        
         _updateManager = updateManager ?? throw new ArgumentNullException(nameof(updateManager));
+        _healthBarManager = healthBarManager ?? throw new NullReferenceException(nameof(healthBarManager));
     }
 
 
@@ -56,7 +57,7 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
             Health.OnDeath += Die;
         }
         Health.Reset();
-        ServiceLocator.Get<HealthBarManager>().Register(Health, transform);
+        _healthBarManager.Register(Health, transform);
 
         _statusManager = new EnemyStatusManager(this);
     }
@@ -125,13 +126,13 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
     public virtual void Die()
     {
         ClearStatus();
-        ServiceLocator.Get<HealthBarManager>().Unregister(Health);
+        _healthBarManager.Unregister(Health);
         OnRemoved?.Invoke(this);
     }
 
     protected virtual void ReachedEnd()
     {
-        ServiceLocator.Get<HealthBarManager>().Unregister(Health);
+        _healthBarManager.Unregister(Health);
         ServiceLocator.Get<PlayerHealthManager>().ApplyDamage(Data.damageOnReach);
         OnRemoved?.Invoke(this);
     }

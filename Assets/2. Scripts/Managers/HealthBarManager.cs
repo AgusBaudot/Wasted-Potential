@@ -19,15 +19,9 @@ public class HealthBarManager : MonoBehaviour, IUpdatable, IHealthBarManager
     {
         _updateManager = updateManager ?? throw new ArgumentNullException(nameof(updateManager));
     }
-
-    private void Awake() => ServiceLocator.Register(this);
+    
     private void Start() => _updateManager.Register(this);
-
-    private void OnDestroy()
-    {
-        ServiceLocator.Unregister(this);
-        _updateManager.Unregister(this);
-    }
+    private void OnDestroy() => _updateManager.Unregister(this);
 
     public void Register(IHasHealth source, Transform target)
     {

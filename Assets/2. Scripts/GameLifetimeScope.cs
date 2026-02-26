@@ -48,7 +48,7 @@ public class GameLifetimeScope : LifetimeScope
         builder.RegisterComponent(waveManager).As<IWaveQuery>();
         builder.RegisterComponent(cardManager).AsSelf();
         builder.RegisterComponent(playingUIManager).AsSelf();
-        builder.RegisterComponent(healthBarManager).AsSelf();
+        builder.RegisterComponent(healthBarManager).As<IHealthBarManager>();
 
         builder.RegisterComponent(towerFactory).As<ITowerFactory>();
         builder.RegisterComponent(factoryProvider).AsSelf();
