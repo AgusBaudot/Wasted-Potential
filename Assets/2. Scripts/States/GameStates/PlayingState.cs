@@ -6,9 +6,9 @@ public class PlayingState : IState
     private readonly IGameStateController _controller;
     private ISubState _currentSubState;
 
-    public PlayingState(int level)
+    public PlayingState(int level, IGameStateController controller)
     {
-        _controller = ServiceLocator.Get<IGameStateController>();
+        _controller = controller;
         SceneManager.LoadScene($"Level {level}");
         SceneManager.sceneLoaded += OnSceneLoaded;
     }

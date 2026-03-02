@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 /// <summary>
 /// This is the central orchestrator. It will manage the pools and the "choose 1 of 3" mechanic. CardManager will observe the WaveManager.
 /// </summary>
-public class CardManager : MonoBehaviour
+public class CardManager : MonoBehaviour, ICardManager
 {
     
     [Header("Card Pools")]

@@ -1,8 +1,18 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 public class InitialCardsContinueButton : MonoBehaviour
 {
+    private ICardManager _cardManager;
+
+    [Inject]
+    public void Construct(ICardManager cardManager)
+    {
+        _cardManager = cardManager ?? throw new ArgumentNullException(nameof(cardManager));
+    }
+    
     private void Awake()
     {
         GetComponent<Button>().onClick.AddListener(HandleOnClick);
@@ -10,6 +20,6 @@ public class InitialCardsContinueButton : MonoBehaviour
 
     private void HandleOnClick()
     {
-        ServiceLocator.Get<CardManager>().CardVisualizer.ConfirmInitialCards();
+        _cardManager.CardVisualizer.ConfirmInitialCards();
     }
 }

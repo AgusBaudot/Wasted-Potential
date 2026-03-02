@@ -36,6 +36,8 @@ public class GameLifetimeScope : LifetimeScope
     [SerializeField] private TowerPlacementFacade towerPlacementFacade;
     [SerializeField] private WaveRewards waveRewards;
     [SerializeField] private StartWavesButton startWavesButton;
+    [SerializeField] private ChoiceCardBehavior choiceCardBehavior;
+    [SerializeField] private InitialCardsContinueButton initialCardsContinueButton;
 
     #endregion
     
@@ -47,7 +49,7 @@ public class GameLifetimeScope : LifetimeScope
         builder.RegisterComponent(enemyManager).As<IEnemyQuery>();
         builder.RegisterComponent(towerManager).As<ITowerRegistry>();
         builder.RegisterComponent(waveManager).As<IWaveQuery>();
-        builder.RegisterComponent(cardManager).AsSelf();
+        builder.RegisterComponent(cardManager).As<ICardManager>();
         builder.RegisterComponent(resourceManager).As<IResourcesQuery>();
         builder.RegisterComponent(playingUIManager).AsSelf();
         builder.RegisterComponent(healthBarManager).As<IHealthBarManager>();
@@ -62,6 +64,8 @@ public class GameLifetimeScope : LifetimeScope
         builder.RegisterComponent(towerPlacementFacade).AsSelf();
         builder.RegisterComponent(waveRewards).AsSelf();
         builder.RegisterComponent(startWavesButton).AsSelf();
+        builder.RegisterComponent(choiceCardBehavior).AsSelf();
+        builder.RegisterComponent(initialCardsContinueButton).AsSelf();
 
         builder.Register<BuildTowerCommand>(Lifetime.Singleton);
     }

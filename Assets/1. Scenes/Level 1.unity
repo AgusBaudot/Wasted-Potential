@@ -969,7 +969,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d7619da4b120334da5a08fd95ec7a00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardManager: {fileID: 1487508640}
   _resourcesText: {fileID: 1732285909}
 --- !u!1 &403067761
 GameObject:
@@ -7496,7 +7495,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
-    TypeName: 
+    TypeName: RootLifetimeScope
   autoRun: 1
   autoInjectGameObjects: []
   updateManager: {fileID: 1190807847}
@@ -7517,6 +7516,8 @@ MonoBehaviour:
   towerPlacementFacade: {fileID: 1628167124}
   waveRewards: {fileID: 1847899364}
   startWavesButton: {fileID: 227117474}
+  choiceCardBehavior: {fileID: 5738293237930073952, guid: 26e62ea7956eb2446b2f865f254334f5, type: 3}
+  initialCardsContinueButton: {fileID: 2010858015}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

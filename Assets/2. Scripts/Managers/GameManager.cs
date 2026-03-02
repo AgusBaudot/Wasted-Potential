@@ -1,24 +1,27 @@
 using UnityEngine;
+using VContainer;
 
 public class GameManager : MonoBehaviour
 {
-    private GameStateManager _stateManager;
+    private IGameStateService _stateService;
+    private IGameStateController _stateController;
+
+    [Inject]
+    public void Construct(IGameStateService service, IGameStateController controller)
+    {
+        _stateService = service;
+        _stateController = controller;
+    }
 
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
-
-        _stateManager = new GameStateManager();
-
-        ServiceLocator.Register<IGameStateService>(_stateManager);
-        ServiceLocator.Register<IGameStateController>(_stateManager);
-
-        _stateManager.OnStateChanged += HandleStateChanged;
+        _stateService.OnStateChanged += HandleStateChanged;
     }
 
     private void Start()
     {
-        _stateManager.ChangeState(new MenuState(_stateManager));
+        _stateController.ChangeState(new MenuState(_stateController));
     }
 
     private void HandleStateChanged(IState newState)

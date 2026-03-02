@@ -2,11 +2,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using VContainer;
 
 public class LevelSelectedButton : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     [SerializeField] private int level;
     private Vector2 _size;
+    private IGameStateController _stateController;
+
+    [Inject]
+    public void Construct(IGameStateController controller)
+    {
+        _stateController = controller;
+    }
 
     private void Awake()
     {
@@ -16,7 +24,7 @@ public class LevelSelectedButton : MonoBehaviour, ISelectHandler, IDeselectHandl
 
     private void HandleOnClick()
     {
-        ServiceLocator.Get<IGameStateController>().ChangeState(new PlayingState(level));
+        _stateController.ChangeState(new PlayingState(level, _stateController));
     }
 
     public void OnSelect(BaseEventData eventData)

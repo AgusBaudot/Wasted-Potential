@@ -6,12 +6,12 @@ using VContainer;
 
 public class CardPlacementController : MonoBehaviour, IUpdatable
 {
-    [SerializeField] private CardManager _cardManager;
     [SerializeField] private TextMeshProUGUI _resourcesText;
     
     private IGridQuery _gridManager;
     private IUpdateManager _updateManager;
     private IResourcesQuery _resourceManager;
+    private ICardManager _cardManager;
     private CardVisualizer _cardVisualizer;
     private PlayerHand _playerHand;
     private TowerPlacementFacade _placementFacade;
@@ -19,11 +19,12 @@ public class CardPlacementController : MonoBehaviour, IUpdatable
     private GameObject _ghostInstance;
 
     [Inject]
-    public void Construct(IGridQuery gridManager, IUpdateManager updateManager, IResourcesQuery resourceManager)
+    public void Construct(IGridQuery gridManager, IUpdateManager updateManager, IResourcesQuery resourceManager, ICardManager cardManager)
     {
         _gridManager = gridManager ?? throw new ArgumentNullException(nameof(gridManager));
         _updateManager = updateManager ?? throw new ArgumentNullException(nameof(updateManager));
         _resourceManager = resourceManager ?? throw new ArgumentNullException(nameof(resourceManager));
+        _cardManager = cardManager ?? throw new NullReferenceException(nameof(cardManager));
     }
 
     private void Start()
