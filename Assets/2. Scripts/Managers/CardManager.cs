@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 /// <summary>
 /// This is the central orchestrator. It will manage the pools and the "choose 1 of 3" mechanic. CardManager will observe the WaveManager.
 /// </summary>
+
 public class CardManager : MonoBehaviour, ICardManager
 {
     
@@ -29,6 +30,7 @@ public class CardManager : MonoBehaviour, ICardManager
     private PlayerHand _playerHand;
     private CardVisualizer _cardVisualizer;
     private IWaveQuery _waveManager;
+    private IObjectResolver _container;
     
     public PlayerHand PlayerHand => _playerHand;
     public CardVisualizer CardVisualizer => _cardVisualizer;
@@ -42,16 +44,16 @@ public class CardManager : MonoBehaviour, ICardManager
     #endregion
 
     [Inject]
-    public void Construct(IWaveQuery waveManager)
+    public void Construct(IWaveQuery waveManager, IObjectResolver container)
     {
         _waveManager = waveManager ?? throw new ArgumentNullException(nameof(waveManager));
+        _container = container;
     }
     
     private void Awake()
     {
         _playerHand = new PlayerHand();
-        _cardVisualizer = new CardVisualizer(cardsContainer, initialCardsPanel, cardChoicePanel, cardPrefab, initialCardPrefab, choiceCardPrefab, _playerHand);
-        ServiceLocator.Register(this);
+        _cardVisualizer = new CardVisualizer(cardsContainer, initialCardsPanel, cardChoicePanel, cardPrefab, initialCardPrefab, choiceCardPrefab, _playerHand, _container);
     }
 
     private void Start()
@@ -61,7 +63,6 @@ public class CardManager : MonoBehaviour, ICardManager
 
     private void OnDestroy()
     {
-        ServiceLocator.Unregister(this);
         _waveManager.OnNewCardOffer -= HandleCardOffered;
         _cardVisualizer?.Dispose();
     }

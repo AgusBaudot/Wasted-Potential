@@ -7,6 +7,7 @@ using VContainer;
 public class LevelSelectedButton : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     [SerializeField] private int level;
+    
     private Vector2 _size;
     private IGameStateController _stateController;
 

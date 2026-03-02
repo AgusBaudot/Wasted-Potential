@@ -1,12 +1,13 @@
 using System.Collections.Generic;
+using VContainer;
 
 public class ShowCards : ISubState
 {
-    private CardManager _cardManager;
+    private ICardManager _cardManager;
 
-    public ShowCards()
+    public ShowCards(ICardManager manager)
     {
-        _cardManager = ServiceLocator.Get<CardManager>();
+        _cardManager = manager;
     }
 
     public void Enter()

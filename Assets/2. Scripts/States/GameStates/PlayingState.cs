@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using VContainer.Unity;
 
 public class PlayingState : IState
 {
@@ -9,6 +10,7 @@ public class PlayingState : IState
     public PlayingState(int level, IGameStateController controller)
     {
         _controller = controller;
+        
         SceneManager.LoadScene($"Level {level}");
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
@@ -17,8 +19,9 @@ public class PlayingState : IState
     {
         //Called after awake/start of scene objects
         SceneManager.sceneLoaded -= OnSceneLoaded;
-        
-        SetSubState(new ShowCards());
+
+        var scope = LifetimeScope.Find<GameLifetimeScope>();
+        SetSubState((ISubState)scope.Container.Resolve(typeof(ShowCards)));
     }
 
     public void SetSubState(ISubState newSubState)

@@ -20,15 +20,8 @@ public class TowerPlacementFacade : MonoBehaviour, ITowerPlacementQuery
     
     private void Awake()
     {
-        ServiceLocator.Register(this);
-        
         _towerFactory = towerFactoryComponent as ITowerFactory;
         if (_towerFactory == null) Debug.LogWarning("Tower Factory not assigned or does not implement ITowerFactory");
-    }
-
-    private void OnDestroy()
-    {
-        ServiceLocator.Unregister(this);
     }
 
     public bool TryPlaceTower(CardData card, Vector2Int gridPosition)

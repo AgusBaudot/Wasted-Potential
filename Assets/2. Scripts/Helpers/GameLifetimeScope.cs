@@ -69,5 +69,6 @@ public class GameLifetimeScope : LifetimeScope
         builder.RegisterComponent(initialCardsContinueButton).AsSelf();
 
         builder.Register<BuildTowerCommand>(Lifetime.Singleton);
+        builder.Register<ShowCards>(Lifetime.Singleton);
     }
 }

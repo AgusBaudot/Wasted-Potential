@@ -2,179 +2,6 @@
   "project": "Industrial TD",
   "files": [
     {
-      "path": "Assets\\2. Scripts\\WaveDTO.cs",
-      "namespace": "Global",
-      "types": [
-        {
-          "name": "WavesJsonWrapper",
-          "kind": "ClassDeclaration",
-          "baseType": null,
-          "interfaces": [],
-          "fields": [
-            {
-              "name": "waves",
-              "type": "WaveDTO[]",
-              "accessibility": "public",
-              "serialized": false
-            }
-          ],
-          "methods": [],
-          "dependencies": [
-            "Serializable",
-            "WaveDTO"
-          ]
-        },
-        {
-          "name": "WaveDTO",
-          "kind": "ClassDeclaration",
-          "baseType": null,
-          "interfaces": [],
-          "fields": [
-            {
-              "name": "startDelay",
-              "type": "float",
-              "accessibility": "public",
-              "serialized": false
-            },
-            {
-              "name": "defaultSpawnDistribution",
-              "type": "int[]",
-              "accessibility": "public",
-              "serialized": false
-            },
-            {
-              "name": "entries",
-              "type": "SpawnEntryDTO[]",
-              "accessibility": "public",
-              "serialized": false
-            }
-          ],
-          "methods": [],
-          "dependencies": [
-            "Serializable",
-            "SpawnEntryDTO"
-          ]
-        },
-        {
-          "name": "SpawnEntryDTO",
-          "kind": "ClassDeclaration",
-          "baseType": null,
-          "interfaces": [],
-          "fields": [
-            {
-              "name": "enemyType",
-              "type": "string",
-              "accessibility": "public",
-              "serialized": false
-            },
-            {
-              "name": "count",
-              "type": "int",
-              "accessibility": "public",
-              "serialized": false
-            },
-            {
-              "name": "interval",
-              "type": "float",
-              "accessibility": "public",
-              "serialized": false
-            },
-            {
-              "name": "startDelay",
-              "type": "float",
-              "accessibility": "public",
-              "serialized": false
-            },
-            {
-              "name": "spawnDistribution",
-              "type": "int[]",
-              "accessibility": "public",
-              "serialized": false
-            },
-            {
-              "name": "weight",
-              "type": "int",
-              "accessibility": "public",
-              "serialized": false
-            }
-          ],
-          "methods": [],
-          "dependencies": [
-            "Serializable"
-          ]
-        }
-      ]
-    },
-    {
-      "path": "Assets\\2. Scripts\\WaveJsonLoader.cs",
-      "namespace": "Global",
-      "types": [
-        {
-          "name": "WaveJsonLoader",
-          "kind": "ClassDeclaration",
-          "baseType": null,
-          "interfaces": [],
-          "fields": [],
-          "methods": [
-            {
-              "name": "LoadWavesFromResources",
-              "returnType": "List<Wave>",
-              "accessibility": "public static",
-              "isStatic": true,
-              "parameters": [
-                "string resourcePath"
-              ]
-            },
-            {
-              "name": "ConvertFromJson",
-              "returnType": "List<Wave>",
-              "accessibility": "private static",
-              "isStatic": true,
-              "parameters": [
-                "string json"
-              ]
-            }
-          ],
-          "dependencies": [
-            "Wave",
-            "var",
-            "Resources",
-            "TextAsset",
-            "resourcePath",
-            "textAsset",
-            "Debug",
-            "LogError",
-            "ConvertFromJson",
-            "text",
-            "JsonUtility",
-            "WavesJsonWrapper",
-            "json",
-            "wrapper",
-            "waves",
-            "Length",
-            "startDelay",
-            "wDTO",
-            "defaultSpawnDistribution",
-            "entries",
-            "SpawnEntry",
-            "Enum",
-            "EnemyType",
-            "eDTO",
-            "enemyType",
-            "LogWarning",
-            "Beaver",
-            "count",
-            "interval",
-            "spawnDistribution",
-            "wave",
-            "Add",
-            "entry",
-            "result"
-          ]
-        }
-      ]
-    },
-    {
       "path": "Assets\\Editor\\CodebaseExtractor.cs",
       "namespace": "Global",
       "types": [
@@ -487,6 +314,217 @@
       ]
     },
     {
+      "path": "Assets\\2. Scripts\\Helpers\\GameLifetimeScope.cs",
+      "namespace": "Global",
+      "types": [
+        {
+          "name": "GameLifetimeScope",
+          "kind": "ClassDeclaration",
+          "baseType": "LifetimeScope",
+          "interfaces": [],
+          "fields": [
+            {
+              "name": "updateManager",
+              "type": "UpdateManager",
+              "accessibility": "private",
+              "serialized": true
+            },
+            {
+              "name": "gridManager",
+              "type": "GridManager",
+              "accessibility": "private",
+              "serialized": true
+            },
+            {
+              "name": "enemyManager",
+              "type": "EnemyManager",
+              "accessibility": "private",
+              "serialized": true
+            },
+            {
+              "name": "towerManager",
+              "type": "TowerManager",
+              "accessibility": "private",
+              "serialized": true
+            },
+            {
+              "name": "waveManager",
+              "type": "WaveManager",
+              "accessibility": "private",
+              "serialized": true
+            },
+            {
+              "name": "cardManager",
+              "type": "CardManager",
+              "accessibility": "private",
+              "serialized": true
+            },
+            {
+              "name": "resourceManager",
+              "type": "ResourceManager",
+              "accessibility": "private",
+              "serialized": true
+            },
+            {
+              "name": "playingUIManager",
+              "type": "PlayingUIManager",
+              "accessibility": "private",
+              "serialized": true
+            },
+            {
+              "name": "healthBarManager",
+              "type": "HealthBarManager",
+              "accessibility": "private",
+              "serialized": true
+            },
+            {
+              "name": "towerFactory",
+              "type": "TowerFactory",
+              "accessibility": "private",
+              "serialized": true
+            },
+            {
+              "name": "factoryProvider",
+              "type": "FactoryProvider",
+              "accessibility": "private",
+              "serialized": true
+            },
+            {
+              "name": "projectilePool",
+              "type": "ProjectilePool",
+              "accessibility": "private",
+              "serialized": true
+            },
+            {
+              "name": "towerInfoUI",
+              "type": "TowerInfoUI",
+              "accessibility": "private",
+              "serialized": true
+            },
+            {
+              "name": "enemySpawner",
+              "type": "EnemySpawner",
+              "accessibility": "private",
+              "serialized": true
+            },
+            {
+              "name": "cardPlacementController",
+              "type": "CardPlacementController",
+              "accessibility": "private",
+              "serialized": true
+            },
+            {
+              "name": "towerPlacementFacade",
+              "type": "TowerPlacementFacade",
+              "accessibility": "private",
+              "serialized": true
+            },
+            {
+              "name": "waveRewards",
+              "type": "WaveRewards",
+              "accessibility": "private",
+              "serialized": true
+            },
+            {
+              "name": "startWavesButton",
+              "type": "StartWavesButton",
+              "accessibility": "private",
+              "serialized": true
+            },
+            {
+              "name": "choiceCardBehavior",
+              "type": "ChoiceCardBehavior",
+              "accessibility": "private",
+              "serialized": true
+            },
+            {
+              "name": "initialCardsContinueButton",
+              "type": "InitialCardsContinueButton",
+              "accessibility": "private",
+              "serialized": true
+            }
+          ],
+          "methods": [
+            {
+              "name": "Configure",
+              "returnType": "void",
+              "accessibility": "protected override",
+              "isStatic": false,
+              "parameters": [
+                "IContainerBuilder builder"
+              ]
+            }
+          ],
+          "dependencies": [
+            "LifetimeScope",
+            "Header",
+            "SerializeField",
+            "UpdateManager",
+            "GridManager",
+            "EnemyManager",
+            "TowerManager",
+            "WaveManager",
+            "CardManager",
+            "ResourceManager",
+            "PlayingUIManager",
+            "HealthBarManager",
+            "TowerFactory",
+            "FactoryProvider",
+            "ProjectilePool",
+            "TowerInfoUI",
+            "EnemySpawner",
+            "CardPlacementController",
+            "TowerPlacementFacade",
+            "WaveRewards",
+            "StartWavesButton",
+            "ChoiceCardBehavior",
+            "InitialCardsContinueButton",
+            "IContainerBuilder",
+            "builder",
+            "RegisterComponent",
+            "updateManager",
+            "IUpdateManager",
+            "gridManager",
+            "IGridQuery",
+            "enemyManager",
+            "IEnemyQuery",
+            "towerManager",
+            "ITowerRegistry",
+            "waveManager",
+            "IWaveQuery",
+            "cardManager",
+            "ICardManager",
+            "resourceManager",
+            "IResourcesQuery",
+            "playingUIManager",
+            "AsSelf",
+            "healthBarManager",
+            "IHealthBarManager",
+            "PlayerHealthManager",
+            "IPlayerHealthManager",
+            "towerFactory",
+            "ITowerFactory",
+            "factoryProvider",
+            "projectilePool",
+            "IProjectilePool",
+            "towerInfoUI",
+            "enemySpawner",
+            "cardPlacementController",
+            "towerPlacementFacade",
+            "ITowerPlacementQuery",
+            "waveRewards",
+            "startWavesButton",
+            "choiceCardBehavior",
+            "initialCardsContinueButton",
+            "BuildTowerCommand",
+            "Lifetime",
+            "Singleton",
+            "ShowCards"
+          ]
+        }
+      ]
+    },
+    {
       "path": "Assets\\2. Scripts\\Helpers\\Helpers.cs",
       "namespace": "Global",
       "types": [
@@ -567,6 +605,131 @@
       ]
     },
     {
+      "path": "Assets\\2. Scripts\\Helpers\\MainMenuLifetimeScope.cs",
+      "namespace": "Global",
+      "types": [
+        {
+          "name": "MainMenuLifetimeScope",
+          "kind": "ClassDeclaration",
+          "baseType": "LifetimeScope",
+          "interfaces": [],
+          "fields": [
+            {
+              "name": "menuUIManager",
+              "type": "MenuUIManager",
+              "accessibility": "private",
+              "serialized": true
+            },
+            {
+              "name": "returnButtonLevelSelector",
+              "type": "ReturnButton",
+              "accessibility": "private",
+              "serialized": true
+            },
+            {
+              "name": "returnButtonOptions",
+              "type": "ReturnButton",
+              "accessibility": "private",
+              "serialized": true
+            }
+          ],
+          "methods": [
+            {
+              "name": "Configure",
+              "returnType": "void",
+              "accessibility": "protected override",
+              "isStatic": false,
+              "parameters": [
+                "IContainerBuilder builder"
+              ]
+            },
+            {
+              "name": "Awake",
+              "returnType": "void",
+              "accessibility": "protected override",
+              "isStatic": false,
+              "parameters": []
+            }
+          ],
+          "dependencies": [
+            "LifetimeScope",
+            "SerializeField",
+            "MenuUIManager",
+            "ReturnButton",
+            "IContainerBuilder",
+            "builder",
+            "RegisterComponent",
+            "menuUIManager",
+            "IMenuUIManager",
+            "PlayButton",
+            "SettingsButton",
+            "LevelSelectedButton",
+            "Awake",
+            "Container",
+            "Inject",
+            "returnButtonLevelSelector",
+            "returnButtonOptions"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Assets\\2. Scripts\\Helpers\\RootLifetimeScope.cs",
+      "namespace": "Global",
+      "types": [
+        {
+          "name": "RootLifetimeScope",
+          "kind": "ClassDeclaration",
+          "baseType": "LifetimeScope",
+          "interfaces": [],
+          "fields": [
+            {
+              "name": "gameManager",
+              "type": "GameManager",
+              "accessibility": "private",
+              "serialized": true
+            }
+          ],
+          "methods": [
+            {
+              "name": "Awake",
+              "returnType": "void",
+              "accessibility": "protected override",
+              "isStatic": false,
+              "parameters": []
+            },
+            {
+              "name": "Configure",
+              "returnType": "void",
+              "accessibility": "protected override",
+              "isStatic": false,
+              "parameters": [
+                "IContainerBuilder builder"
+              ]
+            }
+          ],
+          "dependencies": [
+            "LifetimeScope",
+            "SerializeField",
+            "GameManager",
+            "DontDestroyOnLoad",
+            "gameObject",
+            "Awake",
+            "IContainerBuilder",
+            "builder",
+            "RegisterComponent",
+            "gameManager",
+            "AsSelf",
+            "GameStateManager",
+            "Lifetime",
+            "Singleton",
+            "IGameStateController",
+            "IGameStateService"
+          ]
+        }
+      ]
+    },
+    {
       "path": "Assets\\2. Scripts\\Helpers\\ServiceLocator.cs",
       "namespace": "Global",
       "types": [
@@ -640,6 +803,51 @@
       ]
     },
     {
+      "path": "Assets\\2. Scripts\\Interfaces\\ICardManager.cs",
+      "namespace": "Global",
+      "types": [
+        {
+          "name": "ICardManager",
+          "kind": "InterfaceDeclaration",
+          "baseType": null,
+          "interfaces": [],
+          "fields": [],
+          "methods": [
+            {
+              "name": "GiveInitialCards",
+              "returnType": "void",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": []
+            },
+            {
+              "name": "FinalizeInitialCards",
+              "returnType": "void",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": [
+                "List<CardData> cardsToAdd"
+              ]
+            },
+            {
+              "name": "FinalizeCardChoice",
+              "returnType": "void",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": [
+                "CardData selectedCard"
+              ]
+            }
+          ],
+          "dependencies": [
+            "PlayerHand",
+            "CardVisualizer",
+            "CardData"
+          ]
+        }
+      ]
+    },
+    {
       "path": "Assets\\2. Scripts\\Interfaces\\ICommand.cs",
       "namespace": "Global",
       "types": [
@@ -702,6 +910,51 @@
       ]
     },
     {
+      "path": "Assets\\2. Scripts\\Interfaces\\IEnemyQuery.cs",
+      "namespace": "Global",
+      "types": [
+        {
+          "name": "IEnemyQuery",
+          "kind": "InterfaceDeclaration",
+          "baseType": null,
+          "interfaces": [],
+          "fields": [],
+          "methods": [
+            {
+              "name": "RegisterEnemy",
+              "returnType": "void",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": [
+                "EnemyBase enemy"
+              ]
+            },
+            {
+              "name": "GetAllEnemies",
+              "returnType": "List<EnemyBase>",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": []
+            },
+            {
+              "name": "GetEnemiesInRange",
+              "returnType": "List<EnemyBase>",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": [
+                "Vector3 position",
+                "float range"
+              ]
+            }
+          ],
+          "dependencies": [
+            "EnemyBase",
+            "Vector3"
+          ]
+        }
+      ]
+    },
+    {
       "path": "Assets\\2. Scripts\\Interfaces\\IGameStateController.cs",
       "namespace": "Global",
       "types": [
@@ -746,6 +999,53 @@
       ]
     },
     {
+      "path": "Assets\\2. Scripts\\Interfaces\\IGridQuery.cs",
+      "namespace": "Global",
+      "types": [
+        {
+          "name": "IGridQuery",
+          "kind": "InterfaceDeclaration",
+          "baseType": null,
+          "interfaces": [],
+          "fields": [],
+          "methods": [
+            {
+              "name": "GetTile",
+              "returnType": "GridTile",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": [
+                "Vector2Int position"
+              ]
+            },
+            {
+              "name": "GridToWorld",
+              "returnType": "Vector3",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": [
+                "Vector2Int position"
+              ]
+            },
+            {
+              "name": "WorldToGrid",
+              "returnType": "Vector2Int",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": [
+                "Vector3 worldPosition"
+              ]
+            }
+          ],
+          "dependencies": [
+            "GridTile",
+            "Vector2Int",
+            "Vector3"
+          ]
+        }
+      ]
+    },
+    {
       "path": "Assets\\2. Scripts\\Interfaces\\IHasHealth.cs",
       "namespace": "Global",
       "types": [
@@ -756,6 +1056,107 @@
           "interfaces": [],
           "fields": [],
           "methods": [],
+          "dependencies": [
+            "Action"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Assets\\2. Scripts\\Interfaces\\IHealthBarManager.cs",
+      "namespace": "Global",
+      "types": [
+        {
+          "name": "IHealthBarManager",
+          "kind": "InterfaceDeclaration",
+          "baseType": null,
+          "interfaces": [],
+          "fields": [],
+          "methods": [
+            {
+              "name": "Register",
+              "returnType": "void",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": [
+                "IHasHealth source",
+                "Transform target"
+              ]
+            },
+            {
+              "name": "Unregister",
+              "returnType": "void",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": [
+                "IHasHealth source"
+              ]
+            },
+            {
+              "name": "Tick",
+              "returnType": "void",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": [
+                "float deltaTime"
+              ]
+            }
+          ],
+          "dependencies": [
+            "IHasHealth",
+            "Transform"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Assets\\2. Scripts\\Interfaces\\IMenuUIManager.cs",
+      "namespace": "Global",
+      "types": [
+        {
+          "name": "IMenuUIManager",
+          "kind": "InterfaceDeclaration",
+          "baseType": null,
+          "interfaces": [],
+          "fields": [],
+          "methods": [
+            {
+              "name": "ShowScreen",
+              "returnType": "void",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": [
+                "GameObject screen"
+              ]
+            }
+          ],
+          "dependencies": [
+            "GameObject"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Assets\\2. Scripts\\Interfaces\\IPlayerHealthManager.cs",
+      "namespace": "Global",
+      "types": [
+        {
+          "name": "IPlayerHealthManager",
+          "kind": "InterfaceDeclaration",
+          "baseType": null,
+          "interfaces": [],
+          "fields": [],
+          "methods": [
+            {
+              "name": "ApplyDamage",
+              "returnType": "void",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": [
+                "int amount"
+              ]
+            }
+          ],
           "dependencies": [
             "Action"
           ]
@@ -797,6 +1198,87 @@
             "Vector3",
             "IEnemyFactory"
           ]
+        }
+      ]
+    },
+    {
+      "path": "Assets\\2. Scripts\\Interfaces\\IProjectilePool.cs",
+      "namespace": "Global",
+      "types": [
+        {
+          "name": "IProjectilePool",
+          "kind": "InterfaceDeclaration",
+          "baseType": null,
+          "interfaces": [],
+          "fields": [],
+          "methods": [
+            {
+              "name": "Spawn",
+              "returnType": "Projectile",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": [
+                "Vector3 startPos",
+                "Projectile prefab"
+              ]
+            },
+            {
+              "name": "Release",
+              "returnType": "void",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": [
+                "Projectile proj"
+              ]
+            }
+          ],
+          "dependencies": [
+            "Projectile",
+            "Vector3"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Assets\\2. Scripts\\Interfaces\\IResourcesQuery.cs",
+      "namespace": "Global",
+      "types": [
+        {
+          "name": "IResourcesQuery",
+          "kind": "InterfaceDeclaration",
+          "baseType": null,
+          "interfaces": [],
+          "fields": [],
+          "methods": [
+            {
+              "name": "CanAfford",
+              "returnType": "bool",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": [
+                "int amount"
+              ]
+            },
+            {
+              "name": "TrySpend",
+              "returnType": "bool",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": [
+                "int amount"
+              ]
+            },
+            {
+              "name": "GainResources",
+              "returnType": "void",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": [
+                "int amount"
+              ]
+            }
+          ],
+          "dependencies": []
         }
       ]
     },
@@ -975,6 +1457,71 @@
       ]
     },
     {
+      "path": "Assets\\2. Scripts\\Interfaces\\ITowerPlacementQuery.cs",
+      "namespace": "Global",
+      "types": [
+        {
+          "name": "ITowerPlacementQuery",
+          "kind": "InterfaceDeclaration",
+          "baseType": null,
+          "interfaces": [],
+          "fields": [],
+          "methods": [
+            {
+              "name": "TryPlaceTower",
+              "returnType": "bool",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": [
+                "CardData card",
+                "Vector2Int gridPosition"
+              ]
+            }
+          ],
+          "dependencies": [
+            "CardData",
+            "Vector2Int"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Assets\\2. Scripts\\Interfaces\\ITowerRegistry.cs",
+      "namespace": "Global",
+      "types": [
+        {
+          "name": "ITowerRegistry",
+          "kind": "InterfaceDeclaration",
+          "baseType": null,
+          "interfaces": [],
+          "fields": [],
+          "methods": [
+            {
+              "name": "RegisterTower",
+              "returnType": "void",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": [
+                "Tower tower"
+              ]
+            },
+            {
+              "name": "UnregisterTower",
+              "returnType": "void",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": [
+                "Tower tower"
+              ]
+            }
+          ],
+          "dependencies": [
+            "Tower"
+          ]
+        }
+      ]
+    },
+    {
       "path": "Assets\\2. Scripts\\Interfaces\\IUpdatable.cs",
       "namespace": "Global",
       "types": [
@@ -1000,6 +1547,82 @@
       ]
     },
     {
+      "path": "Assets\\2. Scripts\\Interfaces\\IUpdateManager.cs",
+      "namespace": "Global",
+      "types": [
+        {
+          "name": "IUpdateManager",
+          "kind": "InterfaceDeclaration",
+          "baseType": null,
+          "interfaces": [],
+          "fields": [],
+          "methods": [
+            {
+              "name": "Register",
+              "returnType": "void",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": [
+                "IUpdatable updatable"
+              ]
+            },
+            {
+              "name": "Unregister",
+              "returnType": "void",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": [
+                "IUpdatable updatable"
+              ]
+            }
+          ],
+          "dependencies": [
+            "IUpdatable"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Assets\\2. Scripts\\Interfaces\\IWaveQuery.cs",
+      "namespace": "Global",
+      "types": [
+        {
+          "name": "IWaveQuery",
+          "kind": "InterfaceDeclaration",
+          "baseType": null,
+          "interfaces": [],
+          "fields": [],
+          "methods": [
+            {
+              "name": "StartWaves",
+              "returnType": "void",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": []
+            },
+            {
+              "name": "ConfirmNextWave",
+              "returnType": "void",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": []
+            },
+            {
+              "name": "StopWaves",
+              "returnType": "void",
+              "accessibility": "",
+              "isStatic": false,
+              "parameters": []
+            }
+          ],
+          "dependencies": [
+            "Wave",
+            "Action"
+          ]
+        }
+      ]
+    },
+    {
       "path": "Assets\\2. Scripts\\Managers\\CardManager.cs",
       "namespace": "Global",
       "types": [
@@ -1007,7 +1630,9 @@
           "name": "CardManager",
           "kind": "ClassDeclaration",
           "baseType": "MonoBehaviour",
-          "interfaces": [],
+          "interfaces": [
+            "ICardManager"
+          ],
           "fields": [
             {
               "name": "initialPool",
@@ -1076,8 +1701,14 @@
               "serialized": false
             },
             {
-              "name": "waveManager",
-              "type": "WaveManager",
+              "name": "_waveManager",
+              "type": "IWaveQuery",
+              "accessibility": "private",
+              "serialized": false
+            },
+            {
+              "name": "_container",
+              "type": "IObjectResolver",
               "accessibility": "private",
               "serialized": false
             },
@@ -1101,6 +1732,16 @@
             }
           ],
           "methods": [
+            {
+              "name": "Construct",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": [
+                "IWaveQuery waveManager",
+                "IObjectResolver container"
+              ]
+            },
             {
               "name": "Awake",
               "returnType": "void",
@@ -1182,6 +1823,7 @@
           ],
           "dependencies": [
             "MonoBehaviour",
+            "ICardManager",
             "Header",
             "SerializeField",
             "CardData",
@@ -1189,21 +1831,25 @@
             "GameObject",
             "PlayerHand",
             "CardVisualizer",
-            "WaveManager",
+            "IWaveQuery",
+            "IObjectResolver",
             "_playerHand",
             "_cardVisualizer",
+            "Inject",
+            "_waveManager",
+            "waveManager",
+            "ArgumentNullException",
+            "nameof",
+            "_container",
+            "container",
             "cardsContainer",
             "initialCardsPanel",
             "cardChoicePanel",
             "cardPrefab",
             "initialCardPrefab",
             "choiceCardPrefab",
-            "ServiceLocator",
-            "Register",
-            "waveManager",
             "OnNewCardOffer",
             "HandleCardOffered",
-            "Unregister",
             "Dispose",
             "var",
             "i",
@@ -1267,7 +1913,9 @@
           "name": "EnemyManager",
           "kind": "ClassDeclaration",
           "baseType": "MonoBehaviour",
-          "interfaces": [],
+          "interfaces": [
+            "IEnemyQuery"
+          ],
           "fields": [
             {
               "name": "_enemies",
@@ -1277,20 +1925,6 @@
             }
           ],
           "methods": [
-            {
-              "name": "Awake",
-              "returnType": "void",
-              "accessibility": "private",
-              "isStatic": false,
-              "parameters": []
-            },
-            {
-              "name": "OnDestroy",
-              "returnType": "void",
-              "accessibility": "private",
-              "isStatic": false,
-              "parameters": []
-            },
             {
               "name": "RegisterEnemy",
               "returnType": "void",
@@ -1329,10 +1963,8 @@
           ],
           "dependencies": [
             "MonoBehaviour",
+            "IEnemyQuery",
             "EnemyBase",
-            "ServiceLocator",
-            "Register",
-            "Unregister",
             "_enemies",
             "Add",
             "enemy",
@@ -1366,13 +1998,29 @@
           "interfaces": [],
           "fields": [
             {
-              "name": "_stateManager",
-              "type": "GameStateManager",
+              "name": "_stateService",
+              "type": "IGameStateService",
+              "accessibility": "private",
+              "serialized": false
+            },
+            {
+              "name": "_stateController",
+              "type": "IGameStateController",
               "accessibility": "private",
               "serialized": false
             }
           ],
           "methods": [
+            {
+              "name": "Construct",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": [
+                "IGameStateService service",
+                "IGameStateController controller"
+              ]
+            },
             {
               "name": "Awake",
               "returnType": "void",
@@ -1399,13 +2047,15 @@
           ],
           "dependencies": [
             "MonoBehaviour",
-            "GameStateManager",
-            "DontDestroyOnLoad",
-            "gameObject",
-            "_stateManager",
-            "ServiceLocator",
             "IGameStateService",
             "IGameStateController",
+            "Inject",
+            "_stateService",
+            "service",
+            "_stateController",
+            "controller",
+            "DontDestroyOnLoad",
+            "gameObject",
             "OnStateChanged",
             "HandleStateChanged",
             "ChangeState",
@@ -1481,7 +2131,9 @@
           "name": "GridManager",
           "kind": "ClassDeclaration",
           "baseType": "MonoBehaviour",
-          "interfaces": [],
+          "interfaces": [
+            "IGridQuery"
+          ],
           "fields": [
             {
               "name": "tilemap",
@@ -1520,14 +2172,14 @@
               "serialized": true
             },
             {
-              "name": "SpawnTile",
-              "type": "List<GridTile>",
-              "accessibility": "public",
+              "name": "_tiles",
+              "type": "Dictionary<Vector2Int, GridTile>",
+              "accessibility": "private",
               "serialized": false
             },
             {
-              "name": "_tiles",
-              "type": "Dictionary<Vector2Int, GridTile>",
+              "name": "_spawnTiles",
+              "type": "List<GridTile>",
               "accessibility": "private",
               "serialized": false
             }
@@ -1535,13 +2187,6 @@
           "methods": [
             {
               "name": "Awake",
-              "returnType": "void",
-              "accessibility": "private",
-              "isStatic": false,
-              "parameters": []
-            },
-            {
-              "name": "OnDestroy",
               "returnType": "void",
               "accessibility": "private",
               "isStatic": false,
@@ -1607,18 +2252,16 @@
           ],
           "dependencies": [
             "MonoBehaviour",
-            "GridManager",
+            "IGridQuery",
             "SerializeField",
             "Tilemap",
             "TileBase",
             "GridTile",
+            "_spawnTiles",
+            "AsReadOnly",
             "Vector2Int",
-            "ServiceLocator",
-            "Register",
-            "Instance",
             "BuildGridFromTilemap",
             "CalculatePath",
-            "Unregister",
             "_tiles",
             "BoundsInt",
             "tilemap",
@@ -1649,7 +2292,6 @@
             "gridPos",
             "type",
             "tile",
-            "SpawnTile",
             "Add",
             "GoalTile",
             "TryGetValue",
@@ -1712,7 +2354,8 @@
           "kind": "ClassDeclaration",
           "baseType": "MonoBehaviour",
           "interfaces": [
-            "IUpdatable"
+            "IUpdatable",
+            "IHealthBarManager"
           ],
           "fields": [
             {
@@ -1750,15 +2393,23 @@
               "type": "Dictionary<IHasHealth, HealthBarUI>",
               "accessibility": "private",
               "serialized": false
+            },
+            {
+              "name": "_updateManager",
+              "type": "IUpdateManager",
+              "accessibility": "private",
+              "serialized": false
             }
           ],
           "methods": [
             {
-              "name": "Awake",
+              "name": "Construct",
               "returnType": "void",
-              "accessibility": "private",
+              "accessibility": "public",
               "isStatic": false,
-              "parameters": []
+              "parameters": [
+                "IUpdateManager updateManager"
+              ]
             },
             {
               "name": "Start",
@@ -1806,14 +2457,19 @@
           "dependencies": [
             "MonoBehaviour",
             "IUpdatable",
+            "IHealthBarManager",
             "SerializeField",
             "HealthBarUI",
             "RectTransform",
             "Camera",
             "IHasHealth",
-            "ServiceLocator",
+            "IUpdateManager",
+            "Inject",
+            "_updateManager",
+            "updateManager",
+            "ArgumentNullException",
+            "nameof",
             "Register",
-            "UpdateManager",
             "Unregister",
             "Transform",
             "source",
@@ -1885,7 +2541,9 @@
           "name": "MenuUIManager",
           "kind": "ClassDeclaration",
           "baseType": "MonoBehaviour",
-          "interfaces": [],
+          "interfaces": [
+            "IMenuUIManager"
+          ],
           "fields": [
             {
               "name": "currentScreen",
@@ -1914,13 +2572,6 @@
           ],
           "methods": [
             {
-              "name": "Awake",
-              "returnType": "void",
-              "accessibility": "private",
-              "isStatic": false,
-              "parameters": []
-            },
-            {
               "name": "ShowScreen",
               "returnType": "void",
               "accessibility": "public",
@@ -1932,11 +2583,10 @@
           ],
           "dependencies": [
             "MonoBehaviour",
+            "IMenuUIManager",
             "SerializeField",
             "GameObject",
             "Sequence",
-            "ServiceLocator",
-            "Register",
             "screen",
             "currentScreen",
             "gameObject",
@@ -1973,7 +2623,9 @@
           "name": "PlayerHealthManager",
           "kind": "ClassDeclaration",
           "baseType": "MonoBehaviour",
-          "interfaces": [],
+          "interfaces": [
+            "IPlayerHealthManager"
+          ],
           "fields": [
             {
               "name": "_healthText",
@@ -2021,11 +2673,10 @@
           ],
           "dependencies": [
             "MonoBehaviour",
+            "IPlayerHealthManager",
             "SerializeField",
             "TextMeshProUGUI",
             "Action",
-            "ServiceLocator",
-            "Register",
             "_currentHealth",
             "maxHealth",
             "amount",
@@ -2068,9 +2719,38 @@
               "type": "TextMeshProUGUI",
               "accessibility": "private",
               "serialized": true
+            },
+            {
+              "name": "_waveManager",
+              "type": "IWaveQuery",
+              "accessibility": "private",
+              "serialized": false
+            },
+            {
+              "name": "_resourceManager",
+              "type": "IResourcesQuery",
+              "accessibility": "private",
+              "serialized": false
+            },
+            {
+              "name": "_playerHealthManager",
+              "type": "IPlayerHealthManager",
+              "accessibility": "private",
+              "serialized": false
             }
           ],
           "methods": [
+            {
+              "name": "Construct",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": [
+                "IWaveQuery waveManager",
+                "IResourcesQuery resourceManager",
+                "IPlayerHealthManager playerHealthManager"
+              ]
+            },
             {
               "name": "Start",
               "returnType": "void",
@@ -2110,14 +2790,22 @@
             "MonoBehaviour",
             "SerializeField",
             "TextMeshProUGUI",
-            "ServiceLocator",
-            "WaveManager",
+            "IWaveQuery",
+            "IResourcesQuery",
+            "IPlayerHealthManager",
+            "Inject",
+            "_waveManager",
+            "waveManager",
+            "ArgumentNullException",
+            "nameof",
+            "_resourceManager",
+            "resourceManager",
+            "_playerHealthManager",
+            "playerHealthManager",
             "OnWaveStarted",
             "HandleWaveStarted",
-            "ResourceManager",
             "OnResourcesChanged",
             "HandleResourcesChanged",
-            "PlayerHealthManager",
             "OnHealthChanged",
             "HandleHealthChanged",
             "_resourcesText",
@@ -2139,7 +2827,9 @@
           "name": "ResourceManager",
           "kind": "ClassDeclaration",
           "baseType": "MonoBehaviour",
-          "interfaces": [],
+          "interfaces": [
+            "IResourcesQuery"
+          ],
           "fields": [
             {
               "name": "startingResources",
@@ -2151,13 +2841,6 @@
           "methods": [
             {
               "name": "Awake",
-              "returnType": "void",
-              "accessibility": "private",
-              "isStatic": false,
-              "parameters": []
-            },
-            {
-              "name": "OnDestroy",
               "returnType": "void",
               "accessibility": "private",
               "isStatic": false,
@@ -2187,23 +2870,20 @@
               "accessibility": "public",
               "isStatic": false,
               "parameters": [
-                "int amonut"
+                "int amount"
               ]
             }
           ],
           "dependencies": [
             "MonoBehaviour",
+            "IResourcesQuery",
             "SerializeField",
-            "ServiceLocator",
-            "Register",
             "CurrentResources",
             "startingResources",
-            "Unregister",
             "amount",
             "CanAfford",
             "OnResourcesChanged",
-            "Invoke",
-            "amonut"
+            "Invoke"
           ]
         }
       ]
@@ -2216,7 +2896,9 @@
           "name": "UpdateManager",
           "kind": "ClassDeclaration",
           "baseType": "MonoBehaviour",
-          "interfaces": [],
+          "interfaces": [
+            "IUpdateManager"
+          ],
           "fields": [
             {
               "name": "_updatables",
@@ -2238,20 +2920,6 @@
             }
           ],
           "methods": [
-            {
-              "name": "Awake",
-              "returnType": "void",
-              "accessibility": "private",
-              "isStatic": false,
-              "parameters": []
-            },
-            {
-              "name": "OnDestroy",
-              "returnType": "void",
-              "accessibility": "private",
-              "isStatic": false,
-              "parameters": []
-            },
             {
               "name": "Register",
               "returnType": "void",
@@ -2280,10 +2948,8 @@
           ],
           "dependencies": [
             "MonoBehaviour",
+            "IUpdateManager",
             "IUpdatable",
-            "ServiceLocator",
-            "Register",
-            "Unregister",
             "_toAdd",
             "Contains",
             "updatable",
@@ -2309,7 +2975,9 @@
           "name": "WaveManager",
           "kind": "ClassDeclaration",
           "baseType": "MonoBehaviour",
-          "interfaces": [],
+          "interfaces": [
+            "IWaveQuery"
+          ],
           "fields": [
             {
               "name": "waves",
@@ -2322,6 +2990,12 @@
               "type": "EnemySpawner",
               "accessibility": "private",
               "serialized": true
+            },
+            {
+              "name": "_gridManager",
+              "type": "IGridQuery",
+              "accessibility": "private",
+              "serialized": false
             },
             {
               "name": "_currentWaveIndex",
@@ -2350,14 +3024,16 @@
           ],
           "methods": [
             {
-              "name": "Awake",
+              "name": "Construct",
               "returnType": "void",
-              "accessibility": "private",
+              "accessibility": "public",
               "isStatic": false,
-              "parameters": []
+              "parameters": [
+                "IGridQuery gridManager"
+              ]
             },
             {
-              "name": "OnDestroy",
+              "name": "Awake",
               "returnType": "void",
               "accessibility": "private",
               "isStatic": false,
@@ -2430,16 +3106,20 @@
           ],
           "dependencies": [
             "MonoBehaviour",
+            "IWaveQuery",
             "SerializeField",
             "Wave",
             "EnemySpawner",
             "waves",
             "Action",
-            "ServiceLocator",
-            "Register",
+            "IGridQuery",
+            "Inject",
+            "_gridManager",
+            "gridManager",
+            "ArgumentNullException",
+            "nameof",
             "WaveJsonLoader",
             "LoadWavesFromResources",
-            "Unregister",
             "_isRunning",
             "StartCoroutine",
             "RunWaves",
@@ -2474,8 +3154,7 @@
             "Length",
             "defaultSpawnDistribution",
             "GetRandomSpawnIndex",
-            "GridManager",
-            "SpawnTile",
+            "SpawnTiles",
             "spawnIndex",
             "GridPosition",
             "spawner",
@@ -2795,16 +3474,40 @@
           ],
           "fields": [
             {
-              "name": "_cardManager",
-              "type": "CardManager",
-              "accessibility": "private",
-              "serialized": true
-            },
-            {
               "name": "_resourcesText",
               "type": "TextMeshProUGUI",
               "accessibility": "private",
               "serialized": true
+            },
+            {
+              "name": "_gridManager",
+              "type": "IGridQuery",
+              "accessibility": "private",
+              "serialized": false
+            },
+            {
+              "name": "_updateManager",
+              "type": "IUpdateManager",
+              "accessibility": "private",
+              "serialized": false
+            },
+            {
+              "name": "_resourceManager",
+              "type": "IResourcesQuery",
+              "accessibility": "private",
+              "serialized": false
+            },
+            {
+              "name": "_cardManager",
+              "type": "ICardManager",
+              "accessibility": "private",
+              "serialized": false
+            },
+            {
+              "name": "_placementFacade",
+              "type": "ITowerPlacementQuery",
+              "accessibility": "private",
+              "serialized": false
             },
             {
               "name": "_cardVisualizer",
@@ -2815,12 +3518,6 @@
             {
               "name": "_playerHand",
               "type": "PlayerHand",
-              "accessibility": "private",
-              "serialized": false
-            },
-            {
-              "name": "_placementFacade",
-              "type": "TowerPlacementFacade",
               "accessibility": "private",
               "serialized": false
             },
@@ -2838,6 +3535,19 @@
             }
           ],
           "methods": [
+            {
+              "name": "Construct",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": [
+                "IGridQuery gridManager",
+                "IUpdateManager updateManager",
+                "IResourcesQuery resourceManager",
+                "ICardManager cardManager",
+                "ITowerPlacementQuery placementFacade"
+              ]
+            },
             {
               "name": "Start",
               "returnType": "void",
@@ -2917,23 +3627,36 @@
             "MonoBehaviour",
             "IUpdatable",
             "SerializeField",
-            "CardManager",
             "TextMeshProUGUI",
+            "IGridQuery",
+            "IUpdateManager",
+            "IResourcesQuery",
+            "ICardManager",
+            "ITowerPlacementQuery",
             "CardVisualizer",
             "PlayerHand",
-            "TowerPlacementFacade",
             "CardData",
             "GameObject",
-            "_cardVisualizer",
+            "Inject",
+            "_gridManager",
+            "gridManager",
+            "ArgumentNullException",
+            "nameof",
+            "_updateManager",
+            "updateManager",
+            "_resourceManager",
+            "resourceManager",
             "_cardManager",
+            "cardManager",
+            "NullReferenceException",
+            "_placementFacade",
+            "placementFacade",
+            "_cardVisualizer",
             "_playerHand",
             "OnCardSelected",
             "HandleCardSelected",
             "OnCardDeselected",
             "HandleCardDeselected",
-            "_placementFacade",
-            "ServiceLocator",
-            "UpdateManager",
             "Register",
             "Unregister",
             "DestroyGhost",
@@ -2960,8 +3683,6 @@
             "mouseWorld",
             "z",
             "var",
-            "GridManager",
-            "Instance",
             "WorldToGrid",
             "GetTile",
             "gridPos",
@@ -2978,7 +3699,6 @@
             "Vector2Int",
             "TryPlaceTower",
             "success",
-            "ResourceManager",
             "CanAfford",
             "cost",
             "_resourcesText",
@@ -3074,6 +3794,12 @@
             {
               "name": "_selectedCard",
               "type": "GameObject",
+              "accessibility": "private",
+              "serialized": false
+            },
+            {
+              "name": "_container",
+              "type": "IObjectResolver",
               "accessibility": "private",
               "serialized": false
             }
@@ -3177,6 +3903,7 @@
             "GameObject",
             "RectTransform",
             "PlayerHand",
+            "IObjectResolver",
             "_cardsContainer",
             "cardsContainer",
             "_initialCardsContainer",
@@ -3191,6 +3918,8 @@
             "choiceCardPrefab",
             "_playerHand",
             "playerHand",
+            "_container",
+            "container",
             "OnCardAdded",
             "HandleCardAdded",
             "Instantiate",
@@ -3221,6 +3950,7 @@
             "_initialCardGOs",
             "ClearChoiceCards",
             "choice",
+            "InjectGameObject",
             "Debug",
             "LogWarning",
             "OnInitialConfirmed",
@@ -3271,9 +4001,24 @@
               "type": "AudioSource",
               "accessibility": "private",
               "serialized": false
+            },
+            {
+              "name": "_cardManager",
+              "type": "ICardManager",
+              "accessibility": "private",
+              "serialized": false
             }
           ],
           "methods": [
+            {
+              "name": "Construct",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": [
+                "ICardManager cardManager"
+              ]
+            },
             {
               "name": "Start",
               "returnType": "void",
@@ -3304,6 +4049,12 @@
             "SerializeField",
             "AudioClip",
             "AudioSource",
+            "ICardManager",
+            "Inject",
+            "_cardManager",
+            "cardManager",
+            "ArgumentNullException",
+            "nameof",
             "_source",
             "Button",
             "onClick",
@@ -3311,8 +4062,6 @@
             "HandleOnClick",
             "PlayOneShot",
             "_selectedSound",
-            "ServiceLocator",
-            "CardManager",
             "FinalizeCardChoice",
             "CardDisplay",
             "Data",
@@ -3554,9 +4303,24 @@
               "type": "RectTransform",
               "accessibility": "private",
               "serialized": false
+            },
+            {
+              "name": "_towerManager",
+              "type": "ITowerRegistry",
+              "accessibility": "private",
+              "serialized": false
             }
           ],
           "methods": [
+            {
+              "name": "Construct",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": [
+                "ITowerRegistry towerManager"
+              ]
+            },
             {
               "name": "Start",
               "returnType": "void",
@@ -3612,15 +4376,18 @@
             "GameObject",
             "TextMeshProUGUI",
             "RectTransform",
+            "ITowerRegistry",
+            "Inject",
+            "_towerManager",
+            "towerManager",
+            "ArgumentNullException",
+            "nameof",
             "_tooltipRect",
             "tooltipUI",
             "var",
             "Canvas",
             "_canvasRect",
             "canvas",
-            "ServiceLocator",
-            "TowerManager",
-            "manager",
             "AllTowers",
             "tower",
             "OnMouseEnterTower",
@@ -3862,7 +4629,7 @@
             "IGameStateController",
             "ISubState",
             "_controller",
-            "ServiceLocator",
+            "controller",
             "SceneManager",
             "LoadScene",
             "level",
@@ -3870,7 +4637,13 @@
             "OnSceneLoaded",
             "Scene",
             "LoadSceneMode",
+            "var",
+            "LifetimeScope",
+            "GameLifetimeScope",
             "SetSubState",
+            "scope",
+            "Container",
+            "Resolve",
             "ShowCards",
             "_currentSubState",
             "Exit",
@@ -3895,7 +4668,7 @@
           "fields": [
             {
               "name": "_cardManager",
-              "type": "CardManager",
+              "type": "ICardManager",
               "accessibility": "private",
               "serialized": false
             }
@@ -3934,9 +4707,9 @@
           ],
           "dependencies": [
             "ISubState",
-            "CardManager",
+            "ICardManager",
             "_cardManager",
-            "ServiceLocator",
+            "manager",
             "GiveInitialCards",
             "CardVisualizer",
             "OnInitialConfirmed",
@@ -4134,27 +4907,30 @@
           "fields": [
             {
               "name": "_waveManager",
-              "type": "WaveManager",
+              "type": "IWaveQuery",
               "accessibility": "private",
               "serialized": false
             },
             {
               "name": "_resourceManager",
-              "type": "ResourceManager",
+              "type": "IResourcesQuery",
               "accessibility": "private",
               "serialized": false
             }
           ],
           "methods": [
             {
-              "name": "Start",
+              "name": "Construct",
               "returnType": "void",
-              "accessibility": "private",
+              "accessibility": "public",
               "isStatic": false,
-              "parameters": []
+              "parameters": [
+                "IWaveQuery waveManager",
+                "IResourcesQuery resourceManager"
+              ]
             },
             {
-              "name": "Initialize",
+              "name": "Start",
               "returnType": "void",
               "accessibility": "private",
               "isStatic": false,
@@ -4172,12 +4948,15 @@
           ],
           "dependencies": [
             "MonoBehaviour",
-            "WaveManager",
-            "ResourceManager",
-            "Initialize",
-            "_resourceManager",
-            "ServiceLocator",
+            "IWaveQuery",
+            "IResourcesQuery",
+            "Inject",
             "_waveManager",
+            "waveManager",
+            "ArgumentNullException",
+            "nameof",
+            "_resourceManager",
+            "resourceManager",
             "OnWaveCompleted",
             "HandleWaveCompleted",
             "GainResources",
@@ -4300,35 +5079,44 @@
             {
               "name": "bearFactory",
               "type": "BearFactory",
-              "accessibility": "public",
-              "serialized": false
+              "accessibility": "private",
+              "serialized": true
             },
             {
               "name": "rabbitFactory",
               "type": "RabbitFactory",
-              "accessibility": "public",
-              "serialized": false
+              "accessibility": "private",
+              "serialized": true
             },
             {
               "name": "deerFactory",
               "type": "DeerFactory",
-              "accessibility": "public",
-              "serialized": false
+              "accessibility": "private",
+              "serialized": true
             },
             {
               "name": "beaverFactory",
               "type": "BeaverFactory",
-              "accessibility": "public",
-              "serialized": false
+              "accessibility": "private",
+              "serialized": true
             },
             {
               "name": "forestBeastFactory",
               "type": "ForestBeastFactory",
-              "accessibility": "public",
-              "serialized": false
+              "accessibility": "private",
+              "serialized": true
             }
           ],
           "methods": [
+            {
+              "name": "Construct",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": [
+                "IObjectResolver container"
+              ]
+            },
             {
               "name": "GetFactory",
               "returnType": "IEnemyFactory",
@@ -4341,24 +5129,30 @@
           ],
           "dependencies": [
             "MonoBehaviour",
+            "SerializeField",
             "BearFactory",
             "RabbitFactory",
             "DeerFactory",
             "BeaverFactory",
             "ForestBeastFactory",
+            "Inject",
+            "IObjectResolver",
+            "container",
+            "InjectGameObject",
+            "beaverFactory",
+            "gameObject",
+            "rabbitFactory",
+            "bearFactory",
+            "deerFactory",
+            "forestBeastFactory",
             "IEnemyFactory",
             "EnemyType",
             "type",
             "Bear",
-            "bearFactory",
             "Rabbit",
-            "rabbitFactory",
             "Deer",
-            "deerFactory",
             "Beaver",
-            "beaverFactory",
             "Boss",
-            "forestBeastFactory",
             "ArgumentOutOfRangeException"
           ]
         }
@@ -4452,9 +5246,30 @@
               "type": "int",
               "accessibility": "private",
               "serialized": false
+            },
+            {
+              "name": "_updateManager",
+              "type": "IUpdateManager",
+              "accessibility": "private",
+              "serialized": false
+            },
+            {
+              "name": "_pool",
+              "type": "IProjectilePool",
+              "accessibility": "private",
+              "serialized": false
             }
           ],
           "methods": [
+            {
+              "name": "Construct",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": [
+                "IUpdateManager updateManager"
+              ]
+            },
             {
               "name": "Init",
               "returnType": "void",
@@ -4463,7 +5278,8 @@
               "parameters": [
                 "EnemyBase target",
                 "Tower source",
-                "int dmg"
+                "int dmg",
+                "IProjectilePool pool"
               ]
             },
             {
@@ -4498,14 +5314,21 @@
             "SerializeField",
             "EnemyBase",
             "Tower",
+            "IUpdateManager",
+            "IProjectilePool",
+            "Inject",
+            "_updateManager",
+            "updateManager",
+            "ArgumentNullException",
+            "nameof",
             "_target",
             "target",
             "_source",
             "source",
             "_baseDamage",
             "dmg",
-            "ServiceLocator",
-            "UpdateManager",
+            "_pool",
+            "pool",
             "Register",
             "transform",
             "position",
@@ -4517,7 +5340,6 @@
             "NotifyHitEnemy",
             "ReturnToPool",
             "Unregister",
-            "ProjectilePool",
             "Release",
             "isActiveAndEnabled",
             "Vector2",
@@ -4538,7 +5360,9 @@
           "name": "ProjectilePool",
           "kind": "ClassDeclaration",
           "baseType": "MonoBehaviour",
-          "interfaces": [],
+          "interfaces": [
+            "IProjectilePool"
+          ],
           "fields": [
             {
               "name": "defaultProjectilePrefab",
@@ -4551,22 +5375,23 @@
               "type": "Queue<Projectile>",
               "accessibility": "private readonly",
               "serialized": false
+            },
+            {
+              "name": "_container",
+              "type": "IObjectResolver",
+              "accessibility": "private",
+              "serialized": false
             }
           ],
           "methods": [
             {
-              "name": "Awake",
+              "name": "Construct",
               "returnType": "void",
-              "accessibility": "private",
+              "accessibility": "public",
               "isStatic": false,
-              "parameters": []
-            },
-            {
-              "name": "OnDestroy",
-              "returnType": "void",
-              "accessibility": "private",
-              "isStatic": false,
-              "parameters": []
+              "parameters": [
+                "IObjectResolver container"
+              ]
             },
             {
               "name": "Spawn",
@@ -4590,19 +5415,20 @@
           ],
           "dependencies": [
             "MonoBehaviour",
+            "IProjectilePool",
             "SerializeField",
             "Projectile",
-            "ServiceLocator",
-            "Register",
-            "Unregister",
+            "IObjectResolver",
+            "Inject",
+            "_container",
+            "container",
             "Vector3",
             "prefab",
             "defaultProjectilePrefab",
             "_pool",
             "Count",
-            "var",
-            "Dequeue",
             "proj",
+            "Dequeue",
             "gameObject",
             "SetActive",
             "Animator",
@@ -4611,7 +5437,7 @@
             "startPos",
             "Quaternion",
             "identity",
-            "projObj",
+            "InjectGameObject",
             "Enqueue"
           ]
         }
@@ -4795,13 +5621,19 @@
             },
             {
               "name": "_resourceManager",
-              "type": "ResourceManager",
-              "accessibility": "private",
+              "type": "IResourcesQuery",
+              "accessibility": "private readonly",
               "serialized": false
             },
             {
               "name": "_factory",
               "type": "ITowerFactory",
+              "accessibility": "private readonly",
+              "serialized": false
+            },
+            {
+              "name": "_gridManager",
+              "type": "IGridQuery",
               "accessibility": "private readonly",
               "serialized": false
             }
@@ -4819,21 +5651,22 @@
             "ICommand",
             "CardData",
             "Vector2Int",
-            "ResourceManager",
+            "IResourcesQuery",
             "ITowerFactory",
+            "IGridQuery",
             "_card",
             "card",
             "_gridPosition",
             "gridPosition",
+            "_resourceManager",
+            "resourceManager",
             "_factory",
             "factory",
-            "_resourceManager",
-            "ServiceLocator",
+            "_gridManager",
+            "gridManager",
             "TrySpend",
             "cost",
             "Vector3",
-            "GridManager",
-            "Instance",
             "GridToWorld",
             "TryCreate",
             "worldPos",
@@ -4955,13 +5788,19 @@
             },
             {
               "name": "_updateManager",
-              "type": "UpdateManager",
+              "type": "IUpdateManager",
               "accessibility": "private",
               "serialized": false
             },
             {
               "name": "_enemyManager",
-              "type": "EnemyManager",
+              "type": "IEnemyQuery",
+              "accessibility": "private",
+              "serialized": false
+            },
+            {
+              "name": "_towerManager",
+              "type": "ITowerRegistry",
               "accessibility": "private",
               "serialized": false
             },
@@ -4972,13 +5811,25 @@
               "serialized": false
             },
             {
-              "name": "_towerManager",
-              "type": "TowerManager",
+              "name": "_container",
+              "type": "IObjectResolver",
               "accessibility": "private",
               "serialized": false
             }
           ],
           "methods": [
+            {
+              "name": "Construct",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": [
+                "IUpdateManager updateManager",
+                "IEnemyQuery enemyManager",
+                "ITowerRegistry towerManager",
+                "IObjectResolver container"
+              ]
+            },
             {
               "name": "Initialize",
               "returnType": "void",
@@ -5050,19 +5901,27 @@
             "Tower",
             "Vector2Int",
             "CardData",
+            "IObjectResolver",
+            "_container",
             "ITargetingStrategy",
-            "UpdateManager",
-            "EnemyManager",
+            "IUpdateManager",
+            "IEnemyQuery",
+            "ITowerRegistry",
             "EnemyBase",
-            "TowerManager",
+            "Inject",
+            "_updateManager",
+            "updateManager",
+            "ArgumentNullException",
+            "nameof",
+            "_enemyManager",
+            "enemyManager",
+            "_towerManager",
+            "towerManager",
+            "container",
             "Data",
             "data",
             "GridPosistion",
             "gridPosition",
-            "_updateManager",
-            "ServiceLocator",
-            "_enemyManager",
-            "_towerManager",
             "Register",
             "RegisterTower",
             "_strategy",
@@ -5131,9 +5990,24 @@
               "type": "Transform",
               "accessibility": "private",
               "serialized": true
+            },
+            {
+              "name": "_container",
+              "type": "IObjectResolver",
+              "accessibility": "private",
+              "serialized": false
             }
           ],
           "methods": [
+            {
+              "name": "Construct",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": [
+                "IObjectResolver container"
+              ]
+            },
             {
               "name": "TryCreate",
               "returnType": "bool",
@@ -5161,6 +6035,10 @@
             "ITowerFactory",
             "SerializeField",
             "Transform",
+            "IObjectResolver",
+            "Inject",
+            "_container",
+            "container",
             "CardData",
             "Vector3",
             "Vector2Int",
@@ -5176,6 +6054,7 @@
             "towersParent",
             "go",
             "Destroy",
+            "InjectGameObject",
             "Initialize",
             "gridPos",
             "tower",
@@ -5192,7 +6071,9 @@
           "name": "TowerManager",
           "kind": "ClassDeclaration",
           "baseType": "MonoBehaviour",
-          "interfaces": [],
+          "interfaces": [
+            "ITowerRegistry"
+          ],
           "fields": [
             {
               "name": "_allTowers",
@@ -5202,20 +6083,6 @@
             }
           ],
           "methods": [
-            {
-              "name": "Awake",
-              "returnType": "void",
-              "accessibility": "private",
-              "isStatic": false,
-              "parameters": []
-            },
-            {
-              "name": "OnDestroy",
-              "returnType": "void",
-              "accessibility": "private",
-              "isStatic": false,
-              "parameters": []
-            },
             {
               "name": "RegisterTower",
               "returnType": "void",
@@ -5237,11 +6104,9 @@
           ],
           "dependencies": [
             "MonoBehaviour",
+            "ITowerRegistry",
             "Tower",
             "_allTowers",
-            "ServiceLocator",
-            "Register",
-            "Unregister",
             "Contains",
             "tower",
             "Add",
@@ -5261,7 +6126,9 @@
           "name": "TowerPlacementFacade",
           "kind": "ClassDeclaration",
           "baseType": "MonoBehaviour",
-          "interfaces": [],
+          "interfaces": [
+            "ITowerPlacementQuery"
+          ],
           "fields": [
             {
               "name": "towerFactoryComponent",
@@ -5274,18 +6141,33 @@
               "type": "ITowerFactory",
               "accessibility": "private",
               "serialized": false
+            },
+            {
+              "name": "_gridManager",
+              "type": "IGridQuery",
+              "accessibility": "private",
+              "serialized": false
+            },
+            {
+              "name": "_resourceManager",
+              "type": "IResourcesQuery",
+              "accessibility": "private",
+              "serialized": false
             }
           ],
           "methods": [
             {
-              "name": "Awake",
+              "name": "Construct",
               "returnType": "void",
-              "accessibility": "private",
+              "accessibility": "public",
               "isStatic": false,
-              "parameters": []
+              "parameters": [
+                "IGridQuery gridQuery",
+                "IResourcesQuery resourceManager"
+              ]
             },
             {
-              "name": "OnDestroy",
+              "name": "Awake",
               "returnType": "void",
               "accessibility": "private",
               "isStatic": false,
@@ -5304,25 +6186,29 @@
           ],
           "dependencies": [
             "MonoBehaviour",
+            "ITowerPlacementQuery",
             "SerializeField",
             "ITowerFactory",
-            "ServiceLocator",
-            "Register",
+            "IGridQuery",
+            "IResourcesQuery",
+            "Inject",
+            "_gridManager",
+            "gridQuery",
+            "NullReferenceException",
+            "nameof",
+            "_resourceManager",
+            "resourceManager",
             "_towerFactory",
             "towerFactoryComponent",
             "Debug",
             "LogWarning",
-            "Unregister",
             "CardData",
             "Vector2Int",
             "GridTile",
-            "GridManager",
-            "Instance",
             "GetTile",
             "gridPosition",
             "tile",
             "Buildable",
-            "ResourceManager",
             "CanAfford",
             "card",
             "cost",
@@ -5352,13 +6238,13 @@
             },
             {
               "name": "_grid",
-              "type": "GridManager",
+              "type": "IGridQuery",
               "accessibility": "private",
               "serialized": false
             },
             {
               "name": "_enemyManager",
-              "type": "EnemyManager",
+              "type": "IEnemyQuery",
               "accessibility": "private",
               "serialized": false
             },
@@ -5370,6 +6256,16 @@
             }
           ],
           "methods": [
+            {
+              "name": "Construct",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": [
+                "IEnemyQuery enemyManager",
+                "IGridQuery gridManager"
+              ]
+            },
             {
               "name": "Awake",
               "returnType": "void",
@@ -5411,9 +6307,16 @@
             "RequireComponent",
             "FactoryProvider",
             "MonoBehaviour",
-            "GridManager",
-            "EnemyManager",
+            "IGridQuery",
+            "IEnemyQuery",
             "IEnemyFactory",
+            "Inject",
+            "_grid",
+            "gridManager",
+            "ArgumentNullException",
+            "nameof",
+            "_enemyManager",
+            "enemyManager",
             "_factoryProvider",
             "_enemyFactory",
             "GetFactory",
@@ -5421,8 +6324,6 @@
             "Bear",
             "EnemyBase",
             "Vector2Int",
-            "_grid",
-            "ServiceLocator",
             "Vector3",
             "GridToWorld",
             "gridPos",
@@ -5430,14 +6331,11 @@
             "type",
             "world",
             "var",
-            "Debug",
-            "Log",
             "factory",
             "Create",
             "worldPos",
-            "enemy",
-            "_enemyManager",
             "RegisterEnemy",
+            "enemy",
             "ReturnToPool"
           ]
         }
@@ -5526,6 +6424,441 @@
       ]
     },
     {
+      "path": "Assets\\2. Scripts\\Systems\\Wave\\WaveDTO.cs",
+      "namespace": "Global",
+      "types": [
+        {
+          "name": "WavesJsonWrapper",
+          "kind": "ClassDeclaration",
+          "baseType": null,
+          "interfaces": [],
+          "fields": [
+            {
+              "name": "waves",
+              "type": "WaveDTO[]",
+              "accessibility": "public",
+              "serialized": false
+            }
+          ],
+          "methods": [],
+          "dependencies": [
+            "Serializable",
+            "WaveDTO"
+          ]
+        },
+        {
+          "name": "WaveDTO",
+          "kind": "ClassDeclaration",
+          "baseType": null,
+          "interfaces": [],
+          "fields": [
+            {
+              "name": "startDelay",
+              "type": "float",
+              "accessibility": "public",
+              "serialized": false
+            },
+            {
+              "name": "defaultSpawnDistribution",
+              "type": "int[]",
+              "accessibility": "public",
+              "serialized": false
+            },
+            {
+              "name": "entries",
+              "type": "SpawnEntryDTO[]",
+              "accessibility": "public",
+              "serialized": false
+            }
+          ],
+          "methods": [],
+          "dependencies": [
+            "Serializable",
+            "SpawnEntryDTO"
+          ]
+        },
+        {
+          "name": "SpawnEntryDTO",
+          "kind": "ClassDeclaration",
+          "baseType": null,
+          "interfaces": [],
+          "fields": [
+            {
+              "name": "enemyType",
+              "type": "string",
+              "accessibility": "public",
+              "serialized": false
+            },
+            {
+              "name": "count",
+              "type": "int",
+              "accessibility": "public",
+              "serialized": false
+            },
+            {
+              "name": "interval",
+              "type": "float",
+              "accessibility": "public",
+              "serialized": false
+            },
+            {
+              "name": "startDelay",
+              "type": "float",
+              "accessibility": "public",
+              "serialized": false
+            },
+            {
+              "name": "spawnDistribution",
+              "type": "int[]",
+              "accessibility": "public",
+              "serialized": false
+            },
+            {
+              "name": "weight",
+              "type": "int",
+              "accessibility": "public",
+              "serialized": false
+            }
+          ],
+          "methods": [],
+          "dependencies": [
+            "Serializable"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Assets\\2. Scripts\\Systems\\Wave\\WaveJsonLoader.cs",
+      "namespace": "Global",
+      "types": [
+        {
+          "name": "WaveJsonLoader",
+          "kind": "ClassDeclaration",
+          "baseType": null,
+          "interfaces": [],
+          "fields": [],
+          "methods": [
+            {
+              "name": "LoadWavesFromResources",
+              "returnType": "List<Wave>",
+              "accessibility": "public static",
+              "isStatic": true,
+              "parameters": [
+                "string resourcePath"
+              ]
+            },
+            {
+              "name": "ConvertFromJson",
+              "returnType": "List<Wave>",
+              "accessibility": "private static",
+              "isStatic": true,
+              "parameters": [
+                "string json"
+              ]
+            }
+          ],
+          "dependencies": [
+            "Wave",
+            "var",
+            "Resources",
+            "TextAsset",
+            "resourcePath",
+            "textAsset",
+            "Debug",
+            "LogError",
+            "ConvertFromJson",
+            "text",
+            "JsonUtility",
+            "WavesJsonWrapper",
+            "json",
+            "wrapper",
+            "waves",
+            "Length",
+            "startDelay",
+            "wDTO",
+            "defaultSpawnDistribution",
+            "entries",
+            "SpawnEntry",
+            "Enum",
+            "EnemyType",
+            "eDTO",
+            "enemyType",
+            "LogWarning",
+            "Beaver",
+            "count",
+            "interval",
+            "spawnDistribution",
+            "wave",
+            "Add",
+            "entry",
+            "result"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Assets\\2. Scripts\\Tests\\Edit Mode\\FirstTest.cs",
+      "namespace": "Global",
+      "types": [
+        {
+          "name": "HelloWorldTests",
+          "kind": "ClassDeclaration",
+          "baseType": null,
+          "interfaces": [],
+          "fields": [],
+          "methods": [
+            {
+              "name": "Test_HelloWorld_Passes",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": []
+            }
+          ],
+          "dependencies": [
+            "Test",
+            "Assert",
+            "IsTrue"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Assets\\2. Scripts\\Tests\\Edit Mode\\GridManagerTests.cs",
+      "namespace": "Global",
+      "types": [
+        {
+          "name": "GridManagerTests",
+          "kind": "ClassDeclaration",
+          "baseType": null,
+          "interfaces": [],
+          "fields": [
+            {
+              "name": "_gridManager",
+              "type": "IGridQuery",
+              "accessibility": "private",
+              "serialized": false
+            }
+          ],
+          "methods": [
+            {
+              "name": "SetUp",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": []
+            }
+          ],
+          "dependencies": [
+            "TestFixture",
+            "IGridQuery",
+            "SetUp"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Assets\\2. Scripts\\Tests\\Edit Mode\\GridTileTests.cs",
+      "namespace": "Global",
+      "types": [
+        {
+          "name": "GridTileTests",
+          "kind": "ClassDeclaration",
+          "baseType": null,
+          "interfaces": [],
+          "fields": [],
+          "methods": [],
+          "dependencies": [
+            "TestFixture"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Assets\\2. Scripts\\Tests\\Edit Mode\\HealthTests.cs",
+      "namespace": "Global",
+      "types": [
+        {
+          "name": "HealthTests",
+          "kind": "ClassDeclaration",
+          "baseType": null,
+          "interfaces": [],
+          "fields": [],
+          "methods": [
+            {
+              "name": "Constructor_SetsMaxAndCurrent",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": []
+            },
+            {
+              "name": "TakeDamage_DecreasesHealth",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": []
+            },
+            {
+              "name": "TakeDamage_CannotGoNegative",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": []
+            },
+            {
+              "name": "TakeDamage_FiresOnHealthChangedEvent",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": []
+            },
+            {
+              "name": "TakeDamage_ToZero_FiresOnDeathEvent",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": []
+            }
+          ],
+          "dependencies": [
+            "TestFixture",
+            "Test",
+            "var",
+            "Health",
+            "Assert",
+            "AreEqual",
+            "health",
+            "Max",
+            "Current",
+            "TakeDamage",
+            "OnHealthChanged",
+            "eventFired",
+            "IsTrue",
+            "OnDeath",
+            "deathFired"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Assets\\2. Scripts\\Tests\\Edit Mode\\PathFinderTests.cs",
+      "namespace": "Global",
+      "types": [
+        {
+          "name": "PathFinderTests",
+          "kind": "ClassDeclaration",
+          "baseType": null,
+          "interfaces": [],
+          "fields": [],
+          "methods": [],
+          "dependencies": [
+            "TestFixture"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Assets\\2. Scripts\\Tests\\Edit Mode\\UpdateManagerTests.cs",
+      "namespace": "Global",
+      "types": [
+        {
+          "name": "UpdateManagerTests",
+          "kind": "ClassDeclaration",
+          "baseType": null,
+          "interfaces": [],
+          "fields": [
+            {
+              "name": "_updateManager",
+              "type": "IUpdateManager",
+              "accessibility": "private",
+              "serialized": false
+            },
+            {
+              "name": "_go",
+              "type": "GameObject",
+              "accessibility": "private",
+              "serialized": false
+            }
+          ],
+          "methods": [
+            {
+              "name": "SetUp",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": []
+            },
+            {
+              "name": "TearDown",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": []
+            },
+            {
+              "name": "Register_AddsUpdatable",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": []
+            },
+            {
+              "name": "Unregister_RemovesUpdatable",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": []
+            }
+          ],
+          "dependencies": [
+            "TestFixture",
+            "IUpdateManager",
+            "GameObject",
+            "SetUp",
+            "_go",
+            "_updateManager",
+            "UpdateManager",
+            "TearDown",
+            "Object",
+            "DestroyImmediate",
+            "Test",
+            "var",
+            "MockUpdatable",
+            "Register",
+            "mockUpdatable",
+            "Assert",
+            "IsTrue",
+            "WasUpdated",
+            "Unregister",
+            "IUpdatable"
+          ]
+        },
+        {
+          "name": "MockUpdatable",
+          "kind": "ClassDeclaration",
+          "baseType": "IUpdatable",
+          "interfaces": [],
+          "fields": [],
+          "methods": [
+            {
+              "name": "Tick",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": [
+                "float deltaTime"
+              ]
+            }
+          ],
+          "dependencies": [
+            "IUpdatable",
+            "WasUpdated"
+          ]
+        }
+      ]
+    },
+    {
       "path": "Assets\\2. Scripts\\UI\\Button behaviours\\ExitButton.cs",
       "namespace": "Global",
       "types": [
@@ -5572,8 +6905,24 @@
           "kind": "ClassDeclaration",
           "baseType": "MonoBehaviour",
           "interfaces": [],
-          "fields": [],
+          "fields": [
+            {
+              "name": "_cardManager",
+              "type": "ICardManager",
+              "accessibility": "private",
+              "serialized": false
+            }
+          ],
           "methods": [
+            {
+              "name": "Construct",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": [
+                "ICardManager cardManager"
+              ]
+            },
             {
               "name": "Awake",
               "returnType": "void",
@@ -5591,12 +6940,16 @@
           ],
           "dependencies": [
             "MonoBehaviour",
+            "ICardManager",
+            "Inject",
+            "_cardManager",
+            "cardManager",
+            "ArgumentNullException",
+            "nameof",
             "Button",
             "onClick",
             "AddListener",
             "HandleOnClick",
-            "ServiceLocator",
-            "CardManager",
             "CardVisualizer",
             "ConfirmInitialCards"
           ]
@@ -5627,9 +6980,24 @@
               "type": "Vector2",
               "accessibility": "private",
               "serialized": false
+            },
+            {
+              "name": "_stateController",
+              "type": "IGameStateController",
+              "accessibility": "private",
+              "serialized": false
             }
           ],
           "methods": [
+            {
+              "name": "Construct",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": [
+                "IGameStateController controller"
+              ]
+            },
             {
               "name": "Awake",
               "returnType": "void",
@@ -5669,6 +7037,10 @@
             "IDeselectHandler",
             "SerializeField",
             "Vector2",
+            "IGameStateController",
+            "Inject",
+            "_stateController",
+            "controller",
             "Button",
             "onClick",
             "AddListener",
@@ -5677,8 +7049,6 @@
             "gameObject",
             "RectTransform",
             "sizeDelta",
-            "ServiceLocator",
-            "IGameStateController",
             "ChangeState",
             "PlayingState",
             "level",
@@ -5712,9 +7082,24 @@
               "type": "GameObject",
               "accessibility": "private",
               "serialized": true
+            },
+            {
+              "name": "_menuUIManager",
+              "type": "IMenuUIManager",
+              "accessibility": "private",
+              "serialized": false
             }
           ],
           "methods": [
+            {
+              "name": "Construct",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": [
+                "IMenuUIManager menuUIManager"
+              ]
+            },
             {
               "name": "Awake",
               "returnType": "void",
@@ -5734,12 +7119,16 @@
             "MonoBehaviour",
             "SerializeField",
             "GameObject",
+            "IMenuUIManager",
+            "Inject",
+            "_menuUIManager",
+            "menuUIManager",
+            "ArgumentNullException",
+            "nameof",
             "Button",
             "onClick",
             "AddListener",
             "HandleClick",
-            "ServiceLocator",
-            "MenuUIManager",
             "ShowScreen",
             "levelSelectorScreen",
             "EventSystem",
@@ -5765,9 +7154,24 @@
               "type": "GameObject",
               "accessibility": "private",
               "serialized": true
+            },
+            {
+              "name": "_menuUIManager",
+              "type": "IMenuUIManager",
+              "accessibility": "private",
+              "serialized": false
             }
           ],
           "methods": [
+            {
+              "name": "Construct",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": [
+                "IMenuUIManager menuUIManager"
+              ]
+            },
             {
               "name": "Awake",
               "returnType": "void",
@@ -5787,12 +7191,20 @@
             "MonoBehaviour",
             "SerializeField",
             "GameObject",
+            "IMenuUIManager",
+            "Inject",
+            "_menuUIManager",
+            "menuUIManager",
+            "NullReferenceException",
+            "nameof",
+            "Debug",
+            "Log",
+            "gameObject",
+            "name",
             "Button",
             "onClick",
             "AddListener",
             "HandleClick",
-            "ServiceLocator",
-            "MenuUIManager",
             "ShowScreen",
             "mainMenuScreen"
           ]
@@ -5814,9 +7226,24 @@
               "type": "GameObject",
               "accessibility": "private",
               "serialized": true
+            },
+            {
+              "name": "_menuUIManager",
+              "type": "IMenuUIManager",
+              "accessibility": "private",
+              "serialized": false
             }
           ],
           "methods": [
+            {
+              "name": "Construct",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": [
+                "IMenuUIManager menuUIManager"
+              ]
+            },
             {
               "name": "Awake",
               "returnType": "void",
@@ -5836,12 +7263,16 @@
             "MonoBehaviour",
             "SerializeField",
             "GameObject",
+            "IMenuUIManager",
+            "Inject",
+            "_menuUIManager",
+            "menuUIManager",
+            "NullReferenceException",
+            "nameof",
             "Button",
             "onClick",
             "AddListener",
             "HandleClick",
-            "ServiceLocator",
-            "MenuUIManager",
             "ShowScreen",
             "settingsScreen"
           ]
@@ -5866,7 +7297,7 @@
             },
             {
               "name": "_waveManager",
-              "type": "WaveManager",
+              "type": "IWaveQuery",
               "accessibility": "private",
               "serialized": false
             },
@@ -5885,7 +7316,16 @@
           ],
           "methods": [
             {
-              "name": "Awake",
+              "name": "Construct",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": [
+                "IWaveQuery waveManager"
+              ]
+            },
+            {
+              "name": "Start",
               "returnType": "void",
               "accessibility": "private",
               "isStatic": false,
@@ -5915,9 +7355,14 @@
           ],
           "dependencies": [
             "MonoBehaviour",
-            "WaveManager",
+            "IWaveQuery",
             "RectTransform",
             "Vector2",
+            "Inject",
+            "_waveManager",
+            "waveManager",
+            "ArgumentNullException",
+            "nameof",
             "_rectTransform",
             "_startPos",
             "anchoredPosition",
@@ -5925,8 +7370,6 @@
             "onClick",
             "AddListener",
             "HandleOnClick",
-            "_waveManager",
-            "ServiceLocator",
             "OnNewCardOffer",
             "gameObject",
             "SetActive",
@@ -8064,42 +9507,66 @@
             },
             {
               "name": "_grid",
-              "type": "GridManager",
-              "accessibility": "protected",
-              "serialized": false
-            },
-            {
-              "name": "currentTile",
-              "type": "GridTile",
-              "accessibility": "protected",
-              "serialized": false
-            },
-            {
-              "name": "_spawnPosition",
-              "type": "Vector3",
-              "accessibility": "protected",
-              "serialized": false
-            },
-            {
-              "name": "_targetPos",
-              "type": "Vector3",
-              "accessibility": "protected",
+              "type": "IGridQuery",
+              "accessibility": "private",
               "serialized": false
             },
             {
               "name": "_updateManager",
-              "type": "UpdateManager",
-              "accessibility": "protected",
+              "type": "IUpdateManager",
+              "accessibility": "private",
               "serialized": false
             },
             {
               "name": "_originFactory",
               "type": "IEnemyFactory",
-              "accessibility": "protected",
+              "accessibility": "private",
+              "serialized": false
+            },
+            {
+              "name": "_healthBarManager",
+              "type": "IHealthBarManager",
+              "accessibility": "private",
+              "serialized": false
+            },
+            {
+              "name": "_playerHealthManager",
+              "type": "IPlayerHealthManager",
+              "accessibility": "private",
+              "serialized": false
+            },
+            {
+              "name": "currentTile",
+              "type": "GridTile",
+              "accessibility": "private",
+              "serialized": false
+            },
+            {
+              "name": "_spawnPosition",
+              "type": "Vector3",
+              "accessibility": "private",
+              "serialized": false
+            },
+            {
+              "name": "_targetPos",
+              "type": "Vector3",
+              "accessibility": "private",
               "serialized": false
             }
           ],
           "methods": [
+            {
+              "name": "Construct",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": [
+                "IGridQuery grid",
+                "IUpdateManager updateManager",
+                "IHealthBarManager healthBarManager",
+                "IPlayerHealthManager playerHealthManager"
+              ]
+            },
             {
               "name": "Initialize",
               "returnType": "void",
@@ -8193,30 +9660,40 @@
             "moveSpeed",
             "_baseMoveSpeed",
             "value",
-            "GridManager",
-            "GridTile",
-            "UpdateManager",
+            "IGridQuery",
+            "IUpdateManager",
             "IEnemyFactory",
+            "IHealthBarManager",
+            "IPlayerHealthManager",
+            "GridTile",
+            "Inject",
+            "_grid",
+            "grid",
+            "ArgumentNullException",
+            "nameof",
+            "_updateManager",
+            "updateManager",
+            "_healthBarManager",
+            "healthBarManager",
+            "NullReferenceException",
+            "_playerHealthManager",
+            "playerHealthManager",
             "data",
             "_spawnPosition",
             "spawnPosition",
             "_originFactory",
             "originFactory",
-            "_grid",
-            "ServiceLocator",
+            "Register",
             "currentTile",
             "GetTile",
             "WorldToGrid",
             "_targetPos",
             "Next",
             "Center",
-            "_updateManager",
-            "Register",
             "maxHealth",
             "OnDeath",
             "Die",
             "Reset",
-            "HealthBarManager",
             "Tick",
             "deltaTime",
             "IsStunned",
@@ -8244,7 +9721,6 @@
             "Unregister",
             "OnRemoved",
             "Invoke",
-            "PlayerHealthManager",
             "ApplyDamage",
             "damageOnReach",
             "gameObject",
@@ -8321,11 +9797,13 @@
           ],
           "methods": [
             {
-              "name": "Awake",
+              "name": "Construct",
               "returnType": "void",
-              "accessibility": "private",
+              "accessibility": "public",
               "isStatic": false,
-              "parameters": []
+              "parameters": [
+                "IObjectResolver container"
+              ]
             },
             {
               "name": "Create",
@@ -8354,13 +9832,19 @@
             "Bear",
             "EnemyData",
             "EnemyBase",
+            "Inject",
+            "IObjectResolver",
             "_pool",
             "createFunc",
+            "var",
             "Instantiate",
             "bearPrefab",
+            "container",
+            "InjectGameObject",
+            "instance",
+            "gameObject",
             "actionOnGet",
             "b",
-            "gameObject",
             "SetActive",
             "actionOnRelease",
             "Reset",
@@ -8370,7 +9854,6 @@
             "defaultCapacity",
             "maxSize",
             "Vector3",
-            "var",
             "Get",
             "bear",
             "Initialize",
@@ -8418,11 +9901,13 @@
           ],
           "methods": [
             {
-              "name": "Awake",
+              "name": "Construct",
               "returnType": "void",
-              "accessibility": "private",
+              "accessibility": "public",
               "isStatic": false,
-              "parameters": []
+              "parameters": [
+                "IObjectResolver container"
+              ]
             },
             {
               "name": "Create",
@@ -8451,13 +9936,19 @@
             "Beaver",
             "EnemyData",
             "EnemyBase",
+            "Inject",
+            "IObjectResolver",
             "_pool",
             "createFunc",
+            "var",
             "Instantiate",
             "beaverPrefab",
+            "container",
+            "InjectGameObject",
+            "instance",
+            "gameObject",
             "actionOnGet",
             "b",
-            "gameObject",
             "SetActive",
             "actionOnRelease",
             "Reset",
@@ -8467,7 +9958,6 @@
             "defaultCapacity",
             "maxSize",
             "Vector3",
-            "var",
             "Get",
             "beaver",
             "Initialize",
@@ -8515,11 +10005,13 @@
           ],
           "methods": [
             {
-              "name": "Awake",
+              "name": "Construct",
               "returnType": "void",
-              "accessibility": "private",
+              "accessibility": "public",
               "isStatic": false,
-              "parameters": []
+              "parameters": [
+                "IObjectResolver container"
+              ]
             },
             {
               "name": "Create",
@@ -8548,13 +10040,19 @@
             "Deer",
             "EnemyData",
             "EnemyBase",
+            "Inject",
+            "IObjectResolver",
             "_pool",
             "createFunc",
+            "var",
             "Instantiate",
             "deerPrefab",
+            "container",
+            "InjectGameObject",
+            "instance",
+            "gameObject",
             "actionOnGet",
             "d",
-            "gameObject",
             "SetActive",
             "actionOnRelease",
             "Reset",
@@ -8564,7 +10062,6 @@
             "defaultCapacity",
             "maxSize",
             "Vector3",
-            "var",
             "Get",
             "deer",
             "Initialize",
@@ -8612,11 +10109,13 @@
           ],
           "methods": [
             {
-              "name": "Awake",
+              "name": "Construct",
               "returnType": "void",
-              "accessibility": "private",
+              "accessibility": "public",
               "isStatic": false,
-              "parameters": []
+              "parameters": [
+                "IObjectResolver container"
+              ]
             },
             {
               "name": "Create",
@@ -8645,13 +10144,19 @@
             "ForestBeast",
             "EnemyData",
             "EnemyBase",
+            "Inject",
+            "IObjectResolver",
             "_pool",
             "createFunc",
+            "var",
             "Instantiate",
             "bossPrefab",
+            "container",
+            "InjectGameObject",
+            "instance",
+            "gameObject",
             "actionOnGet",
             "f",
-            "gameObject",
             "SetActive",
             "actionOnRelease",
             "Reset",
@@ -8661,7 +10166,6 @@
             "defaultCapacity",
             "maxSize",
             "Vector3",
-            "var",
             "Get",
             "boss",
             "Initialize",
@@ -8709,11 +10213,13 @@
           ],
           "methods": [
             {
-              "name": "Awake",
+              "name": "Construct",
               "returnType": "void",
-              "accessibility": "private",
+              "accessibility": "public",
               "isStatic": false,
-              "parameters": []
+              "parameters": [
+                "IObjectResolver container"
+              ]
             },
             {
               "name": "Create",
@@ -8742,13 +10248,19 @@
             "Rabbit",
             "EnemyData",
             "EnemyBase",
+            "Inject",
+            "IObjectResolver",
             "_pool",
             "createFunc",
+            "var",
             "Instantiate",
             "rabbitPrefab",
+            "container",
+            "InjectGameObject",
+            "instance",
+            "gameObject",
             "actionOnGet",
             "r",
-            "gameObject",
             "SetActive",
             "actionOnRelease",
             "Reset",
@@ -8758,7 +10270,6 @@
             "defaultCapacity",
             "maxSize",
             "Vector3",
-            "var",
             "Get",
             "rabbit",
             "Initialize",
@@ -9296,6 +10807,8 @@
             "var",
             "gameObject",
             "CarnageTracker",
+            "Container",
+            "Inject",
             "tracker",
             "Initialize",
             "tiers",
@@ -9305,6 +10818,7 @@
             "type",
             "EnemyType",
             "Boss",
+            "CanRegisterHit",
             "OnEnemyHit",
             "RegisterHit"
           ]
@@ -9344,9 +10858,31 @@
               "type": "SpriteRenderer",
               "accessibility": "private",
               "serialized": false
+            },
+            {
+              "name": "_waveManager",
+              "type": "IWaveQuery",
+              "accessibility": "private",
+              "serialized": false
+            },
+            {
+              "name": "_resourceManager",
+              "type": "IResourcesQuery",
+              "accessibility": "private",
+              "serialized": false
             }
           ],
           "methods": [
+            {
+              "name": "Construct",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": [
+                "IWaveQuery waveManager",
+                "IResourcesQuery resourceManager"
+              ]
+            },
             {
               "name": "Initialize",
               "returnType": "void",
@@ -9375,6 +10911,13 @@
               ]
             },
             {
+              "name": "CanRegisterHit",
+              "returnType": "bool",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": []
+            },
+            {
               "name": "OnDestroy",
               "returnType": "void",
               "accessibility": "private",
@@ -9386,11 +10929,18 @@
             "MonoBehaviour",
             "Sprite",
             "SpriteRenderer",
+            "IWaveQuery",
+            "IResourcesQuery",
+            "Inject",
+            "_waveManager",
+            "waveManager",
+            "ArgumentNullException",
+            "nameof",
+            "_resourceManager",
+            "resourceManager",
             "_tiers",
             "tierSprites",
             "_spriteRenderer",
-            "ServiceLocator",
-            "WaveManager",
             "OnWaveCompleted",
             "HandleOnWaveCompleted",
             "EnemyBase",
@@ -9401,14 +10951,10 @@
             "_oilCount",
             "Length",
             "sprite",
-            "var",
-            "ResourceManager",
-            "resourceManager",
             "GainResources",
             "System",
             "Math",
-            "Max",
-            "waveManager"
+            "Max"
           ]
         }
       ]
@@ -9582,9 +11128,24 @@
               "type": "float",
               "accessibility": "private",
               "serialized": false
+            },
+            {
+              "name": "_updateManager",
+              "type": "IUpdateManager",
+              "accessibility": "private",
+              "serialized": false
             }
           ],
           "methods": [
+            {
+              "name": "Construct",
+              "returnType": "void",
+              "accessibility": "public",
+              "isStatic": false,
+              "parameters": [
+                "IUpdateManager updateManager"
+              ]
+            },
             {
               "name": "Init",
               "returnType": "void",
@@ -9609,10 +11170,14 @@
             "IUpdatable",
             "Action",
             "SerializeField",
+            "IUpdateManager",
+            "Inject",
+            "_updateManager",
+            "updateManager",
+            "ArgumentNullException",
+            "nameof",
             "_lifeTime",
             "lifeTime",
-            "ServiceLocator",
-            "UpdateManager",
             "Register",
             "_currentTime",
             "deltaTime",
@@ -9638,14 +11203,14 @@
             {
               "name": "oilPrefab",
               "type": "OilLifeTime",
-              "accessibility": "public",
-              "serialized": false
+              "accessibility": "private",
+              "serialized": true
             },
             {
               "name": "lifeTime",
               "type": "float",
-              "accessibility": "public",
-              "serialized": false
+              "accessibility": "private",
+              "serialized": true
             }
           ],
           "methods": [
@@ -9665,6 +11230,7 @@
             "menuName",
             "ProjectileAttack",
             "Header",
+            "SerializeField",
             "OilLifeTime",
             "Tower",
             "EnemyBase",
@@ -9676,14 +11242,16 @@
             "position",
             "Quaternion",
             "identity",
+            "tower",
+            "Container",
+            "InjectGameObject",
             "go",
+            "gameObject",
             "Init",
             "lifeTime",
             "ApplyDamage",
-            "tower",
             "Data",
             "damage",
-            "gameObject",
             "onHitStatus",
             "ApplyStatus"
           ]
@@ -10123,10 +11691,12 @@
             "Tower",
             "EnemyBase",
             "var",
-            "ServiceLocator",
-            "ProjectilePool",
-            "Spawn",
             "tower",
+            "Container",
+            "Resolve",
+            "IProjectilePool",
+            "pool",
+            "Spawn",
             "transform",
             "position",
             "projectilePrefab",

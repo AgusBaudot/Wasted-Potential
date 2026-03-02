@@ -14,13 +14,7 @@ public class ResourceManager : MonoBehaviour, IResourcesQuery
     
     private void Awake()
     {
-        ServiceLocator.Register(this);
         CurrentResources = startingResources;
-    }
-
-    private void OnDestroy()
-    {
-        ServiceLocator.Unregister(this);
     }
     
     public bool CanAfford(int amount) => CurrentResources >= amount;

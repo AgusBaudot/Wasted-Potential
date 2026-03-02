@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using VContainer;
+using VContainer.Unity;
 using Object = UnityEngine.Object;
 
 /// <summary>
@@ -28,8 +30,9 @@ public class CardVisualizer : IDisposable
     private PlayerHand _playerHand;
     private float _cardSpacing = 200;
     private GameObject _selectedCard;
+    private IObjectResolver _container;
 
-    public CardVisualizer(RectTransform cardsContainer, RectTransform initialCardsPanel, RectTransform choiceCardsContainer, GameObject cardPrefab, GameObject initialCardPrefab, GameObject choiceCardPrefab, PlayerHand playerHand)
+    public CardVisualizer(RectTransform cardsContainer, RectTransform initialCardsPanel, RectTransform choiceCardsContainer, GameObject cardPrefab, GameObject initialCardPrefab, GameObject choiceCardPrefab, PlayerHand playerHand, IObjectResolver container)
     {
         _cardsContainer = cardsContainer;
         _initialCardsContainer = initialCardsPanel;
@@ -40,6 +43,7 @@ public class CardVisualizer : IDisposable
         _choiceCardPrefab = choiceCardPrefab;
         
         _playerHand = playerHand;
+        _container = container;
 
         playerHand.OnCardAdded += HandleCardAdded;
     }
@@ -98,6 +102,7 @@ public class CardVisualizer : IDisposable
         {
             var go = GameObject.Instantiate(_choiceCardPrefab, _choiceCardsContainer, false);
             var rt = go.GetComponent<RectTransform>();
+            _container.InjectGameObject(go);
             
             //Center arrangement for 3 cards
             float offset = 0;
