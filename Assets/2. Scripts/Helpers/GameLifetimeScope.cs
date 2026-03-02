@@ -53,6 +53,7 @@ public class GameLifetimeScope : LifetimeScope
         builder.RegisterComponent(resourceManager).As<IResourcesQuery>();
         builder.RegisterComponent(playingUIManager).AsSelf();
         builder.RegisterComponent(healthBarManager).As<IHealthBarManager>();
+        builder.RegisterComponentInHierarchy<PlayerHealthManager>().As<IPlayerHealthManager>();
 
         builder.RegisterComponent(towerFactory).As<ITowerFactory>();
         builder.RegisterComponent(factoryProvider).AsSelf();
@@ -61,7 +62,7 @@ public class GameLifetimeScope : LifetimeScope
         builder.RegisterComponent(towerInfoUI).AsSelf();
         builder.RegisterComponent(enemySpawner).AsSelf();
         builder.RegisterComponent(cardPlacementController).AsSelf();
-        builder.RegisterComponent(towerPlacementFacade).AsSelf();
+        builder.RegisterComponent(towerPlacementFacade).As<ITowerPlacementQuery>();
         builder.RegisterComponent(waveRewards).AsSelf();
         builder.RegisterComponent(startWavesButton).AsSelf();
         builder.RegisterComponent(choiceCardBehavior).AsSelf();

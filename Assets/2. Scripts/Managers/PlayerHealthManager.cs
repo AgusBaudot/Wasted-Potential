@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class PlayerHealthManager : MonoBehaviour
+public class PlayerHealthManager : MonoBehaviour, IPlayerHealthManager
 {
     [SerializeField] private TextMeshProUGUI _healthText;
     
@@ -15,7 +15,6 @@ public class PlayerHealthManager : MonoBehaviour
 
     private void Awake()
     {
-        ServiceLocator.Register(this);
         _currentHealth = maxHealth;
     }
 

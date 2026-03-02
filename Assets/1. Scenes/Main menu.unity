@@ -832,6 +832,9 @@ MonoBehaviour:
     TypeName: RootLifetimeScope
   autoRun: 1
   autoInjectGameObjects: []
+  menuUIManager: {fileID: 792734155}
+  returnButtonLevelSelector: {fileID: 1606921776}
+  returnButtonOptions: {fileID: 1192687369}
 --- !u!4 &762138423
 Transform:
   m_ObjectHideFlags: 0

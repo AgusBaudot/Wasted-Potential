@@ -1,14 +1,12 @@
 using UnityEngine;
 using DG.Tweening;
 
-public class MenuUIManager : MonoBehaviour
+public class MenuUIManager : MonoBehaviour, IMenuUIManager
 {
     [SerializeField] private GameObject currentScreen;
     private Sequence _screensSequence;
     private const float ScreenWidth = 1920f;
     private const float Duration = 0.8f;
-
-    private void Awake() => ServiceLocator.Register(this);
 
     public void ShowScreen(GameObject screen)
     {

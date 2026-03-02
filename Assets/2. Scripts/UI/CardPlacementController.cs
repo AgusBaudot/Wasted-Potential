@@ -12,19 +12,20 @@ public class CardPlacementController : MonoBehaviour, IUpdatable
     private IUpdateManager _updateManager;
     private IResourcesQuery _resourceManager;
     private ICardManager _cardManager;
+    private ITowerPlacementQuery _placementFacade;
     private CardVisualizer _cardVisualizer;
     private PlayerHand _playerHand;
-    private TowerPlacementFacade _placementFacade;
     private CardData _selectedCard;
     private GameObject _ghostInstance;
 
     [Inject]
-    public void Construct(IGridQuery gridManager, IUpdateManager updateManager, IResourcesQuery resourceManager, ICardManager cardManager)
+    public void Construct(IGridQuery gridManager, IUpdateManager updateManager, IResourcesQuery resourceManager, ICardManager cardManager, ITowerPlacementQuery placementFacade)
     {
         _gridManager = gridManager ?? throw new ArgumentNullException(nameof(gridManager));
         _updateManager = updateManager ?? throw new ArgumentNullException(nameof(updateManager));
         _resourceManager = resourceManager ?? throw new ArgumentNullException(nameof(resourceManager));
         _cardManager = cardManager ?? throw new NullReferenceException(nameof(cardManager));
+        _placementFacade = placementFacade ?? throw new NullReferenceException(nameof(placementFacade));
     }
 
     private void Start()
@@ -35,7 +36,6 @@ public class CardPlacementController : MonoBehaviour, IUpdatable
         _cardVisualizer.OnCardSelected += HandleCardSelected;
         _cardVisualizer.OnCardDeselected += HandleCardDeselected;
         
-        _placementFacade = ServiceLocator.Get<TowerPlacementFacade>();
         _updateManager.Register(this);
     }
 

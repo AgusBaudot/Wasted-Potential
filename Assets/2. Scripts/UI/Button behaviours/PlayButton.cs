@@ -1,11 +1,21 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using VContainer;
 
 public class PlayButton : MonoBehaviour
 {
     [SerializeField] private GameObject levelSelectorScreen;
     [SerializeField] private GameObject level1;
+    
+    private IMenuUIManager _menuUIManager;
+
+    [Inject]
+    public void Construct(IMenuUIManager menuUIManager)
+    {
+        _menuUIManager = menuUIManager ?? throw new ArgumentNullException(nameof(menuUIManager));
+    }
     
     private void Awake()
     {
@@ -14,7 +24,7 @@ public class PlayButton : MonoBehaviour
 
     private void HandleClick()
     {
-        ServiceLocator.Get<MenuUIManager>().ShowScreen(levelSelectorScreen);
+        _menuUIManager.ShowScreen(levelSelectorScreen);
         EventSystem.current.SetSelectedGameObject(level1);
     }
 }

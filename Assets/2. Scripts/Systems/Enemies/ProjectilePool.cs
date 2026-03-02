@@ -16,10 +16,6 @@ public class ProjectilePool : MonoBehaviour, IProjectilePool
         _container = container;
     }
 
-    // private void Awake() => ServiceLocator.Register(this);
-    //
-    // private void OnDestroy() => ServiceLocator.Unregister(this);
-
     public Projectile Spawn(Vector3 startPos, Projectile prefab = null)
     {
         prefab ??= defaultProjectilePrefab;

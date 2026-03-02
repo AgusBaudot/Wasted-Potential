@@ -3,7 +3,7 @@ using UnityEngine;
 using VContainer;
 
 //Facade that runs the tower build command
-public class TowerPlacementFacade : MonoBehaviour
+public class TowerPlacementFacade : MonoBehaviour, ITowerPlacementQuery
 {
     [SerializeField] private MonoBehaviour towerFactoryComponent;
     

@@ -1,9 +1,19 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 public class SettingsButton : MonoBehaviour
 {
     [SerializeField] private GameObject settingsScreen;
+    
+    private IMenuUIManager _menuUIManager;
+
+    [Inject]
+    public void Construct(IMenuUIManager menuUIManager)
+    {
+        _menuUIManager = menuUIManager ?? throw new NullReferenceException(nameof(menuUIManager));
+    }
     
     private void Awake()
     {
@@ -12,7 +22,6 @@ public class SettingsButton : MonoBehaviour
 
     private void HandleClick()
     {
-        //Should activate settings panel.
-        ServiceLocator.Get<MenuUIManager>().ShowScreen(settingsScreen);
+        _menuUIManager.ShowScreen(settingsScreen);
     }
 }

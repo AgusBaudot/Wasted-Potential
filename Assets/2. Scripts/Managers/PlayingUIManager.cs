@@ -11,20 +11,21 @@ public class PlayingUIManager : MonoBehaviour
 
     private IWaveQuery _waveManager;
     private IResourcesQuery _resourceManager;
-    // Resource & player health managers.
+    private IPlayerHealthManager _playerHealthManager;
 
     [Inject]
-    public void Construct(IWaveQuery waveManager, IResourcesQuery resourceManager)
+    public void Construct(IWaveQuery waveManager, IResourcesQuery resourceManager, IPlayerHealthManager playerHealthManager)
     {
         _waveManager = waveManager ?? throw new ArgumentNullException(nameof(waveManager));
         _resourceManager = resourceManager ?? throw new ArgumentNullException(nameof(resourceManager));
+        _playerHealthManager = playerHealthManager ?? throw new ArgumentNullException(nameof(playerHealthManager));
     }
 
     private void Start()
     {
         _waveManager.OnWaveStarted += HandleWaveStarted;
         _resourceManager.OnResourcesChanged += HandleResourcesChanged;
-        ServiceLocator.Get<PlayerHealthManager>().OnHealthChanged += HandleHealthChanged;
+        _playerHealthManager.OnHealthChanged += HandleHealthChanged;
     }
 
     private void HandleResourcesChanged(int amount)

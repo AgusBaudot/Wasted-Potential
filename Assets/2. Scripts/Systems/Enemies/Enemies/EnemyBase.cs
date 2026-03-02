@@ -27,16 +27,18 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
     private IUpdateManager _updateManager;
     private IEnemyFactory _originFactory;
     private IHealthBarManager _healthBarManager;
+    private IPlayerHealthManager _playerHealthManager;
     private GridTile currentTile;
     private Vector3 _spawnPosition;
     private Vector3 _targetPos;
 
     [Inject]
-    public void Construct(IGridQuery grid, IUpdateManager updateManager, IHealthBarManager healthBarManager)
+    public void Construct(IGridQuery grid, IUpdateManager updateManager, IHealthBarManager healthBarManager, IPlayerHealthManager playerHealthManager)
     {
         _grid = grid ?? throw new ArgumentNullException(nameof(grid));
         _updateManager = updateManager ?? throw new ArgumentNullException(nameof(updateManager));
         _healthBarManager = healthBarManager ?? throw new NullReferenceException(nameof(healthBarManager));
+        _playerHealthManager = playerHealthManager ?? throw new ArgumentNullException(nameof(playerHealthManager));
     }
 
 
@@ -133,7 +135,7 @@ public abstract class EnemyBase : MonoBehaviour, IUpdatable, IPoolable, ITargeta
     protected virtual void ReachedEnd()
     {
         _healthBarManager.Unregister(Health);
-        ServiceLocator.Get<PlayerHealthManager>().ApplyDamage(Data.damageOnReach);
+        _playerHealthManager.ApplyDamage(Data.damageOnReach);
         OnRemoved?.Invoke(this);
     }
 
